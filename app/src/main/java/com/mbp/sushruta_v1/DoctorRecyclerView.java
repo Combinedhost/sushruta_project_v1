@@ -108,7 +108,7 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
                 });
 
                 d.show();
-                d.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                d.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
 
             }

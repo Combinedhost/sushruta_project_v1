@@ -18,7 +18,7 @@ private static int SPLASH_TIME_OUT=2000;
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+                Intent i = new Intent(SplashScreen.this, DoctorListActivity.class);
                 startActivity(i);
 
                 // close this activity

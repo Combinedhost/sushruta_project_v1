@@ -1,5 +1,6 @@
 package com.mbp.sushruta_v1;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,45 +9,121 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class RegisterActivity extends AppCompatActivity {
-ViewPager viewPager;
+    TextView textView;
+    EditText Username,pass,cpass,email;
+    private static final String TAG="Screen1";
+    ImageView imageView;
+    Button button;
+FirebaseAuth firebaseAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        viewPager=(ViewPager)findViewById(R.id.viewpager);
-        viewPager.setAdapter(new RegisterAdapter(getSupportFragmentManager()));
+        Username=(EditText)findViewById(R.id.Username);
+        pass=(EditText)findViewById(R.id.Password);
+        cpass=(EditText)findViewById(R.id.CPassword);
+        email=(EditText)findViewById(R.id.editText);
+        button=(Button)findViewById(R.id.b3);
+        firebaseAuth=FirebaseAuth.getInstance();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String  user=Username.getText().toString();
+                String password=pass.getText().toString();
+                String cpassword=cpass.getText().toString();
+                String mail=email.getText().toString();
+                if(user.isEmpty() || password.isEmpty() || cpassword.isEmpty() || mail.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Please fill the required details",Toast.LENGTH_SHORT).show();
+
+
+
+                }
+                else{
+                    if(password.equals(cpassword)){
+                        firebaseAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG,"Registeration Successfull");
+                                    Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
+                                    Intent intent=new Intent(RegisterActivity.this, RegisterActivity2.class);
+                                    intent.putExtra("Username",user);
+                                    startActivity(intent);
+
+
+                                }
+                                if (!task.isSuccessful())
+                                {
+                                    try
+                                    {
+                                        throw task.getException();
+                                    }
+                                    // if user enters wrong email.
+                                    catch (FirebaseAuthWeakPasswordException weakPassword)
+                                    {
+                                        Log.d(TAG, "onComplete: weak_password");
+                                        Toast.makeText(RegisterActivity.this, "The password you entered is weak", Toast.LENGTH_LONG).show();
+                                        // TODO: take your actions!
+                                    }
+                                    // if user enters wrong password.
+                                    catch (FirebaseAuthInvalidCredentialsException malformedEmail)
+                                    {
+                                        Log.d(TAG, "onComplete: malformed_email");
+                                        Toast.makeText(RegisterActivity.this, "The email is malformed", Toast.LENGTH_LONG).show();
+                                        // TODO: Take your action
+                                    }
+                                    catch (FirebaseAuthUserCollisionException existEmail)
+                                    {
+                                        Log.d(TAG, "onComplete: exist_email");
+                                        Toast.makeText(RegisterActivity.this, "Email already exists", Toast.LENGTH_LONG).show();
+                                        // TODO: Take your action
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Log.d(TAG, "onComplete: " + e.getMessage());
+                                    }
+                                }
+
+
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Passwords does not match",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
 
     }
 
-    private class RegisterAdapter extends FragmentPagerAdapter {
-        private RegisterAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-
-            if(i==0){
-                return new Screen1();
-
-            }
-
-            if(i==1){
-                return new Screen2();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-
     }
-}
+
+
+
