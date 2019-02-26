@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Sushruta_V1</string>
+    <string name="section_format">Hello World from section: %1$d
+    <string name="action_settings">Settings</string></string>
+    <string name="title_activity_patient_list">PatientList</string>
+
+</resources>
