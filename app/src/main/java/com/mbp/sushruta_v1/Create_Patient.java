@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Create_Patient extends AppCompatActivity {
+
     FirebaseDatabase fd4;
     DatabaseReference ref4;
     ImageView imageView;
