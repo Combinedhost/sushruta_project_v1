@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mbp.sushruta_v1">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.mbp.sushruta_v1.GlobalClass"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/sushruta_white"
+        android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
@@ -26,22 +23,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DoctorListActivity" />
-        <activity android:name=".SubDoctorListActivity" />
-        <activity android:name=".Patient_Information" />
-        <activity android:name=".Create_Patient" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity3"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".DoctorListActivity"
+            android:label="List of Doctors" />
+        <activity
+            android:name=".SubDoctorListActivity"
+            android:label="List of Sub Doctors" />
+        <activity
+            android:name=".Patient_Information"
+            android:label="Patient Details" />
+        <activity
+            android:name=".Create_Patient"
+            android:label="Create new Patient" />
         <activity
             android:name=".PatientList"
-            android:label="@string/title_activity_patient_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegisterActivity2" />
-        <activity android:name=".RegisterActivity3">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="List of Patients" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>

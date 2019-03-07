@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,12 +121,12 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
     public class subrecyclerholder extends RecyclerView.ViewHolder{
         TextView t1,t2,t3;
         ImageView im;
-        public RelativeLayout rl;
+        public ConstraintLayout rl;
         public subrecyclerholder(@NonNull View itemView) {
             super(itemView);
             t1=(TextView)itemView.findViewById(R.id.textView10);
             im=(ImageView)itemView.findViewById(R.id.imageButton);
-            rl=(RelativeLayout)itemView.findViewById(R.id.relativelayout);
+            rl=(ConstraintLayout) itemView.findViewById(R.id.clayout);
         }
     }
 }

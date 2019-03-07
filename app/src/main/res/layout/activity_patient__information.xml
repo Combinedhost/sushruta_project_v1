@@ -4,251 +4,352 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#77c2f4"
     tools:context=".Patient_Information">
 
 
-    <RelativeLayout
-        android:id="@+id/rl"
-        android:layout_width="wrap_content"
-        android:layout_height="262dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginBottom="96dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="124dp"
+
+            >
+
+            <view
+                android:id="@+id/Patient_profile"
+                class="de.hdodenhof.circleimageview.CircleImageView"
+                android:layout_width="116dp"
+                android:layout_height="96dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/pro" />
+
+            <TextView
+                android:id="@+id/Patient_name"
+                android:layout_width="235dp"
+                android:layout_height="49dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="33dp"
+                android:layout_toStartOf="@+id/Patient_profile"
+
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/Gender_Age"
+                android:layout_width="226dp"
+                android:layout_height="37dp"
+                android:layout_below="@+id/Patient_name"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="37dp"
+                android:layout_toStartOf="@+id/Patient_profile"
+                android:text="Gender-Age"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        </RelativeLayout>
 
         <ScrollView
-            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/rl"
+            android:layout_height="match_parent">
 
-            android:layout_alignTop="@+id/rl"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            tools:ignore="NotSibling,UnknownId">
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <TableLayout
-                    android:id="@+id/tablayout"
+                <android.support.v7.widget.GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="0dp">
+                    android:layout_height="wrap_content"
+                    app:alignmentMode="alignMargins"
+                    app:columnCount="1"
+                    app:rowCount="10">
 
-                    <TableRow
-                        android:layout_width="257dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="146dp"
-                            android:layout_height="match_parent"
-                            android:text="Name"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                        <TextView
-                            android:id="@+id/Name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
-
-                    <TableRow
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PatientID"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/PatientId"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
+                            <ImageView
+                                android:id="@+id/adhaar"
+                                android:layout_width="110dp"
+                                android:layout_height="110dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="3dp"
+                                android:src="@drawable/aadhaar_logo" />
+
+                            <TextView
+                                android:id="@+id/adhaarnumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="82dp"
+                                android:text="858837467920"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Age"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                        <TextView
-                            android:id="@+id/Age"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
+                            <ImageView
+                                android:id="@+id/id"
+                                android:layout_width="110dp"
+                                android:layout_height="110dp"
+                                android:src="@drawable/id" />
+
+                            <TextView
+                                android:id="@+id/idnumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="106dp"
+                                android:text="5555544"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
-                        <TextView
-                            android:id="@+id/textView18"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Blood Group"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/BloodGroup"
-                            android:layout_height="wrap_content"
-                            android:autoText="true"
-                            android:focusable="auto"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Gender"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                        <TextView
-                            android:id="@+id/Gender"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
+                            <ImageView
+                                android:id="@+id/blood"
+                                android:layout_width="110dp"
+                                android:layout_height="110dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@drawable/blood" />
+
+                            <TextView
+                                android:id="@+id/bloodgroup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="121dp"
+                                android:text="O+ve"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
-                        <TextView
-                            android:id="@+id/textView20"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Aadhar No"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/aadharno"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
+                            <ImageView
+                                android:id="@+id/insurance_icon"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/insurance" />
+
+                            <TextView
+                                android:id="@+id/insuranceid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="106dp"
+                                android:text="AB12345"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
-                        <TextView
-                            android:id="@+id/textView21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Insurance Id"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/InsuranceId"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
+                            <ImageView
+                                android:id="@+id/height_icon"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/height_icon" />
+
+                            <TextView
+                                android:id="@+id/heightinches"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="127dp"
+                                android:text="5.8''"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
-                        <TextView
-                            android:id="@+id/textView22"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Height"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/Height"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
-                        android:layout_width="299dp"
-                        android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/weight_icon"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/weight_icon" />
 
-                        <TextView
-                            android:id="@+id/textView23"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Weight"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                            <TextView
+                                android:id="@+id/weightinkg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="127dp"
+                                android:text="63"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/Weight"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
 
-                    <TableRow
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="112dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
-                        <TextView
-                            android:id="@+id/textView24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Address"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/Address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                    </TableRow>
-                </TableLayout>
-            </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/address_icon"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/address" />
+
+                            <TextView
+                                android:id="@+id/addressid"
+                                android:layout_width="220dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginEnd="32dp"
+                                android:layout_toEndOf="@+id/address_icon"
+                                android:text="134,Sengunthar Nagar,Erode-638004."
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </android.support.v7.widget.GridLayout>
+            </LinearLayout>
         </ScrollView>
 
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-
-        android:layout_height="117dp"
-        android:layout_above="@+id/rl"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="107dp"
-        android:layout_marginBottom="36dp"
-        android:scaleType="fitXY"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="65dp"
-        android:layout_height="47dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
-        android:onClick="down"
-        app:srcCompat="@android:drawable/arrow_down_float" />
-
+    </LinearLayout>
 </RelativeLayout>

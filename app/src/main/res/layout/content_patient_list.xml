@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".PatientList"
+    android:background="#bdb7e9ec"
     tools:showIn="@layout/activity_patientlist">
 
     <android.support.v7.widget.RecyclerView

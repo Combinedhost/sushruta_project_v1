@@ -1,5 +1,6 @@
 package com.mbp.sushruta_v1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,16 +34,18 @@ public class PatientList extends AppCompatActivity {
 
     LinearLayoutManager mLayoutManager;
     private static final String TAG = "PatientList";
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patientlist);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         Bundle b1=getIntent().getExtras();
         final String subdoctor=b1.getString("user");
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fbar = (FloatingActionButton) findViewById(R.id.fab);
+        final GlobalClass globalClass=(GlobalClass) getApplicationContext();
+        String position=globalClass.getPosition();
+        fbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i;
@@ -52,6 +55,12 @@ public class PatientList extends AppCompatActivity {
             }
         });
 
+//        if(position.equals("SubDoctor")){
+//
+//        }
+//       else{
+//            fbar.setVisibility(View.INVISIBLE);
+//        }
 
 
 

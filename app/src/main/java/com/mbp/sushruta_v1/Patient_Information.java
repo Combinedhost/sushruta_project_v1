@@ -25,7 +25,7 @@ public class Patient_Information extends AppCompatActivity {
     FirebaseDatabase fd4;
     DatabaseReference ref4;
     ImageView imageView;
-    TextView Name,Address,BloodGroup,Height,Weight,PatientId,Gender,Age,AadharNo,InsuranceID;
+    TextView Name,Address,BloodGroup,Height,Weight,PatientId,Gender_age,AadharNo,InsuranceID;
     TableLayout layout;
     ImageButton downb;
     private static final String TAG = "Patient_Information";
@@ -39,19 +39,19 @@ public class Patient_Information extends AppCompatActivity {
         String patient=b1.getString("Patient");
         Log.i(TAG, subdoctor+"   "+patient);
 
-        imageView=(ImageView)findViewById(R.id.imageView2);
-        Name=(TextView)findViewById(R.id.Name);
-        Address=(TextView)findViewById(R.id.Address);
-        BloodGroup=(TextView)findViewById(R.id.BloodGroup);
-        Gender=(TextView)findViewById(R.id.Gender);
-        Age=(TextView)findViewById(R.id.Age);
-        PatientId=(TextView)findViewById(R.id.PatientId);
-        AadharNo=(TextView)findViewById(R.id.aadharno);
-        Height=(TextView) findViewById(R.id.Height);
-        Weight=(TextView)findViewById(R.id.Weight);
-        InsuranceID=(TextView)findViewById(R.id.InsuranceId);
-        downb=(ImageButton)findViewById(R.id.imageButton2);
-        layout=(TableLayout)findViewById(R.id.tablayout);
+        imageView=(ImageView)findViewById(R.id.Patient_profile);
+        Name=(TextView)findViewById(R.id.Patient_name);
+        Address=(TextView)findViewById(R.id.addressid);
+        BloodGroup=(TextView)findViewById(R.id.bloodgroup);
+        Gender_age=(TextView)findViewById(R.id.Gender_Age);
+
+        PatientId=(TextView)findViewById(R.id.idnumber);
+        AadharNo=(TextView)findViewById(R.id.adhaarnumber);
+        Height=(TextView) findViewById(R.id.heightinches);
+        Weight=(TextView)findViewById(R.id.weightinkg);
+        InsuranceID=(TextView)findViewById(R.id.insuranceid);
+//        downb=(ImageButton)findViewById(R.id.imageButton2);
+
 
         fd4 = FirebaseDatabase.getInstance();
         ref4 = fd4.getReference("sushruta").child("PatientActivity").child(subdoctor).child(patient);
@@ -76,9 +76,8 @@ public class Patient_Information extends AppCompatActivity {
 
                 Glide.with(Patient_Information.this).load(imageUrl).into(imageView);
                 Name.setText(name);
-                Age.setText(age);
                 BloodGroup.setText(bloodGroup);
-                Gender.setText(gender);
+                Gender_age.setText(gender+"  "+age);
                 AadharNo.setText(aadhar_no);
                 Height.setText(height);
                 Weight.setText(weigth);
@@ -99,8 +98,8 @@ public class Patient_Information extends AppCompatActivity {
 
     }
 
-    public void down(View view) {
-        layout.setVisibility(View.INVISIBLE);
-
-    }
+//    public void down(View view) {
+//        layout.setVisibility(View.INVISIBLE);
+//
+//    }
 }

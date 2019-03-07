@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +82,7 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
         });
 
         viewHolder.im.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 int pos=viewHolder.getAdapterPosition();
@@ -107,8 +112,11 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
                     }
                 });
 
-                d.show();
                 d.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                d.getWindow().setColorMode(Color.TRANSPARENT);
+                d.getWindow().setGravity(Gravity.CENTER);
+                d.show();
+
 
 
             }
@@ -124,13 +132,13 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
     public class recyclerholder extends RecyclerView.ViewHolder{
         TextView t1,t2,t3;
         ImageView im;
-        public RelativeLayout rl;
+        public ConstraintLayout rl;
         public RelativeLayout r2;
         public recyclerholder(@NonNull View itemView) {
             super(itemView);
             t1=(TextView)itemView.findViewById(R.id.textView10);
             im=(ImageView)itemView.findViewById(R.id.imageButton);
-            rl=(RelativeLayout)itemView.findViewById(R.id.relativelayout);
+            rl=(ConstraintLayout)itemView.findViewById(R.id.clayout);
 
         }
     }
