@@ -12,7 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +20,9 @@ import android.widget.Toast;
 public class Test extends AppCompatActivity {
 Button button;
 ProgressDialog d;
-ImageView imageView;
+
+
+
 
 
     @Override
