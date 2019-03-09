@@ -40,7 +40,6 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="33dp"
                 android:layout_toStartOf="@+id/Patient_profile"
-
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -54,8 +53,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="37dp"
                 android:layout_toStartOf="@+id/Patient_profile"
-                android:text="Gender-Age"
                 android:gravity="center"
+                android:text="@string/gender_age"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>
@@ -67,7 +66,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <android.support.v7.widget.GridLayout
                     android:layout_width="match_parent"
@@ -79,10 +78,10 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
-                        android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
 
                         app:cardElevation="10dp">
 
@@ -99,14 +98,14 @@
                                 android:layout_marginTop="3dp"
                                 android:src="@drawable/aadhaar_logo" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/adhaarnumber"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="82dp"
-                                android:text="858837467920"
+                                android:text="@string/_858837467920"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
@@ -117,11 +116,11 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
                         app:cardCornerRadius="10dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -134,14 +133,14 @@
                                 android:layout_height="110dp"
                                 android:src="@drawable/id" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/idnumber"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="106dp"
-                                android:text="5555544"
+                                android:text="@string/_5555544"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
@@ -152,10 +151,9 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-
                         android:backgroundTint="#ffffff"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
@@ -172,24 +170,26 @@
                                 android:layout_alignParentTop="true"
                                 android:src="@drawable/blood" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/bloodgroup"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="121dp"
-                                android:text="O+ve"
+                                android:text="@string/o_ve"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
+
                         </RelativeLayout>
+
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
 
                         android:backgroundTint="#ffffff"
@@ -210,7 +210,7 @@
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/insurance" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/insuranceid"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -221,16 +221,17 @@
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
+
                         </RelativeLayout>
+
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-
                         android:backgroundTint="#ffffff"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
@@ -249,28 +250,29 @@
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/height_icon" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/heightinches"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="127dp"
-                                android:text="5.8''"
+                                android:text="@string/_5_8"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
+
                         </RelativeLayout>
+
                     </android.support.v7.widget.CardView>
 
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-
                         android:backgroundTint="#ffffff"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
@@ -289,28 +291,71 @@
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/weight_icon" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/weightinkg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="127dp"
-                                android:text="63"
+                                android:text="@string/_63"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
-                        </RelativeLayout>
-                    </android.support.v7.widget.CardView>
 
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="112dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
+                        android:backgroundTint="#ffffff"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/medicine"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/medicine_icon" />
+
+                            <EditText
+                                android:id="@+id/medicineid"
+                                android:layout_width="220dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginEnd="32dp"
+                                android:layout_toEndOf="@+id/medicine"
+                                android:text="@string/ciprofloxacin_azithromycin_and_ceftriaxone"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
@@ -329,7 +374,7 @@
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/address" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/addressid"
                                 android:layout_width="220dp"
                                 android:layout_height="wrap_content"
@@ -339,17 +384,45 @@
                                 android:layout_marginTop="24dp"
                                 android:layout_marginEnd="32dp"
                                 android:layout_toEndOf="@+id/address_icon"
-                                android:text="134,Sengunthar Nagar,Erode-638004."
+                                android:text="@string/_134_sengunthar_nagar_erode_638004"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
+
                         </RelativeLayout>
 
                     </android.support.v7.widget.CardView>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp">
+
+                        <Button
+                            android:id="@+id/button2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="120dp"
+                            android:layout_marginEnd="120dp"
+                            android:textColor="#ffffff"
+                            android:background="@color/design_default_color_primary"
+                            android:gravity="center"
+                            android:text="@string/edit_information" />
+
+                    </RelativeLayout>
+
                 </android.support.v7.widget.GridLayout>
+
             </LinearLayout>
+
         </ScrollView>
 
     </LinearLayout>
+
 </RelativeLayout>

@@ -51,7 +51,6 @@ public class RegisterActivity3 extends AppCompatActivity {
     private ListView UsersList;
     private ArrayList<String> Usernames = new ArrayList<>();
 
-
     String reg_under;
     EditText Specialization;
     Uri filePath;
@@ -66,8 +65,6 @@ public class RegisterActivity3 extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference register_reference,position_ref,username_ref;
-
-
 
     String user,age,gender,name,id,specialisation;
     RelativeLayout relativeLayout;
@@ -95,20 +92,11 @@ public class RegisterActivity3 extends AppCompatActivity {
         radioButton2=(RadioButton)findViewById(R.id.SubDoctor);
         imageButton=(ImageView) findViewById(R.id.image);
 
-
-
-
-
-
-
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         final DatabaseReference dataRef = dataBase.getReference().child("sushruta/DoctorActivity/Head");
 
-
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Usernames);
         UsersList.setAdapter(arrayAdapter);
-
-
 
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -144,7 +132,6 @@ public class RegisterActivity3 extends AppCompatActivity {
             }
         });
 
-
         radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -161,10 +148,6 @@ public class RegisterActivity3 extends AppCompatActivity {
                 Log.i(TAG, "onViewCreated: "+Specialization.getText().toString());
 
                 specialisation=Specialization.getText().toString();
-
-
-
-
 
                 Log.i(TAG, "onViewCreated: "+String.valueOf(position));
 
@@ -190,9 +173,6 @@ public class RegisterActivity3 extends AppCompatActivity {
             }
         });
 
-
-
-
         UsersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -201,6 +181,7 @@ public class RegisterActivity3 extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -223,7 +204,6 @@ public class RegisterActivity3 extends AppCompatActivity {
             }
         }
     }
-
 
     private void uploadImage() {
 
@@ -330,15 +310,8 @@ public class RegisterActivity3 extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),"Select a position",Toast.LENGTH_SHORT).show();
                                     }
 
-
-
-
-
                                 }
                             });
-
-
-
 
                         }
                     })

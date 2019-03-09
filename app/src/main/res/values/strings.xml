@@ -3,5 +3,26 @@
     <string name="section_format">Hello World from section: %1$d
     <string name="action_settings">Settings</string></string>
     <string name="title_activity_patient_list">PatientList</string>
+    <string name="ciprofloxacin_azithromycin_ceftriaxone">Ciprofloxacin, Azithromycin, Ceftriaxone</string>
+    <string name="ciprofloxacin_azithromycin_and_ceftriaxone">Ciprofloxacin, Azithromycin and Ceftriaxone</string>
+    <string name="license_id">License ID</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="name">Name</string>
+    <string name="doctor_id">Doctor ID</string>
+    <string name="age">Age</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="gender_age">Gender-Age</string>
+    <string name="_858837467920">858837467920</string>
+    <string name="_5555544">5555544</string>
+    <string name="_5_8">5.8\'\'</string>
+    <string name="_63">63</string>
+    <string name="_134_sengunthar_nagar_erode_638004">134,Sengunthar Nagar,Erode-638004.</string>
+    <string name="o_ve">O+ve</string>
+    <string name="edit_patient_information">Edit Patient Information</string>
+    <string name="edit_patients_information">Edit Patients Information</string>
+    <string name="medicines">Medicines</string>
+    <string name="edit_information">Edit Information</string>
 
 </resources>

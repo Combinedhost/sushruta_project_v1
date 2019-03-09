@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class RegisterActivity2 extends AppCompatActivity {
     TextView textView;
-    EditText Name,Age,DoctorID;
+    EditText Name,Age,DoctorID,PhoneNumber,LicenseID;
     private static final String TAG="Screen1";
     ImageView imageView;
     RadioButton radioButton1,radioButton2,radioButton3;
@@ -33,7 +33,8 @@ public class RegisterActivity2 extends AppCompatActivity {
         Age=(EditText)findViewById(R.id.Age);
         DoctorID=(EditText)findViewById(R.id.DoctorId);
         imageView=(ImageView)findViewById(R.id.imageView3);
-
+        PhoneNumber=(EditText)findViewById(R.id.phonenumber);
+        LicenseID=(EditText)findViewById(R.id.licenseid);
         radioButton1=(RadioButton)findViewById(R.id.Male);
         radioButton2=(RadioButton)findViewById(R.id.Female);
         radioButton3=(RadioButton)findViewById(R.id.Other);
@@ -75,6 +76,8 @@ public class RegisterActivity2 extends AppCompatActivity {
                 String name=Name.getText().toString();
                 String age=Age.getText().toString();
                 String Id=DoctorID.getText().toString();
+                String license=LicenseID.getText().toString();
+                String phnumber=PhoneNumber.getText().toString();
                 Log.i(TAG, "onViewCreated: "+name);
                 Log.i(TAG, "onViewCreated: "+age);
                 Log.i(TAG, "onViewCreated: "+Id);
@@ -91,6 +94,8 @@ public class RegisterActivity2 extends AppCompatActivity {
                     intent.putExtra("name",name);
                     intent.putExtra("age",age);
                     intent.putExtra("id",Id);
+                    intent.putExtra("license",license);
+                    intent.putExtra("phonenumber",phnumber);
                     intent.putExtra("gender",String.valueOf(gender));
                     startActivity(intent);
 
