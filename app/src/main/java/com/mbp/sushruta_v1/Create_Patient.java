@@ -40,7 +40,7 @@ public class Create_Patient extends AppCompatActivity {
     FirebaseDatabase fd4;
     DatabaseReference ref4;
     ImageView imageView;
-    EditText Name,Address,BloodGroup,Height,Weight,PatientId,Gender,Age,AadharNo,InsuranceID;
+    EditText Name,Address,BloodGroup,Height,Weight,PatientId,Gender,Age,AadharNo,InsuranceID,Medicine;
     RadioButton radioButton1,radioButton2,radioButton3;
     Button b;
     String gender;
@@ -87,7 +87,7 @@ public class Create_Patient extends AppCompatActivity {
         Height=(EditText) findViewById(R.id.heightinches);
         Weight=(EditText)findViewById(R.id.weightinkg);
         InsuranceID=(EditText)findViewById(R.id.insuranceid);
-//        downb=(ImageButton)findViewById(R.id.imageButton2);
+        Medicine=(EditText)findViewById(R.id.medicineid);
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -134,19 +134,6 @@ public class Create_Patient extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                GetPatientDetails obj=new GetPatientDetails();
-//                obj.setName(Name.getText().toString());
-//                obj.setAadhar_no(AadharNo.getText().toString());
-//                obj.setAddress(Address.getText().toString());
-//                obj.setAge(Age.getText().toString());
-//                obj.setBloodGroup(BloodGroup.getText().toString());
-//                obj.setGender(Gender.getText().toString());
-//                obj.setHeight(Height.getText().toString());
-//                obj.setWeight(Weight.getText().toString());
-//                obj.setImageUrl(Weight.getText().toString());
-//                obj.setInsurance_ID(InsuranceID.getText().toString());
-//                obj.setPatientID(PatientId.getText().toString());
 
 
 
@@ -213,8 +200,15 @@ public class Create_Patient extends AppCompatActivity {
 
 
                                         fd4=FirebaseDatabase.getInstance();
-                                        ref4=fd4.getReference("sushruta").child("PatientActivity").child(subdoctor).child(PatientId.getText().toString());
-                                        Map<String,String> map=new HashMap<String,String>();
+                                    ref4=fd4.getReference("sushruta").child("PatientActivity").child(subdoctor);
+                                    String key =ref4.push().getKey();
+                                    ref4.child(key).setValue(PatientId.getText().toString());
+
+                                    DatabaseReference dataref = fd4.getReference("sushruta").child("Details").child("Patient").child(PatientId.getText().toString());
+
+
+
+                                    Map<String,String> map=new HashMap<String,String>();
                                         map.put("Name",Name.getText().toString());
                                         map.put("Aadhar_no",AadharNo.getText().toString());
                                         map.put("Age",Age.getText().toString());
@@ -226,7 +220,8 @@ public class Create_Patient extends AppCompatActivity {
                                         map.put("PatientId",PatientId.getText().toString());
                                         map.put("Address",Address.getText().toString());
                                         map.put("Gender",gender);
-                                        ref4.setValue(map);
+                                        map.put("Medicines",Medicine.getText().toString());
+                                        dataref.setValue(map);
 
                                         Intent intent=new Intent(getApplicationContext(),PatientList.class);
                                         intent.putExtra("user",subdoctor);

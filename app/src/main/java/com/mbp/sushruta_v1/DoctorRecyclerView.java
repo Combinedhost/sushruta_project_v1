@@ -33,10 +33,11 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.recyclerholder> {
     public Context ct;
     List <GetDoctorDetails> obj_list;
-    Dialog d;
+    Dialog infodialog,rightdialog;
     LayoutInflater inflater ;
-    ImageView imageView,close;
+    Button message,disapprove;
     TextView t1,t2,t3,t4;
+    ImageView close,imageView;
 
     private static final String TAG = "MainActivity";
     Activity a;
@@ -81,24 +82,66 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
             }
         });
 
+
+        viewHolder.rl.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                rightdialog=new Dialog(a);
+
+
+
+                rightdialog.setContentView(R.layout.popup);
+
+
+
+                message=(Button)rightdialog.findViewById(R.id.message);
+                disapprove=(Button) rightdialog.findViewById(R.id.disapprove);
+
+                int pos=viewHolder.getAdapterPosition();
+                final GetDoctorDetails objj=obj_list.get(pos);
+
+                message.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       Toast.makeText(ct,"Delete "+objj.getName(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                disapprove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ct,"Disapprove "+objj.getName(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                rightdialog.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                rightdialog.getWindow().setColorMode(Color.TRANSPARENT);
+                rightdialog.getWindow().setGravity(Gravity.CENTER);
+                rightdialog.show();
+                return true;
+            }
+        });
+
+
         viewHolder.im.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 int pos=viewHolder.getAdapterPosition();
                 GetDoctorDetails objj=obj_list.get(pos);
-                d=new Dialog(a);
+                infodialog=new Dialog(a);
 
 
 
-                d.setContentView(R.layout.popup);
+                infodialog.setContentView(R.layout.popup);
 
 
-                imageView=(ImageView)d.findViewById(R.id.view4);
-                t1=(TextView)d.findViewById(R.id.textView);
-                t2=(TextView)d.findViewById(R.id.textView2);
-                t3=(TextView)d.findViewById(R.id.textView3);
-                close=(ImageView)d.findViewById(R.id.button);
+                imageView=(ImageView)infodialog.findViewById(R.id.view4);
+                t1=(TextView)infodialog.findViewById(R.id.textView);
+                t2=(TextView)infodialog.findViewById(R.id.textView2);
+                t3=(TextView)infodialog.findViewById(R.id.textView3);
+                close=(ImageView)infodialog.findViewById(R.id.button);
 
                 Glide.with(ct).load(objj.getImageUrl()).into(imageView);
                 t1.setText(objj.getName());
@@ -108,14 +151,14 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        d.dismiss();
+                        infodialog.dismiss();
                     }
                 });
 
-                d.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//                d.getWindow().setColorMode(Color.TRANSPARENT);
-                d.getWindow().setGravity(Gravity.CENTER);
-                d.show();
+                infodialog.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                infodialog.getWindow().setColorMode(Color.TRANSPARENT);
+                infodialog.getWindow().setGravity(Gravity.CENTER);
+                infodialog.show();
 
 
 

@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientList extends AppCompatActivity {
-    FirebaseDatabase fd3;
-    DatabaseReference ref3;
+    FirebaseDatabase fd;
+    DatabaseReference  listref;
 
     List<GetPatientDetails> patient_obj_list;
 
-
+    List<String> userList;
     RecyclerView recyclerView3;
     PatientRecyclerView obj3;
 
@@ -69,34 +69,63 @@ public class PatientList extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
 
 
-        fd3 = FirebaseDatabase.getInstance();
-        ref3 = fd3.getReference("sushruta").child("PatientActivity").child(subdoctor);
-        ref3.addValueEventListener(new ValueEventListener() {
+        fd = FirebaseDatabase.getInstance();
+        listref = fd.getReference("sushruta").child("PatientActivity").child(subdoctor);
+        listref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
                 patient_obj_list = new ArrayList<GetPatientDetails>();
+                userList=new ArrayList<>();
                 //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
 
                 for (DataSnapshot ds1 : ds.getChildren()) {
-                    GetPatientDetails obj = new GetPatientDetails();
-                    String Username = String.valueOf(ds1.getKey());
+
+
+                    String Username = String.valueOf(ds1.getValue());
                     Log.i(TAG, Username);
-                    String Name = String.valueOf(ds1.child("Name").getValue());
-                    String ImageUrl = String.valueOf(ds1.child("ImageUrl").getValue());
 
-                    obj.setImageUrl(ImageUrl);
-                    obj.setName(Name);
-                    obj.setUserName(Username);
+                    DatabaseReference dataref=fd.getReference("sushruta").child("Details").child("Patient").child(Username);
+                    dataref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot ds2) {
 
-                    patient_obj_list.add(obj);
-                    Log.i(TAG, "Value = " + Name + ImageUrl);
+
+                                  String Username = String.valueOf(ds2.getKey());
+                                    if(userList.contains(Username)){
+
+                                        int pos=userList.indexOf(Username);
+                                        Log.i(getLocalClassName(),String.valueOf(pos));
+                                        patient_obj_list.remove(pos);
+                                        userList.remove(pos);
+                                    }
+                                     userList.add(Username);
+                                  GetPatientDetails obj = new GetPatientDetails();
+                                  String Name = String.valueOf(ds2.child("Name").getValue());
+                                  String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
+
+                                 obj.setImageUrl(ImageUrl);
+                                 obj.setName(Name);
+                                 obj.setUserName(Username);
+
+                                 patient_obj_list.add(obj);
+                                 Log.i(TAG, "Value = " + Name + ImageUrl);
+
+                                 recyclerView3.setLayoutManager(mLayoutManager);
+                                 obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list,subdoctor);
+                                 recyclerView3.setAdapter(obj3);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
 
 
                 }
 
-                recyclerView3.setLayoutManager(mLayoutManager);
-                obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list,subdoctor);
-                recyclerView3.setAdapter(obj3);
+
 
 
             }

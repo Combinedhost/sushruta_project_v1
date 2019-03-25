@@ -21,10 +21,10 @@ import java.util.List;
 public class DoctorListActivity extends AppCompatActivity {
 
     FirebaseDatabase fd;
-    DatabaseReference ref;
+    DatabaseReference listref,dataref;
     String TName = "";
     List<GetDoctorDetails> doctor_obj_list;
-
+    List<String> userList;
 
     RecyclerView recyclerView;
     DoctorRecyclerView obj1;
@@ -41,50 +41,78 @@ public class DoctorListActivity extends AppCompatActivity {
 
 
         fd = FirebaseDatabase.getInstance();
-        ref = fd.getReference("sushruta").child("DoctorActivity").child("Head");
-        ref.addValueEventListener(new ValueEventListener() {
+        listref = fd.getReference("sushruta").child("DoctorActivity").child("Head");
+        listref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
                 doctor_obj_list = new ArrayList<GetDoctorDetails>();
+                userList=new ArrayList<>();
                 //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
 
                 for (DataSnapshot ds1 : ds.getChildren()) {
-                    GetDoctorDetails obj = new GetDoctorDetails();
-                    String Username = String.valueOf(ds1.getKey());
-                    Log.i(TAG, Username);
 
-
-                    String Name = String.valueOf(ds1.child("Name").getValue());
-                    TName = Name;
-                    String Age = String.valueOf(ds1.child("Age").getValue());
-                    String Designation = String.valueOf(ds1.child("Designation").getValue());
-                    String ImageUrl = String.valueOf(ds1.child("ImageUrl").getValue());
-                    String Qualification = String.valueOf(ds1.child("Qualification").getValue());
-                    String Gender = String.valueOf(ds1.child("Gender").getValue());
-                    String Specialization=String.valueOf(ds1.child("Specialization").getValue());
-                    String DoctorId=String.valueOf(ds1.child("DoctorID").getValue());
-                    obj.setAge(Age);
-                    obj.setUsername(Username);
-                    obj.setDesignation(Designation);
-                    obj.setGender(Gender);
-                    obj.setImageUrl(ImageUrl);
-                    obj.setName(Name);
-                    obj.setQualification(Qualification);
-                    obj.setDoctorID(DoctorId);
-                    obj.setSpecialization(Specialization);
+                    String Username = String.valueOf(ds1.getValue());
 
 
 
-                    doctor_obj_list.add(obj);
-                    Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
+                    dataref=fd.getReference("sushruta").child("Details").child("Doctor").child(Username);
+
+                    dataref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot ds2) {
+
+                            String Username = String.valueOf(ds2.getKey());
+                            Log.i(TAG, Username);
+                            if(userList.contains(Username)){
+
+                                int pos=userList.indexOf(Username);
+                                Log.i(getLocalClassName(),String.valueOf(pos));
+                                doctor_obj_list.remove(pos);
+                                userList.remove(pos);
+                            }
+                            userList.add(Username);
+
+                            GetDoctorDetails obj = new GetDoctorDetails();
+                            String Name = String.valueOf(ds2.child("Name").getValue());
+                            TName = Name;
+                            String Age = String.valueOf(ds2.child("Age").getValue());
+                            String Designation = String.valueOf(ds2.child("Designation").getValue());
+                            String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
+                            String Qualification = String.valueOf(ds2.child("Qualification").getValue());
+                            String Gender = String.valueOf(ds2.child("Gender").getValue());
+                            String Specialization=String.valueOf(ds2.child("Specialization").getValue());
+                            String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
+                            obj.setAge(Age);
+                            obj.setUsername(Username);
+                            obj.setDesignation(Designation);
+                            obj.setGender(Gender);
+                            obj.setImageUrl(ImageUrl);
+                            obj.setName(Name);
+                            obj.setQualification(Qualification);
+                            obj.setDoctorID(DoctorId);
+                            obj.setSpecialization(Specialization);
+
+
+
+                            doctor_obj_list.add(obj);
+                            Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
+
+                            recyclerView.setLayoutManager(mLayoutManager);
+
+                            obj1 = new DoctorRecyclerView(getApplicationContext(), doctor_obj_list,DoctorListActivity.this);
+                            recyclerView.setAdapter(obj1);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
 
                 }
 
-                recyclerView.setLayoutManager(mLayoutManager);
 
-                obj1 = new DoctorRecyclerView(getApplicationContext(), doctor_obj_list,DoctorListActivity.this);
-                recyclerView.setAdapter(obj1);
 
 
             }
@@ -96,18 +124,6 @@ public class DoctorListActivity extends AppCompatActivity {
             }
 
         });
-        // Log.i(TAG, String.valueOf(doctor_obj_list.size()));
-
-
-        /*
-        Log.i(TAG,String.valueOf(doctorDetailsMap.size()));
-        Set keys=doctorDetailsMap.keySet();
-        Log.i(TAG,String.valueOf(keys.size()));
-        Iterator i=keys.iterator();
-        if(i.hasNext()){
-            Log.i(TAG, String.valueOf(i.next()));
-        }
-*/
 
 
 
@@ -116,9 +132,6 @@ public class DoctorListActivity extends AppCompatActivity {
     }
 
 
-    public void Getall_Data_of_Doctors() {
 
-
-    }
 
 }

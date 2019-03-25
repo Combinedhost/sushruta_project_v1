@@ -24,5 +24,6 @@
     <string name="edit_patients_information">Edit Patients Information</string>
     <string name="medicines">Medicines</string>
     <string name="edit_information">Edit Information</string>
+    <string name="title_activity_documents_patients">Documents_patients</string>
 
 </resources>

@@ -14,13 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".TestActivity">
-
-        </activity>
+        <activity android:name=".TestActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,8 +44,7 @@
             android:label="List of Sub Doctors" />
         <activity
             android:name=".Patient_Information"
-            android:label="Patient Details" >
-        </activity>
+            android:label="Patient Details" />
         <activity
             android:name=".Create_Patient"
             android:label="Create new Patient" />
@@ -61,6 +57,10 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Test" />
+        <activity
+            android:name=".Documents_patients"
+            android:label="@string/title_activity_documents_patients" />
+        <activity android:name=".Webview"></activity>
     </application>
 
 </manifest>

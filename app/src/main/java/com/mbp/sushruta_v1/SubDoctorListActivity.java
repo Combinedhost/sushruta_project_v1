@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 public class SubDoctorListActivity extends AppCompatActivity {
 
-    FirebaseDatabase fd2;
-    DatabaseReference ref2;
+    FirebaseDatabase fd;
+    DatabaseReference listref,dataref;
 
     List<GetDoctorDetails> sub_doctor_obj_list;
 
@@ -29,6 +29,7 @@ public class SubDoctorListActivity extends AppCompatActivity {
 
     LinearLayoutManager mLayoutManager;
     private static final String TAG = "Main2Activity";
+    List< String> userList;
 
 
     @Override
@@ -43,45 +44,73 @@ public class SubDoctorListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
 
 
-        fd2 = FirebaseDatabase.getInstance();
-        ref2 = fd2.getReference("sushruta").child("SubDoctorActivity").child(doctor);
-        ref2.addValueEventListener(new ValueEventListener() {
+        fd = FirebaseDatabase.getInstance();
+        listref = fd.getReference("sushruta").child("SubDoctorActivity").child(doctor);
+        listref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot ds) {
-                sub_doctor_obj_list = new ArrayList<GetDoctorDetails>();
-                //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
 
+                //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
+                sub_doctor_obj_list = new ArrayList<GetDoctorDetails>();
+                userList=new ArrayList<>();
                 for (DataSnapshot ds1 : ds.getChildren()) {
                     GetDoctorDetails obj = new GetDoctorDetails();
-                    String Username = String.valueOf(ds1.getKey());
-                    Log.i(TAG, Username);
-                    String Name = String.valueOf(ds1.child("Name").getValue());
-                    String Age = String.valueOf(ds1.child("Age").getValue());
-                    String Designation = String.valueOf(ds1.child("Designation").getValue());
-                    String ImageUrl = String.valueOf(ds1.child("ImageUrl").getValue());
-                    String Qualification = String.valueOf(ds1.child("Qualification").getValue());
-                    String Gender = String.valueOf(ds1.child("Gender").getValue());
-                    String Specialization=String.valueOf(ds1.child("Specialization").getValue());
-                    String DoctorId=String.valueOf(ds1.child("DoctorID").getValue());
-                    obj.setAge(Age);
-                    obj.setUsername(Username);
-                    obj.setDesignation(Designation);
-                    obj.setGender(Gender);
-                    obj.setImageUrl(ImageUrl);
-                    obj.setName(Name);
-                    obj.setQualification(Qualification);
-                    obj.setDoctorID(DoctorId);
-                    obj.setSpecialization(Specialization);
-                    //doctorDetailsMap.put(Username,obj);
-                    sub_doctor_obj_list.add(obj);
-                    Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
+                    String Username = String.valueOf(ds1.getValue());
 
+                    dataref=fd.getReference("sushruta").child("Details").child("Doctor").child(Username);
+
+                    dataref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot ds2) {
+
+                            String Username = String.valueOf(ds2.getKey());
+                            if(userList.contains(Username)){
+
+                                int pos=userList.indexOf(Username);
+                                Log.i(getLocalClassName(),String.valueOf(pos));
+                                sub_doctor_obj_list.remove(pos);
+                                userList.remove(pos);
+                            }
+                            userList.add(Username);
+                            GetDoctorDetails obj = new GetDoctorDetails();
+                            String Name = String.valueOf(ds2.child("Name").getValue());
+
+                            String Age = String.valueOf(ds2.child("Age").getValue());
+                            String Designation = String.valueOf(ds2.child("Designation").getValue());
+                            String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
+                            String Qualification = String.valueOf(ds2.child("Qualification").getValue());
+                            String Gender = String.valueOf(ds2.child("Gender").getValue());
+                            String Specialization=String.valueOf(ds2.child("Specialization").getValue());
+                            String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
+                            obj.setAge(Age);
+                            obj.setUsername(Username);
+                            obj.setDesignation(Designation);
+                            obj.setGender(Gender);
+                            obj.setImageUrl(ImageUrl);
+                            obj.setName(Name);
+                            obj.setQualification(Qualification);
+                            obj.setDoctorID(DoctorId);
+                            obj.setSpecialization(Specialization);
+
+
+
+                            sub_doctor_obj_list.add(obj);
+                            Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
+
+                            recyclerView2.setLayoutManager(mLayoutManager);
+                            obj2 = new SubDoctorRecyclerView(SubDoctorListActivity.this, sub_doctor_obj_list,SubDoctorListActivity.this);
+                            recyclerView2.setAdapter(obj2);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                 }
 
-                recyclerView2.setLayoutManager(mLayoutManager);
-                obj2 = new SubDoctorRecyclerView(SubDoctorListActivity.this, sub_doctor_obj_list,SubDoctorListActivity.this);
-                recyclerView2.setAdapter(obj2);
 
 
             }
@@ -93,18 +122,7 @@ public class SubDoctorListActivity extends AppCompatActivity {
             }
 
         });
-        // Log.i(TAG, String.valueOf(doctor_obj_list.size()));
 
-
-        /*
-        Log.i(TAG,String.valueOf(doctorDetailsMap.size()));
-        Set keys=doctorDetailsMap.keySet();
-        Log.i(TAG,String.valueOf(keys.size()));
-        Iterator i=keys.iterator();
-        if(i.hasNext()){
-            Log.i(TAG, String.valueOf(i.next()));
-        }
-*/
 
 
 

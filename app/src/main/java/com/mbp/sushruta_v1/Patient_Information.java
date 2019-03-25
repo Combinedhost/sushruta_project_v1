@@ -23,8 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Patient_Information extends AppCompatActivity {
-    FirebaseDatabase fd4;
-    DatabaseReference ref4;
+    FirebaseDatabase fd;
+    DatabaseReference dataref,listref;
     ImageView imageView;
     TextView Name,Gender_age;
     EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines;
@@ -53,39 +53,49 @@ public class Patient_Information extends AppCompatActivity {
         Weight=(EditText) findViewById(R.id.weightinkg);
         InsuranceID=(EditText) findViewById(R.id.insuranceid);
 
-        fd4 = FirebaseDatabase.getInstance();
-        ref4 = fd4.getReference("sushruta").child("PatientActivity").child(subdoctor).child(patient);
+        fd = FirebaseDatabase.getInstance();
+        listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
 
-        ref4.addValueEventListener(new ValueEventListener() {
+        listref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
+            public void onDataChange(@NonNull DataSnapshot ds1) {
+
+
 
                 //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
 
-                String name = String.valueOf(ds.child("Name").getValue(    ));
-                String age = String.valueOf(ds.child("Age").getValue());
-                String imageUrl = String.valueOf(ds.child("ImageUrl").getValue());
-                String gender = String.valueOf(ds.child("Gender").getValue());
-                String bloodGroup=String.valueOf(ds.child("Blood Group").getValue());
-                String aadhar_no=String.valueOf(ds.child("Aadhar_no").getValue());
-                String height=String.valueOf(ds.child("Height").getValue());
-                String weigth=String.valueOf(ds.child("Weight").getValue());
-                String insurance=String.valueOf(ds.child("Insurance_ID").getValue());
-                String patientId=String.valueOf(ds.child("PatientId").getValue());
-                String address=String.valueOf(ds.child("Address").getValue());
-                String medicine=String.valueOf(ds.child("Medicine").getValue());
 
-                Glide.with(Patient_Information.this).load(imageUrl).into(imageView);
-                Name.setText(name);
-                BloodGroup.setText(bloodGroup);
-                Gender_age.setText(gender+"  "+age);
-                AadharNo.setText(aadhar_no);
-                Height.setText(height);
-                Weight.setText(weigth);
-                InsuranceID.setText(insurance);
-                PatientId.setText(patientId);
-                Address.setText(address);
-                Medicines.setText(medicine);
+
+
+
+                        String name = String.valueOf(ds1.child("Name").getValue());
+                        String age = String.valueOf(ds1.child("Age").getValue());
+                        String imageUrl = String.valueOf(ds1.child("ImageUrl").getValue());
+                        String gender = String.valueOf(ds1.child("Gender").getValue());
+                        String bloodGroup=String.valueOf(ds1.child("Blood Group").getValue());
+                        String aadhar_no=String.valueOf(ds1.child("Aadhar_no").getValue());
+                        String height=String.valueOf(ds1.child("Height").getValue());
+                        String weigth=String.valueOf(ds1.child("Weight").getValue());
+                        String insurance=String.valueOf(ds1.child("Insurance_ID").getValue());
+                        String patientId=String.valueOf(ds1.child("PatientId").getValue());
+                        String address=String.valueOf(ds1.child("Address").getValue());
+                        String medicine=String.valueOf(ds1.child("Medicines").getValue());
+                        Log.i(TAG,name+"  "+age+"  "+imageUrl);
+
+                        Glide.with(Patient_Information.this).load(imageUrl).into(imageView);
+                        Name.setText(name);
+                        BloodGroup.setText(bloodGroup);
+                        Gender_age.setText(gender+"  "+age);
+                        AadharNo.setText(aadhar_no);
+                        Height.setText(height);
+                        Weight.setText(weigth);
+                        InsuranceID.setText(insurance);
+                        PatientId.setText(patientId);
+                        Address.setText(address);
+                        Medicines.setText(medicine);
+
+
+
 
             }
 
