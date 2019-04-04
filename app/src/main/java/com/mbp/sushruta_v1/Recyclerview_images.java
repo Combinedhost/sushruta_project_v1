@@ -2,8 +2,15 @@ package com.mbp.sushruta_v1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +18,20 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_images.Recyclerview_viewholder> {
@@ -54,6 +69,9 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
             Glide.with(context).load(url).into(viewHolder.imageView);
         }
 
+
+
+
         if(mime.equals("application/msword")){  //MSWORD
             Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/sushruta-aafa9.appspot.com/o/icons%2Fword.png?alt=media&token=64e8d3f8-024d-41d1-9fa5-c4af05d3644c").into(viewHolder.imageView);
         }
@@ -81,14 +99,103 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
             Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/sushruta-aafa9.appspot.com/o/icons%2Fvideo.png?alt=media&token=ad3d09f9-1e24-4307-bc14-b9d97d8e7b51").into(viewHolder.imageView);
         }
 
+        File rootPath = new File(Environment.getExternalStorageDirectory(), "Sushruta");
+        File file=new File(rootPath,name);
+        if(file.exists()){
+
+            viewHolder.status.setImageResource(R.drawable.tick);
+        }
+        else{
+            viewHolder.status.setImageResource(R.drawable.download);
+            }
+
+
         viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos=viewHolder.getAdapterPosition();
-                String url=UrlList.get(pos);
-//                Intent intent=new Intent(context,Webview.class);
-//                intent.putExtra("Url",UrlList.get(pos));
-//                context.startActivity(intent);
+                final int pos=viewHolder.getAdapterPosition();
+                final String name=NameList.get(pos);
+                final String mime=MimeList.get(pos);
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReferenceFromUrl("gs://sushruta-aafa9.appspot.com");
+                StorageReference storageReference=storageRef.child("images").child(name);
+                File rootPath = new File(Environment.getExternalStorageDirectory(), "Sushruta");
+                if(!rootPath.exists()) {
+                    rootPath.mkdirs();
+                }
+                File downfile = new File(rootPath, name);
+                if(downfile.exists()){
+                    File file = new File(Environment.getExternalStorageDirectory(),
+                            "Sushruta/"+name);
+
+
+                    viewHolder.status.setImageResource(R.drawable.tick);
+                    Uri uri;
+                    if (Build.VERSION.SDK_INT < 24)
+                    {
+                        uri = Uri.fromFile(file);
+                    } else
+                        {
+                        uri = Uri.parse(file.getPath()); // My work-around for new SDKs, causes ActivityNotFoundException in API 10.
+                    }
+                    try{
+                        Log.i("TEST",uri.toString());
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setDataAndType(uri, mime);
+
+                        context.startActivity(intent);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+                else {
+
+                    storageReference.getFile(downfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(context, "Downloaded", Toast.LENGTH_SHORT).show();
+                            viewHolder.status.setImageResource(R.drawable.tick);
+
+                            File file = new File(Environment.getExternalStorageDirectory(),
+                                    "Sushruta/"+name);
+
+
+                            viewHolder.status.setImageResource(R.drawable.tick);
+                            Uri uri;
+                            if (Build.VERSION.SDK_INT < 24)
+                            {
+                                uri = Uri.fromFile(file);
+                            } else
+                            {
+                                uri = Uri.parse(file.getPath()); // My work-around for new SDKs, causes ActivityNotFoundException in API 10.
+                            }
+                            try{
+                                Log.i("TEST",uri.toString());
+                                Intent intent = new Intent();
+                                intent.setAction(Intent.ACTION_VIEW);
+                                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.setDataAndType(uri, mime);
+
+                                context.startActivity(intent);
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Log.i("TEST", exception.toString());
+                        }
+                    });
+
+                }
 
 
 
@@ -106,7 +213,7 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
 
     public class Recyclerview_viewholder extends RecyclerView.ViewHolder
     {
-        ImageView imageView;
+        ImageView imageView,status;
         TextView textView;
         RelativeLayout relativeLayout;
         public Recyclerview_viewholder(@NonNull View itemView) {
@@ -114,6 +221,7 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
             imageView=(ImageView)itemView.findViewById(R.id.imageView);
             textView=(TextView)itemView.findViewById(R.id.name);
             relativeLayout=(RelativeLayout)itemView.findViewById(R.id.relativelayout);
+            status=(ImageView)itemView.findViewById(R.id.imageView2);
         }
     }
 }

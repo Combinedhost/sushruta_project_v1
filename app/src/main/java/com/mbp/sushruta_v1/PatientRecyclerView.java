@@ -57,8 +57,7 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
             Intent i1 = new Intent(ct, Patient_Information.class);
             int pos=viewHolder.getAdapterPosition();
             GetPatientDetails objj=obj_list.get(pos);
-            i1.putExtra("Subdoctor",subdoctor);
-            i1.putExtra("Patient",objj.getUserName());
+            i1.putExtra("Patient",objj.getPatientID());
             ct.startActivity(i1);
 
         }

@@ -37,14 +37,18 @@ public class SubDoctorListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_doctor_list);
 
+        recyclerView2 = (RecyclerView) findViewById(R.id.recyclerView2);
+        mLayoutManager = new LinearLayoutManager(this);
+        fd = FirebaseDatabase.getInstance();
+
+
+        try{
+
+
         Bundle b1=getIntent().getExtras();
         String doctor=b1.getString("user");
 
-        recyclerView2 = (RecyclerView) findViewById(R.id.recyclerView2);
-        mLayoutManager = new LinearLayoutManager(this);
 
-
-        fd = FirebaseDatabase.getInstance();
         listref = fd.getReference("sushruta").child("SubDoctorActivity").child(doctor);
         listref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -126,7 +130,9 @@ public class SubDoctorListActivity extends AppCompatActivity {
 
 
 
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

@@ -124,6 +124,8 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
         });
 
 
+
+
         viewHolder.im.setOnClickListener(new View.OnClickListener() {
 
             @Override

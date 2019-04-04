@@ -19,118 +19,230 @@
         android:backgroundTint="#2E86C1"
         app:cardCornerRadius="4dp">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/i1"
-                android:layout_width="90dp"
-                android:layout_height="78dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/sushruta" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <EditText
-                android:id="@+id/Name"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="128dp"
-                android:hint="Name"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/licenseid"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="190dp"
-                android:hint="@string/license_id"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                    <EditText
+                        android:id="@+id/Name"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/image"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
 
-            <EditText
-                android:id="@+id/DoctorId"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="252dp"
-                android:hint="@string/doctor_id"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                        android:hint="Name"
+                        android:textColor="@android:color/background_light"
+                        android:textColorHint="@android:color/background_light" />
 
-            <EditText
-                android:id="@+id/Age"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="314dp"
-                android:hint="@string/age"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                    <EditText
+                        android:id="@+id/Age"
+                        android:layout_width="155dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:hint="Age"
+                        android:textColor="@android:color/background_light"
+                        android:textColorHint="@android:color/background_light" />
 
-            <EditText
-                android:id="@+id/phonenumber"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="376dp"
-                android:hint="@string/phone_number"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                    <EditText
+                        android:id="@+id/DoctorId"
+                        android:layout_width="155dp"
+                        android:layout_height="wrap_content"
 
-            <RadioGroup
-                android:layout_width="135dp"
-                android:layout_height="74dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="438dp"
-                android:orientation="vertical">
+                        android:layout_below="@+id/Age"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:hint="Doctor ID"
+                        android:textColor="@android:color/background_light"
+                        android:textColorHint="@android:color/background_light" />
 
-                <RadioButton
-                    android:id="@+id/Male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/male"
-                    android:textColor="@android:color/background_light" />
+                    <RadioGroup
+                        android:id="@+id/gender"
+                        android:layout_width="155dp"
+                        android:layout_height="wrap_content"
 
-                <RadioButton
-                    android:id="@+id/Female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/female"
-                    android:textColor="@android:color/background_light" />
+                        android:layout_below="@+id/DoctorId"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/Other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/other"
-                    android:textColor="@android:color/background_light" />
-            </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/Male"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Male"
+                            android:textColor="@android:color/background_light" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="79dp"
-                android:layout_height="46dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="535dp"
-                android:src="@android:drawable/ic_media_ff" />
-        </RelativeLayout>
+                        <RadioButton
+                            android:id="@+id/Female"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_weight="1"
+                            android:text="Female"
+                            android:textColor="@android:color/background_light" />
+
+                        <RadioButton
+                            android:id="@+id/Other"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Other"
+                            android:textColor="@android:color/background_light" />
+                    </RadioGroup>
+
+                    <!--<ImageView-->
+                    android:id="@+id/imageView3"
+                    android:layout_width="79dp"
+                    android:layout_height="46dp"
+
+                    android:layout_below="@+id/DoctorId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="137dp"
+                    android:src="@android:drawable/ic_media_ff" />
+
+
+                    <view
+                        android:id="@+id/image"
+                        class="de.hdodenhof.circleimageview.CircleImageView"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+
+                        android:layout_marginTop="10dp"
+                        android:gravity="top"
+                        android:src="@drawable/person_upload" />
+
+                    <EditText
+                        android:id="@+id/Specialisation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_below="@+id/DoctorId"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="150dp"
+                        android:hint="Specialisation"
+                        android:textColor="@android:color/background_light"
+                        android:textColorHint="@android:color/background_light" />
+
+                    <RadioGroup
+                        android:id="@+id/selection"
+                        android:layout_width="227dp"
+
+                        android:layout_height="33dp"
+                        android:layout_below="@+id/Specialisation"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/Doctor"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Doctor"
+                            android:textColor="@android:color/background_light" />
+
+                        <RadioButton
+                            android:id="@+id/SubDoctor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Sub-Doctor"
+                            android:textColor="@android:color/background_light" />
+                    </RadioGroup>
+
+                    <RelativeLayout
+                        android:id="@+id/rl"
+                        android:layout_width="197dp"
+                        android:layout_height="164dp"
+                        android:layout_below="@+id/selection"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="60dp"
+
+                        >
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="Select the Doctor"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/background_light" />
+
+                        <ListView
+                            android:id="@+id/listview"
+                            android:layout_width="match_parent"
+
+
+                            android:layout_height="127dp"
+
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="37dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:textColor="@android:color/background_light" />
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/b3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_below="@+id/rl"
+                        android:layout_centerHorizontal="true"
+
+                        android:layout_marginTop="30dp"
+                        android:background="#1aafc2"
+                        android:text="Submit" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
 
     </android.support.v7.widget.CardView>
+
+    <EditText
+        android:id="@+id/phonenumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="66dp"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:hint="Phone no"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/licenseid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="66dp"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:hint="LicenseId"
+        android:inputType="text" />
 
 
 </RelativeLayout>

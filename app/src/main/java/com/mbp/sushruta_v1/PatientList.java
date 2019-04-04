@@ -40,104 +40,105 @@ public class PatientList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patientlist);
 
-        Bundle b1=getIntent().getExtras();
-        final String subdoctor=b1.getString("user");
-        FloatingActionButton fbar = (FloatingActionButton) findViewById(R.id.fab);
-        final GlobalClass globalClass=(GlobalClass) getApplicationContext();
-        String position=globalClass.getPosition();
-        fbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i;
-                i = new Intent(getApplicationContext(),Create_Patient.class);
-                i.putExtra("Subdoctor",subdoctor);
-                startActivity(i);
-            }
-        });
-
-//        if(position.equals("SubDoctor")){
-//
-//        }
-//       else{
-//            fbar.setVisibility(View.INVISIBLE);
-//        }
-
-
-
-
         recyclerView3 = (RecyclerView) findViewById(R.id.recyclerView3);
         mLayoutManager = new LinearLayoutManager(this);
 
 
         fd = FirebaseDatabase.getInstance();
-        listref = fd.getReference("sushruta").child("PatientActivity").child(subdoctor);
-        listref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
-                patient_obj_list = new ArrayList<GetPatientDetails>();
-                userList=new ArrayList<>();
-                //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
+        //        if(position.equals("SubDoctor")){
+//
+//        }
+//       else{
+//            fbar.setVisibility(View.INVISIBLE);
+//        }
+        try {
 
-                for (DataSnapshot ds1 : ds.getChildren()) {
+            Bundle b1 = getIntent().getExtras();
+            final String subdoctor = b1.getString("user");
+            FloatingActionButton fbar = (FloatingActionButton) findViewById(R.id.fab);
+
+            fbar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i;
+                    i = new Intent(getApplicationContext(), Create_Patient.class);
+                    i.putExtra("Subdoctor", subdoctor);
+                    startActivity(i);
+                }
+            });
 
 
-                    String Username = String.valueOf(ds1.getValue());
-                    Log.i(TAG, Username);
-
-                    DatabaseReference dataref=fd.getReference("sushruta").child("Details").child("Patient").child(Username);
-                    dataref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot ds2) {
 
 
-                                  String Username = String.valueOf(ds2.getKey());
-                                    if(userList.contains(Username)){
+            listref = fd.getReference("sushruta").child("PatientActivity").child(subdoctor);
+            listref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot ds) {
+                    patient_obj_list = new ArrayList<GetPatientDetails>();
+                    userList = new ArrayList<>();
+                    //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
 
-                                        int pos=userList.indexOf(Username);
-                                        Log.i(getLocalClassName(),String.valueOf(pos));
-                                        patient_obj_list.remove(pos);
-                                        userList.remove(pos);
-                                    }
-                                     userList.add(Username);
-                                  GetPatientDetails obj = new GetPatientDetails();
-                                  String Name = String.valueOf(ds2.child("Name").getValue());
-                                  String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
+                    for (DataSnapshot ds1 : ds.getChildren()) {
 
-                                 obj.setImageUrl(ImageUrl);
-                                 obj.setName(Name);
-                                 obj.setUserName(Username);
 
-                                 patient_obj_list.add(obj);
-                                 Log.i(TAG, "Value = " + Name + ImageUrl);
+                        String Username = String.valueOf(ds1.getValue());
+                        Log.i(TAG, Username);
 
-                                 recyclerView3.setLayoutManager(mLayoutManager);
-                                 obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list,subdoctor);
-                                 recyclerView3.setAdapter(obj3);
-                        }
+                        DatabaseReference dataref = fd.getReference("sushruta").child("Details").child("Patient").child(Username);
+                        dataref.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot ds2) {
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                                String Username = String.valueOf(ds2.getKey());
+                                if (userList.contains(Username)) {
 
+                                    int pos = userList.indexOf(Username);
+                                    Log.i(getLocalClassName(), String.valueOf(pos));
+                                    patient_obj_list.remove(pos);
+                                    userList.remove(pos);
+                                }
+                                userList.add(Username);
+                                GetPatientDetails obj = new GetPatientDetails();
+                                String Name = String.valueOf(ds2.child("Name").getValue());
+                                String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
+                                String PatientID=String.valueOf(ds2.child("PatientId").getValue());
+                                obj.setImageUrl(ImageUrl);
+                                obj.setName(Name);
+                                obj.setUserName(Username);
+                                obj.setPatientID(PatientID);
+
+                                patient_obj_list.add(obj);
+                                Log.i(TAG, "Value = " + Name + ImageUrl);
+
+                                recyclerView3.setLayoutManager(mLayoutManager);
+                                obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list, subdoctor);
+                                recyclerView3.setAdapter(obj3);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                    }
 
 
                 }
 
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
 
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
-            }
-
-        });
-
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

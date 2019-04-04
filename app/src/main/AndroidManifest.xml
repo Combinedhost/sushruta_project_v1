@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mbp.sushruta_v1">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -44,7 +46,8 @@
             android:label="List of Sub Doctors" />
         <activity
             android:name=".Patient_Information"
-            android:label="Patient Details" />
+            android:label="Patient Details"/>
+            <!--android:theme="@style/Theme.AppCompat.NoActionBar"/>-->
         <activity
             android:name=".Create_Patient"
             android:label="Create new Patient" />
@@ -60,7 +63,16 @@
         <activity
             android:name=".Documents_patients"
             android:label="@string/title_activity_documents_patients" />
-        <activity android:name=".Webview"></activity>
+        <activity android:name=".Webview" />
+        <activity
+            android:name=".ParametersList"
+            android:label="@string/title_activity_parameters_patients" />
+        <activity
+            android:name=".ParameterValues"
+            android:label="@string/title_activity_parameter_values" />
+        <activity
+            android:name=".ChartActivity"
+            android:label="@string/title_activity_chart"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package com.mbp.sushruta_v1;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -63,9 +67,11 @@ public class Documents_patients extends Activity {
 
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
+        Bundle bundle=getIntent().getExtras();
+        String user=bundle.getString("user");
 
         getfirebaseDatabase=FirebaseDatabase.getInstance();
-        getdatabaseReference=getfirebaseDatabase.getReference("sushruta").child("PatientDocuments").child("Gowtham");
+        getdatabaseReference=getfirebaseDatabase.getReference("sushruta").child("Details").child("Patient").child(user).child("Documents");
 
 
 
@@ -128,6 +134,21 @@ public class Documents_patients extends Activity {
               startActivityForResult(Intent.createChooser(intent,"Select the File"),PICK_FILE);
           }
       });
+
+
+
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE},
+                    1);
+
+        }
+
 
 
     }
@@ -237,7 +258,7 @@ public class Documents_patients extends Activity {
 
 
                                     putfirebaseDatabase=FirebaseDatabase.getInstance();
-                                    putdatabaseReference=putfirebaseDatabase.getReference("sushruta").child("PatientDocuments").child("Gowtham");
+                                    putdatabaseReference=putfirebaseDatabase.getReference("sushruta").child("Details").child("Patient").child("Gowtham").child("Documents");
                                     String key=putdatabaseReference.push().getKey();
                                     putdatabaseReference.child(key).setValue(map);
 
@@ -266,6 +287,27 @@ public class Documents_patients extends Activity {
                             progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
+        }
+    }
+
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(getLocalClassName(), "external public folder access granted");
+                } else {
+                    Log.e(getLocalClassName(), "external public folder access denied sending user to main screen");
+                    Toast.makeText(this,
+                            "Please grant permission to access public folders to use the feature",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
         }
     }
 

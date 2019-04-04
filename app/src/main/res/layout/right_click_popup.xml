@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#2E86C1">
+    <Button
+        android:id="@+id/message"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="#FFFFFF"
+        android:text="Message" />
+
+    <Button
+        android:id="@+id/disapprove"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/message"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginBottom="25dp"
+        android:background="#FFFFFF"
+        android:text="Disapprove" />
+</RelativeLayout>
