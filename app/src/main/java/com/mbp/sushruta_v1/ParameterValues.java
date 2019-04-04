@@ -71,7 +71,7 @@ public class ParameterValues extends Activity {
         Log.i(getLocalClassName(),param);
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Patient").child(user).child("Parameters").child(param);
+        DatabaseReference databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

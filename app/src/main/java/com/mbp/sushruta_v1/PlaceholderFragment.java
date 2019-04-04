@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -80,6 +81,14 @@ public  class PlaceholderFragment extends Fragment {
 
         final TextView no_results=(TextView)rootView.findViewById(R.id.no_results);
 
+
+        ImageView im=(ImageView)rootView.findViewById(R.id.imageView4);
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               getActivity().finish();
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.add_value);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +116,7 @@ public  class PlaceholderFragment extends Fragment {
                         String time = df.format(Calendar.getInstance().getTime());
                         String string = text.getText().toString();
                         FirebaseDatabase fd = FirebaseDatabase.getInstance();
-                        DatabaseReference addv=fd.getReference("sushruta").child("Details").child("Patient").child(user).child("Parameters").child(param).child(date);
+                        DatabaseReference addv=fd.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
                         String key=addv.push().getKey();
                         Map map=new HashMap();
                         map.put("time",time);
@@ -134,7 +143,7 @@ public  class PlaceholderFragment extends Fragment {
             }
         });
 
-        DatabaseReference databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Patient").child(user).child("Parameters").child(param).child(date);
+        DatabaseReference databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

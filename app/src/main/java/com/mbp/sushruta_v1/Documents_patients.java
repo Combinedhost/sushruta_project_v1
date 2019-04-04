@@ -52,7 +52,7 @@ public class Documents_patients extends Activity {
     Map<String, String> map;
     FirebaseStorage storage;
     StorageReference storageReference;
-
+    String user;
     List<String> imageList,UIDList,NameList,MimeList;
     String filename,mimetype;
     Recyclerview_images recyclerviewImages;
@@ -68,10 +68,10 @@ public class Documents_patients extends Activity {
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
         Bundle bundle=getIntent().getExtras();
-        String user=bundle.getString("user");
+         user=bundle.getString("user");
 
         getfirebaseDatabase=FirebaseDatabase.getInstance();
-        getdatabaseReference=getfirebaseDatabase.getReference("sushruta").child("Details").child("Patient").child(user).child("Documents");
+        getdatabaseReference=getfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
 
 
 
@@ -107,7 +107,7 @@ public class Documents_patients extends Activity {
 
                 Log.i(getLocalClassName(),"List size "+imageList.size());
 
-                Recyclerview_images recyclerview_images=new Recyclerview_images(Documents_patients.this,imageList,NameList,UIDList,MimeList,"Gowtham");
+                Recyclerview_images recyclerview_images=new Recyclerview_images(Documents_patients.this,imageList,NameList,UIDList,MimeList,user);
                 recyclerView.setAdapter(recyclerview_images);
 
 
@@ -258,7 +258,7 @@ public class Documents_patients extends Activity {
 
 
                                     putfirebaseDatabase=FirebaseDatabase.getInstance();
-                                    putdatabaseReference=putfirebaseDatabase.getReference("sushruta").child("Details").child("Patient").child("Gowtham").child("Documents");
+                                    putdatabaseReference=putfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
                                     String key=putdatabaseReference.push().getKey();
                                     putdatabaseReference.child(key).setValue(map);
 

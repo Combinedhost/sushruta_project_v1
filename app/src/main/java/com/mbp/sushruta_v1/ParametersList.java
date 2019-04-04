@@ -55,7 +55,7 @@ public class ParametersList extends Activity {
 
         Bundle bundle=getIntent().getExtras();
         user=bundle.getString("user");
-        databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Patient").child(user).child("Parameters");
+        databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user);
 
         arrayAdapter = new ArrayAdapter<String>
                 (getApplicationContext(), android.R.layout.simple_list_item_1, param_list){
