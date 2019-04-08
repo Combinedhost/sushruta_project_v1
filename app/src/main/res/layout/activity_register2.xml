@@ -128,7 +128,7 @@
 
                     <EditText
                         android:id="@+id/Specialisation"
-                        android:layout_width="wrap_content"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
 
                         android:layout_below="@+id/DoctorId"
@@ -201,16 +201,40 @@
                             android:textColor="@android:color/background_light" />
                     </RelativeLayout>
 
+
+
+                    <EditText
+                        android:id="@+id/phonenumber"
+                        android:layout_width="155dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:hint="Phone no"
+                        android:inputType="phone" />
+
+                    <EditText
+                        android:id="@+id/licenseid"
+                        android:layout_width="155dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/phonenumber"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="27dp"
+                        android:hint="LicenseId"
+                        android:ems="10"
+                        android:inputType="text" />
+
                     <Button
                         android:id="@+id/b3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
 
-                        android:layout_below="@+id/rl"
-                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/licenseid"
 
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:background="#1aafc2"
                         android:text="Submit" />
 
@@ -220,29 +244,9 @@
 
     </android.support.v7.widget.CardView>
 
-    <EditText
-        android:id="@+id/phonenumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="66dp"
-        android:layout_marginBottom="36dp"
-        android:ems="10"
-        android:hint="Phone no"
-        android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/licenseid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="66dp"
-        android:layout_marginBottom="36dp"
-        android:ems="10"
-        android:hint="LicenseId"
-        android:inputType="text" />
+
+
 
 
 </RelativeLayout>
