@@ -42,7 +42,9 @@
                 android:layout_toStartOf="@+id/Patient_profile"
                 android:gravity="center"
                 android:hint="Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColorHint="#000000"
+                android:textColor="#000000"/>
 
             <EditText
                 android:id="@+id/Gender"
@@ -54,6 +56,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="Gender"
+                android:textColor="#000000"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <EditText
@@ -68,6 +71,7 @@
                 android:layout_toEndOf="@+id/Gender"
                 android:gravity="center"
                 android:text="Age"
+                android:textColor="#000000"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>
@@ -475,7 +479,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="10dp"
-                                android:src="@drawable/parameters" />
+                                android:src="@drawable/docs_icon" />
 
                             <EditText
                                 android:id="@+id/documents"
