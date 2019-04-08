@@ -23,21 +23,23 @@
             android:layout_height="match_parent"
             android:background="#FFFFFF">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="141dp"
-                android:layout_height="140dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView"-->
+                <!--android:layout_width="141dp"-->
+                <!--android:layout_height="140dp"-->
+                <!--android:layout_marginStart="15dp"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_marginEnd="15dp"-->
+                <!--android:layout_marginBottom="15dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="1.0"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--tools:srcCompat="@tools:sample/avatars" />-->
+            <!---->
+
 
             <TextView
                 android:id="@+id/name"
@@ -46,10 +48,20 @@
                 android:layout_below="@+id/imageView"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="-15dp"
-                android:text="TextView"
+                android:layout_marginTop="14dp"
+                android:hint="Name"
                 android:textAlignment="center"
+                android:textColorHint="@color/colorPrimary"
                 android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="97dp"
+                android:layout_height="110dp"
+                android:layout_below="@+id/imageView2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-1dp"
+                tools:srcCompat="@tools:sample/avatars[5]" />
 
             <ImageView
                 android:id="@+id/imageView2"
