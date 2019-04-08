@@ -1,6 +1,7 @@
 package com.mbp.sushruta_v1;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -32,12 +33,14 @@ import java.util.Map;
 public class Patient_Information extends AppCompatActivity {
     FirebaseDatabase fd;
     DatabaseReference dataref,listref;
-    ImageView imageView;
+    ImageView imageView,close_button,zoom_image;
     EditText Name,Gender,Age;
     EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines;
     TableLayout layout;
     RelativeLayout documentrl,parameterrl;
     String patient,imageUrl;
+    Dialog picdialog;
+
     private static final String TAG = "Patient_Information";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +131,17 @@ public class Patient_Information extends AppCompatActivity {
                     Medicines.setText(medicine);
 
 
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            picdialog = new Dialog(Patient_Information.this);
+                            setContentView(R.layout.popup_image);
+                            zoom_image=(ImageView)picdialog.findViewById(R.id.imageView3);
+                            close_button=(ImageView) picdialog.findViewById(R.id.imageView5);
+                            Glide.with(Patient_Information.this).load(imageUrl).into(zoom_image);
 
+                        }
+                    });
 
                 }
 
@@ -165,6 +178,9 @@ public class Patient_Information extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 
     @Override
