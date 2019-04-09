@@ -103,15 +103,7 @@
                             android:textColor="@android:color/background_light" />
                     </RadioGroup>
 
-                    <!--<ImageView-->
-                    android:id="@+id/imageView3"
-                    android:layout_width="79dp"
-                    android:layout_height="46dp"
 
-                    android:layout_below="@+id/DoctorId"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="137dp"
-                    android:src="@android:drawable/ic_media_ff" />
 
 
                     <view

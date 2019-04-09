@@ -131,7 +131,7 @@ public  class PlaceholderFragment extends Fragment {
             }
         });
 
-        ImageButton chart=(ImageButton)rootView.findViewById(R.id.chart);
+        ImageView chart=(ImageView)rootView.findViewById(R.id.chart);
         chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
