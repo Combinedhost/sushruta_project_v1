@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -171,7 +172,9 @@ public class RegisterActivity2 extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     position=1;//Doctor
-                    relativeLayout.setVisibility(View.INVISIBLE);
+//                    relativeLayout.setVisibility(View.INVISIBLE);
+                    UsersList.setEnabled(false);
+
                 }
 
             }
@@ -183,6 +186,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 if(isChecked){
                     position =2;//Subdoctor
                     relativeLayout.setVisibility(View.VISIBLE);
+                    UsersList.setEnabled(true);
                 }
             }
         });
@@ -199,6 +203,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 license = LicenseID.getText().toString();
                 phnumber = PhoneNumber.getText().toString();
                 specialisation = Specialization.getText().toString();
+                Log.i("Test",name+"  "+age+"  "+Id+"  "+license+"  "+phnumber+"  "+specialisation+gender);
 
                 Log.i(TAG, "onViewCreated: " + String.valueOf(position));
                 if (gender == 0 || name.isEmpty() || age.isEmpty() || Id.isEmpty() || license.isEmpty() || phnumber.isEmpty() || specialisation.isEmpty() ) {
@@ -208,12 +213,16 @@ public class RegisterActivity2 extends AppCompatActivity {
                         uploadImage();
 
                         }
+                        else{
+                        Toast.makeText(getApplicationContext(),"Upload Image",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
 
 
         });
+
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,24 +332,32 @@ public class RegisterActivity2 extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Log.i(TAG, "onSuccess: "+String.valueOf(uri));
-                                    if(position==0) {
+
 
 
                                         if (position == 1) {
 
-                                            register_reference = firebaseDatabase.getReference("sushruta").child("DoctorActivity").child("Head").child(user);
+                                            register_reference = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(user);
                                             Map<String, String> map = new HashMap<String, String>();
                                             map.put("ImageUrl", String.valueOf(uri));
                                             map.put("Name", name);
                                             map.put("Age", age);
                                             map.put("Specialization", specialisation);
                                             map.put("DoctorID", Id);
+                                            map.put("PhoneNo",phnumber);
+                                            map.put("LicenseID",license);
+                                            map.put("Approval","Not Approved");
+
+                                            DatabaseReference register_reference1 = firebaseDatabase.getReference("sushruta").child("DoctorActivity").child("Head");
+                                            String key=register_reference1.push().getKey();
+                                            register_reference1.child(key).setValue(user);
+
 
                                             register_reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_LONG).show();
+                                                        sendEmailVerification();
                                                     } else {
                                                         Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_LONG).show();
                                                     }
@@ -350,32 +367,37 @@ public class RegisterActivity2 extends AppCompatActivity {
                                             FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                                             String UID = currentFirebaseUser.getUid();
                                             //Toast.makeText(getApplicationContext(), "" + UID, Toast.LENGTH_SHORT).show();
-                                            position_ref = firebaseDatabase.getReference("sushruta").child("Login").child("Position").child(UID);
-                                            position_ref.setValue("Doctor");
-
-
-                                            username_ref = firebaseDatabase.getReference("sushruta").child("Login").child("Usernames").child(UID);
-                                            username_ref.setValue(user);
+                                            position_ref = firebaseDatabase.getReference("sushruta").child("Login").child("Info").child(UID);
+                                            Map<String, String> map1 = new HashMap<String, String>();
+                                            map1.put("Position","Doctor");
+                                            map1.put("Username", user);
+                                            position_ref.setValue(map1);
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             startActivity(intent);
 
 
                                         }
-                                        if (position == 2) {
+                                        else if (position == 2) {
                                             if (!reg_under.isEmpty()) {
-                                                register_reference = firebaseDatabase.getReference("sushruta").child("SubDoctorActivity").child(reg_under).child(user);
+                                                register_reference = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(user);
+                                                DatabaseReference register_reference1 = firebaseDatabase.getReference("sushruta").child("SubDoctorActivity").child(reg_under);
+                                                String key=register_reference1.push().getKey();
+                                                register_reference1.child(key).setValue(user);
                                                 Map<String, String> map = new HashMap<String, String>();
                                                 map.put("ImageUrl", String.valueOf(uri));
                                                 map.put("Name", name);
                                                 map.put("Age", age);
                                                 map.put("Specialization", specialisation);
                                                 map.put("DoctorID", Id);
+                                                map.put("PhoneNo",phnumber);
+                                                map.put("LicenseID",license);
+                                                map.put("Approval","Not Approved");
 
                                                 register_reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_LONG).show();
+                                                            sendEmailVerification();
                                                         } else {
                                                             Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_LONG).show();
                                                         }
@@ -385,12 +407,11 @@ public class RegisterActivity2 extends AppCompatActivity {
                                                 String UID = currentFirebaseUser.getUid();
                                                 //Toast.makeText(getApplicationContext(), "" + UID, Toast.LENGTH_SHORT).show();
 
-                                                position_ref = firebaseDatabase.getReference("sushruta").child("Login").child("Position").child(UID);
-                                                position_ref.setValue("SubDoctor");
-
-
-                                                username_ref = firebaseDatabase.getReference("sushruta").child("Login").child("Usernames").child(UID);
-                                                username_ref.setValue(user);
+                                                position_ref = firebaseDatabase.getReference("sushruta").child("Login").child("Info").child(UID);
+                                                Map<String, String> map1 = new HashMap<String, String>();
+                                                map1.put("Position","SubDoctor");
+                                                map1.put("Username", user);
+                                                position_ref.setValue(map1);
 
                                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                                 startActivity(intent);
@@ -399,10 +420,10 @@ public class RegisterActivity2 extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), "Select the doctor", Toast.LENGTH_SHORT).show();
                                             }
                                         }
-                                    }
-                                    else{
-                                        Toast.makeText(getApplicationContext(),"Select a position",Toast.LENGTH_SHORT).show();
-                                    }
+                                        else if(position==0){
+                                            Toast.makeText(getApplicationContext(), "Select the Position", Toast.LENGTH_SHORT).show();
+                                        }
+
 
                                 }
                             });
@@ -427,5 +448,25 @@ public class RegisterActivity2 extends AppCompatActivity {
         }
     }
 
+
+    private void sendEmailVerification(){
+        final FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser!=null){
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(getApplicationContext(),"Successfully Registered, Verification mail sent!", Toast.LENGTH_LONG).show();
+                        firebaseAuth.signOut();
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Verification mail is sent",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+    }
 }
 

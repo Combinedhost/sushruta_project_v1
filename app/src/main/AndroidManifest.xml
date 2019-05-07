@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mbp.sushruta_v1">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,6 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.mbp.sushruta_v1.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
         <activity android:name=".TestActivity" />
         <activity
             android:name=".SplashScreen"
@@ -34,9 +45,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisterActivity2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".RegisterActivity3"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DoctorListActivity"
@@ -70,7 +78,8 @@
         <activity
             android:name=".ParameterValues"
             android:label="@string/title_activity_parameter_values" />
-        <activity android:name=".ChartActivity"></activity>
+        <activity android:name=".ChartActivity" />
+        <activity android:name=".Not_Approval_Activity"></activity>
     </application>
 
 </manifest>

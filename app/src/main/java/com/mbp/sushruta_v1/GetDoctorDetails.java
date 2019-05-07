@@ -1,7 +1,7 @@
 package com.mbp.sushruta_v1;
 
 public class GetDoctorDetails {
-    public String Name,Age,Qualification,ImageUrl,Gender,Designation,Username,DoctorID,Specialization;
+    public String Name,Age,Qualification,ImageUrl,Gender,Designation,Username,DoctorID,Specialization,PhoneNo,License;
 
     GetDoctorDetails(){
 
@@ -10,6 +10,13 @@ public class GetDoctorDetails {
         Username=username;
     }
 
+    public void setLicense(String license) {
+        License = license;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        PhoneNo = phoneNo;
+    }
     public void setName(String Name1){
         Name=Name1;
     }
@@ -42,6 +49,10 @@ public class GetDoctorDetails {
         return Name;
     }
 
+    public String getPhoneNo() {
+        return PhoneNo;
+    }
+
     public String getAge(){
         return Age;
     }
@@ -72,5 +83,8 @@ public class GetDoctorDetails {
 
     public String getUsername() {
         return Username;
+    }
+    public String getLicense() {
+        return License;
     }
 }

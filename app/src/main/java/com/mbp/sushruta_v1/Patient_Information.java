@@ -33,7 +33,7 @@ import java.util.Map;
 public class Patient_Information extends AppCompatActivity {
     FirebaseDatabase fd;
     DatabaseReference dataref,listref;
-    ImageView imageView,close_button,zoom_image;
+    ImageView imageView;
     EditText Name,Gender,Age;
     EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines;
     TableLayout layout;
@@ -116,6 +116,7 @@ public class Patient_Information extends AppCompatActivity {
                     InsuranceID.setEnabled(false);
                     PatientId.setEnabled(false);
                     Medicines.setEnabled(false);
+                    Address.setEnabled(false);
 
                     Glide.with(Patient_Information.this).load(imageUrl).into(imageView);
                     Name.setText(name);
@@ -134,11 +135,9 @@ public class Patient_Information extends AppCompatActivity {
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            picdialog = new Dialog(Patient_Information.this);
-                            setContentView(R.layout.popup_image);
-                            zoom_image=(ImageView)picdialog.findViewById(R.id.imageView3);
-                            close_button=(ImageView) picdialog.findViewById(R.id.imageView5);
-                            Glide.with(Patient_Information.this).load(imageUrl).into(zoom_image);
+
+                            Loadimage(imageUrl);
+
 
                         }
                     });
@@ -199,7 +198,7 @@ public class Patient_Information extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.save) {
-            Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Data saved successfully",Toast.LENGTH_SHORT).show();
             FirebaseDatabase fd4=FirebaseDatabase.getInstance();
             DatabaseReference dataref = fd4.getReference("sushruta").child("Details").child("Patient").child(PatientId.getText().toString());
 
@@ -218,10 +217,25 @@ public class Patient_Information extends AppCompatActivity {
             map.put("Gender", Gender.getText().toString());
             map.put("Medicines", Medicines.getText().toString());
             dataref.setValue(map);
+
+
+            Name.setEnabled(false);
+            BloodGroup.setEnabled(false);
+            Gender.setEnabled(false);
+            Age.setEnabled(false);
+            AadharNo.setEnabled(false);
+            Height.setEnabled(false);
+            Weight.setEnabled(false);
+            InsuranceID.setEnabled(false);
+            PatientId.setEnabled(false);
+            Medicines.setEnabled(false);
+            Address.setEnabled(false);
+
+
             return true;
         }
         if (id == R.id.edit) {
-            Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Edit Mode On",Toast.LENGTH_SHORT).show();
             Name.setEnabled(true);
             BloodGroup.setEnabled(true);
             Gender.setEnabled(true);
@@ -231,9 +245,22 @@ public class Patient_Information extends AppCompatActivity {
             Weight.setEnabled(true);
             InsuranceID.setEnabled(true);
             Medicines.setEnabled(true);
+            Address.setEnabled(true);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public  void Loadimage(String imageUrl)
+    {
+        ImageView close_button,zoom_image;
+        picdialog = new Dialog(Patient_Information.this);
+        setContentView(R.layout.popup_image);
+        zoom_image=(ImageView)picdialog.findViewById(R.id.image);
+        close_button=(ImageView) picdialog.findViewById(R.id.delete);
+        Glide.with(Patient_Information.this).load(imageUrl).into(zoom_image);
+
     }
 }

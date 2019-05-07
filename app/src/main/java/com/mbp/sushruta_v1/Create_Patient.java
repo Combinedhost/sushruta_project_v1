@@ -1,15 +1,20 @@
 package com.mbp.sushruta_v1;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -31,6 +36,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -47,12 +54,14 @@ public class Create_Patient extends AppCompatActivity {
     private static final String TAG = "Create_Patient";
     Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
+    private static final int TAKE_PHOTO_CODE = 34;
+
     Map<String, String> map;
 
     String subdoctor;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
-
+    Dialog camdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,14 +128,74 @@ public class Create_Patient extends AppCompatActivity {
         });
 
         imageView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Choose a image"), PICK_IMAGE_REQUEST);
 
 
+
+                camdialog= new Dialog(Create_Patient.this);
+                camdialog.setContentView(R.layout.popup_camera);
+
+                Window window = camdialog.getWindow();
+                if(window!=null){
+                    window.setGravity(Gravity.CENTER);
+                }
+
+                camdialog.setTitle("Select any on of the options");
+
+                ImageView close=(ImageView)camdialog.findViewById(R.id.close);
+                ImageView camera=(ImageView)camdialog.findViewById(R.id.camera);
+                ImageView gallery=(ImageView)camdialog.findViewById(R.id.gallery);
+
+
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        camdialog.dismiss();
+                    }
+                });
+
+
+                camera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        File rootPath = new File(Environment.getExternalStorageDirectory(), "Sushruta");
+                        if(!rootPath.exists()) {
+                            rootPath.mkdirs();
+                        }
+                        String file = rootPath+"/"+UUID.randomUUID().toString()+".jpg";
+                        Log.i("Test",file);
+                        File newfile = new File(file);
+                        try {
+                            newfile.createNewFile();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        //     Uri outputFileUri = Uri.fromFile(newfile);
+                        Uri outputFileUri = FileProvider.getUriForFile(Create_Patient.this, "com.mbp.sushruta_v1.fileprovider", newfile);
+                        filePath=outputFileUri;
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
+                        startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+                    }
+                });
+
+                gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                         Intent intent = new Intent();
+                         intent.setType("image/*");
+                         intent.setAction(Intent.ACTION_GET_CONTENT);
+                         startActivityForResult(Intent.createChooser(intent, "Choose a image"), PICK_IMAGE_REQUEST);
+                    }
+                });
+
+                camdialog.show();
             }
         });
 
@@ -159,6 +228,21 @@ public class Create_Patient extends AppCompatActivity {
 
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
+                camdialog.dismiss();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+
+            try {
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+                camdialog.dismiss();
 
 
             } catch (Exception e) {

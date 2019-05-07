@@ -60,7 +60,7 @@ int flag;
         button=(Button)findViewById(R.id.b3);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
-        user_ref=firebaseDatabase.getReference("sushruta").child("Login").child("Usernames");
+        user_ref=firebaseDatabase.getReference("sushruta").child("Login").child("Position");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,14 +77,14 @@ int flag;
                 else{
                     if(password.equals(cpassword)){
 
-                        final int[] exists = {0};
+
                         user_ref.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 List<String> usernames_list=new ArrayList<>();
                                 for(DataSnapshot ds:dataSnapshot.getChildren()){
                                     Log.i(getLocalClassName(),ds.getValue().toString());
-                                    usernames_list.add(ds.getValue().toString());
+                                    usernames_list.add(ds.child("username").getValue().toString());
                                     if(usernames_list.contains(user))
                                     {
                                         Log.i(getLocalClassName(),"Username Exists");

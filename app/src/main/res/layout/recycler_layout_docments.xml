@@ -43,12 +43,12 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
+                android:layout_width="163dp"
+                android:layout_height="37dp"
                 android:layout_below="@+id/imageView"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="1dp"
                 android:hint="Name"
                 android:textAlignment="center"
                 android:textColorHint="@color/colorPrimary"
@@ -58,13 +58,13 @@
                 android:id="@+id/imageView"
                 android:layout_width="97dp"
                 android:layout_height="110dp"
-                android:layout_below="@+id/imageView2"
+                android:layout_below="@+id/tick"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-1dp"
                 tools:srcCompat="@tools:sample/avatars[5]" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/tick"
                 android:layout_width="38dp"
                 android:layout_height="41dp"
                 android:layout_alignParentEnd="true"

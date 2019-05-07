@@ -4,18 +4,29 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +40,8 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
     LayoutInflater inflater ;
     ImageView imageView,close;
     TextView t1,t2,t3,t4;
+
+    PopupMenu rightpopup;
     Button b;
 
     public SubDoctorRecyclerView(Context c, List <GetDoctorDetails>obj_list, Activity a){
@@ -110,6 +123,71 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
         });
 
 
+
+        viewHolder.rl.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Context wrapper = new ContextThemeWrapper(ct, R.style.AppCompatAlertDialogStyle);
+
+                rightpopup=new PopupMenu(wrapper,viewHolder.rl,Gravity.RIGHT);
+
+                rightpopup.getMenuInflater().inflate(R.menu.right_click_menu,rightpopup.getMenu());
+
+                rightpopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        int pos=viewHolder.getAdapterPosition();
+                        final GetDoctorDetails objj=obj_list.get(pos);
+                        String user=objj.getUsername();
+
+
+                        String action=String.valueOf(item.getTitle());
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        Log.i("Test",action);
+                        if(action.equals("Message")){
+
+
+                            DatabaseReference dataRef = firebaseDatabase.getReference().child("sushruta").child("Details").child("Doctor").child(user).child("PhoneNo");
+                            dataRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    try{
+                                        String text = "Message from sushruta app";
+                                        String toNumber = dataSnapshot.getValue().toString();
+
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        ct.startActivity(intent);
+                                    }
+                                    catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+
+                        if(action.equals("Disapprove")){
+                            DatabaseReference dataRef = firebaseDatabase.getReference().child("sushruta").child("Details").child("Doctor").child(user).child("Approval");
+                            dataRef.setValue("Not Approved");
+                        }
+                        return true;
+                    }
+                });
+
+
+                rightpopup.show();
+                return true;
+            }
+        });
 
     }
 

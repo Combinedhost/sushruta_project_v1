@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/save"
-        android:icon="@android:drawable/ic_lock_idle_lock"
+        android:id="@+id/graph"
+        android:icon="@drawable/graph_icon"
         android:title="Save"
         app:showAsAction="ifRoom" />
 

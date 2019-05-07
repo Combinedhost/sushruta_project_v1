@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Objects;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference positionRef, userRef;
 
+    String position,userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,35 @@ public class LoginActivity extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.password);
         LoginButton = (Button) findViewById(R.id.b1);
 
-        login();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Toast.makeText(getApplicationContext(),"Session valid",Toast.LENGTH_SHORT).show();
+                }
+                // ...
+            }
+        };
+
+        LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                LoginDetails();
+
+
+
+
+            }
+        });
+
+
 
 
 
@@ -66,23 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void login() {
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-
-        LoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                LoginDetails();
-
-
-
-
-    }
-});
-    }
     private void LoginDetails() {
          dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
         dialog.setTitle("Logging in");
@@ -92,10 +107,13 @@ public class LoginActivity extends AppCompatActivity {
 
         if (emailaddress.isEmpty() && password.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Username and Password Fields are Empty", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
         } else if (emailaddress.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Username Field is Empty",  Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
         } else if (password.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Password Field is Empty",  Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
         } else {
             Validate(emailaddress, password);
         }
@@ -111,69 +129,81 @@ public class LoginActivity extends AppCompatActivity {
 
                     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
                     String UID=currentFirebaseUser.getUid();
-                    Log.i(getLocalClassName(), "UID = "+UID);
 
+                    if(currentFirebaseUser.isEmailVerified()){
+                        positionRef = firebaseDatabase.getReference("sushruta").child("Login").child("Info").child(UID);
+                        positionRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                userId = dataSnapshot.child("Username").getValue().toString();
+                                Log.i(getLocalClassName(), "Username = " + userId);
+                                Log.i(getLocalClassName(), userId);
+                                position = dataSnapshot.child("Position").getValue().toString();
 
-                    positionRef = firebaseDatabase.getReference("sushruta/Login/Position").child(UID);
-                    userRef = firebaseDatabase.getReference("sushruta/Login/Usernames").child(UID);
+                                DatabaseReference approvalRef = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
 
+                                approvalRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                        String approval = dataSnapshot1.getValue().toString();
+                                        if (approval.equals("Approved")) {
+                                            Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
 
-                    positionRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            final String position = dataSnapshot.getValue().toString();
+                                            final GlobalClass globalClass = (GlobalClass) getApplicationContext();
+                                            globalClass.setPosition(position);
+                                            Log.i(getLocalClassName(), "Position = " + globalClass.getPosition());
 
-                            Log.i(getLocalClassName(), "Position = "+position);
-                            userRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (position.equals("Head")) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
+                                                //intent.putExtra("user", userId);
+                                                startActivity(intent);
+                                            } else if (position.equals("Doctor")) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
+                                                intent.putExtra("user", userId);
+                                                startActivity(intent);
+                                            } else if (position.equals("SubDoctor")) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent(LoginActivity.this, PatientList.class);
+                                                intent.putExtra("user", userId);
+                                                startActivity(intent);
+                                            }
 
-                                    String userId = dataSnapshot.getValue().toString();
-                                    Log.i(getLocalClassName(), "Username = "+userId);
-                                    Log.i(getLocalClassName(), userId);
-
-                                    Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
-
-                                    final GlobalClass globalClass=(GlobalClass) getApplicationContext();
-                                    globalClass.setPosition(position);
-                                    Log.i(getLocalClassName(),"Position = "+globalClass.getPosition());
-
-                                    if (position.equals("Head"))
-                                        {
-                                           dialog.dismiss();
-                                            Intent intent = new Intent(LoginActivity.this,DoctorListActivity.class);
-                                            //intent.putExtra("user", userId);
-                                            startActivity(intent);
                                         }
-                                    else if(position.equals("Doctor"))
-                                    {   dialog.dismiss();
-                                        Intent intent = new Intent(LoginActivity.this,SubDoctorListActivity.class);
-                                        intent.putExtra("user", userId);
-                                        startActivity(intent);
-                                    }
-                                    else if(position.equals("SubDoctor"))
-                                    {   dialog.dismiss();
-                                        Intent intent = new Intent(LoginActivity.this,PatientList.class);
-                                        intent.putExtra("user", userId);
-                                        startActivity(intent);
+                                        else
+                                        {
+                                            dialog.dismiss();
+                                            Toast.makeText(getApplicationContext(),"Account is not Approved. Please contact Doctor",Toast.LENGTH_LONG).show();
+                                        }
                                     }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
+                                    }
+                                });
 
 
-                        }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                }});
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Email is not verified",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+
+
+
 
                 }
             }

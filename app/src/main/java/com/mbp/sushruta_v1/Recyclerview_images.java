@@ -2,6 +2,7 @@ package com.mbp.sushruta_v1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,11 +12,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +30,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,13 +39,15 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_images.Recyclerview_viewholder> {
 
     Context context;
     List<String> UrlList,NameList,UIDList,MimeList;
     String user;
-
+    Uri uri;
+    int exist;
     public  Recyclerview_images(Context context, List<String> UrlList,List<String> nameList,List<String> UIDList,List<String> MimeList,String user)
     {
         this.context=context;
@@ -119,6 +127,7 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference storageRef = storage.getReferenceFromUrl("gs://sushruta-aafa9.appspot.com");
                 StorageReference storageReference=storageRef.child("images").child(name);
+
                 File rootPath = new File(Environment.getExternalStorageDirectory(), "Sushruta");
                 if(!rootPath.exists()) {
                     rootPath.mkdirs();
@@ -204,6 +213,101 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
 
             }
         });
+
+        viewHolder.relativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                final int pos=viewHolder.getAdapterPosition();
+                String name=NameList.get(pos);
+                final String mime=MimeList.get(pos);
+
+                Log.i("Test",mime);
+                File file = new File(Environment.getExternalStorageDirectory(),
+                        "Sushruta/"+name);
+
+                exist=0;
+                if(file.exists()) {
+                    Log.i("Test","Exists");
+                    exist=1;
+                }
+                else
+                {
+                    Log.i("TAG","not exists");
+                    exist=0;
+                }
+
+
+
+                if (Build.VERSION.SDK_INT < 24)
+                {
+                    uri = Uri.fromFile(file);
+                } else
+                {
+//                    uri = Uri.parse(file.getPath());
+                   uri= FileProvider.getUriForFile(context, "com.mbp.sushruta_v1.fileprovider", file);
+                }
+                Log.i("Test",uri.toString());
+
+
+                PopupMenu rightclick=new PopupMenu(context,viewHolder.relativeLayout,Gravity.END,0, R.style.Documentstheme);
+                rightclick.getMenuInflater().inflate(R.menu.right_click_documents,rightclick.getMenu());
+                rightclick.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+
+                        String action=item.getTitle().toString();
+
+                        switch(action){
+                            case "Delete":
+                                FirebaseDatabase getfirebaseDatabase=FirebaseDatabase.getInstance();
+                                DatabaseReference getdatabaseReference = getfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
+                                getdatabaseReference.child(UIDList.get(pos)).removeValue();
+                                break;
+                            case "Share":
+
+                                if(exist==1){
+                                    Intent share_intent = new Intent();
+                                    share_intent.setAction(Intent.ACTION_SEND);
+                                    share_intent.setType(mime);
+                                    share_intent.putExtra(Intent.EXTRA_STREAM,uri);
+                                    share_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    share_intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    share_intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                    share_intent.putExtra(Intent.EXTRA_SUBJECT,
+                                            "Share");
+                                    share_intent.putExtra(Intent.EXTRA_TEXT,
+                                            "This document is shared via Sushruta App");
+                                    try
+                                    {
+                                        context.startActivity(Intent.createChooser(share_intent,
+                                                "ShareThroughChooser Test"));
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                               else
+                                {
+                                    Toast.makeText(context,"Download the file to share",Toast.LENGTH_SHORT).show();
+                                }
+
+
+
+                                break;
+
+                        }
+
+
+
+
+
+                        return true;
+                    }
+                });
+
+                rightclick.show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -221,7 +325,7 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
             imageView=(ImageView)itemView.findViewById(R.id.imageView);
             textView=(TextView)itemView.findViewById(R.id.name);
             relativeLayout=(RelativeLayout)itemView.findViewById(R.id.relativelayout);
-            status=(ImageView)itemView.findViewById(R.id.imageView2);
+            status=(ImageView)itemView.findViewById(R.id.tick);
         }
     }
 }

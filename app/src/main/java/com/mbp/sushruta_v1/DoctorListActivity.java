@@ -82,6 +82,7 @@ public class DoctorListActivity extends AppCompatActivity {
                             String Gender = String.valueOf(ds2.child("Gender").getValue());
                             String Specialization=String.valueOf(ds2.child("Specialization").getValue());
                             String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
+                            String PhoneNo =String.valueOf(ds2.child("PhoneNo").getValue());
                             obj.setAge(Age);
                             obj.setUsername(Username);
                             obj.setDesignation(Designation);
@@ -91,7 +92,7 @@ public class DoctorListActivity extends AppCompatActivity {
                             obj.setQualification(Qualification);
                             obj.setDoctorID(DoctorId);
                             obj.setSpecialization(Specialization);
-
+                            obj.setPhoneNo(PhoneNo);
 
 
                             doctor_obj_list.add(obj);

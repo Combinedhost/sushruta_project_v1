@@ -25,13 +25,13 @@ public class SubDoctorListActivity extends AppCompatActivity {
     DatabaseReference listref,dataref;
 
     List<GetDoctorDetails> sub_doctor_obj_list;
-
+    String doctor;
 
     RecyclerView recyclerView2;
     SubDoctorRecyclerView obj2;
 
     LinearLayoutManager mLayoutManager;
-    private static final String TAG = "Main2Activity";
+    private static final String TAG = "SubDoctor";
     List< String> userList;
 
 
@@ -48,8 +48,8 @@ public class SubDoctorListActivity extends AppCompatActivity {
         try{
 
 
-        Bundle b1=getIntent().getExtras();
-        String doctor=b1.getString("user");
+         Bundle b1=getIntent().getExtras();
+         doctor=b1.getString("user");
 
 
         listref = fd.getReference("sushruta").child("SubDoctorActivity").child(doctor);
@@ -71,14 +71,8 @@ public class SubDoctorListActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot ds2) {
 
                             String Username = String.valueOf(ds2.getKey());
-                            if(userList.contains(Username)){
 
-                                int pos=userList.indexOf(Username);
-                                Log.i(getLocalClassName(),String.valueOf(pos));
-                                sub_doctor_obj_list.remove(pos);
-                                userList.remove(pos);
-                            }
-                            userList.add(Username);
+
                             GetDoctorDetails obj = new GetDoctorDetails();
                             String Name = String.valueOf(ds2.child("Name").getValue());
 
@@ -89,6 +83,8 @@ public class SubDoctorListActivity extends AppCompatActivity {
                             String Gender = String.valueOf(ds2.child("Gender").getValue());
                             String Specialization=String.valueOf(ds2.child("Specialization").getValue());
                             String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
+                            String PhoneNo=String.valueOf(ds2.child("Phoneno").getValue());
+
                             obj.setAge(Age);
                             obj.setUsername(Username);
                             obj.setDesignation(Designation);
@@ -98,10 +94,32 @@ public class SubDoctorListActivity extends AppCompatActivity {
                             obj.setQualification(Qualification);
                             obj.setDoctorID(DoctorId);
                             obj.setSpecialization(Specialization);
+                            obj.setPhoneNo(PhoneNo);
 
+                            String approval=String.valueOf(ds2.child("Approval").getValue());
+                            if(approval.equals("Approved")){
+                                sub_doctor_obj_list.add(obj);
+                                if(userList.contains(Username)){
 
+                                    int pos=userList.indexOf(Username);
+                                    Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
+                                    sub_doctor_obj_list.remove(pos);
+                                    userList.remove(pos);
+                                }
+                                userList.add(Username);
+                            }
+                            if(approval.equals("Not Approved")){
 
-                            sub_doctor_obj_list.add(obj);
+                                if(userList.contains(Username)){
+
+                                    int pos=userList.indexOf(Username);
+                                    Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
+                                    sub_doctor_obj_list.remove(pos);
+                                    userList.remove(pos);
+                                }
+
+                            }
+
                             Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
 
                             recyclerView2.setLayoutManager(mLayoutManager);
@@ -142,7 +160,7 @@ public class SubDoctorListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.patient_info_menu, menu);
+        getMenuInflater().inflate(R.menu.not_approval_button, menu);
         return true;
     }
 
@@ -153,7 +171,11 @@ public class SubDoctorListActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if(id==R.id.not_approved){
-            
+
+            Intent intent=new Intent(this,Not_Approval_Activity.class);
+            intent.putExtra("user",doctor);
+            startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }

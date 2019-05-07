@@ -50,14 +50,14 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 graph.removeAllSeries();
-                 PointsGraphSeries<DataPoint> series1=new PointsGraphSeries<>();
-                 series1.setSize(10);
+                 LineGraphSeries<DataPoint> series1=new LineGraphSeries<>();
+                 series1.setThickness(10);
                 graph.addSeries(series1);
                 graph.setTitle("Line Chart");
                 graph.setClickable(true);
                 graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
                 graph.setBackgroundColor(Color.GRAY);
-                graph.set
+
                 Viewport viewport = graph.getViewport();
                 viewport.setScrollable(true);
 
@@ -90,11 +90,7 @@ public class ChartActivity extends AppCompatActivity {
         });
 
 
-        x_axis.add("1");
-        x_axis.add("2");
 
-        y_axis.add("1");
-        y_axis.add("2");
 
     }
 
