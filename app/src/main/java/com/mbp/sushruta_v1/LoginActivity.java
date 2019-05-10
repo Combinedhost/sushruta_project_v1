@@ -65,19 +65,38 @@ public class LoginActivity extends AppCompatActivity {
 
         //
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Toast.makeText(getApplicationContext(),"Session valid",Toast.LENGTH_SHORT).show();
-                }
-                // ...
-            }
-        };
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        //Toast.makeText(getApplicationContext(),"Session User",Toast.LENGTH_SHORT).show();
+        if (user != null) {
 
+            //selectionProcess();
+            Toast.makeText(getApplicationContext(), "Session valid", Toast.LENGTH_SHORT).show();
+
+            String position = sharedPref.getString("Position","SubDoctor");
+            Log.i("test",position);
+            String username=sharedPref.getString("Username","");
+
+
+            if (position.equals("Head")) {
+
+                Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
+                //intent.putExtra("user", userId);
+                startActivity(intent);
+            }
+            else if (position.equals("Doctor")) {
+
+                Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
+                intent.putExtra("user", username);
+                startActivity(intent);
+            }
+            else if (position.equals("SubDoctor")) {
+
+                Intent intent = new Intent(LoginActivity.this, PatientList.class);
+                intent.putExtra("user", username);
+                startActivity(intent);
+            }
+
+        }
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
