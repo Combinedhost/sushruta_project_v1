@@ -1,7 +1,9 @@
 package com.mbp.sushruta_v1;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.InputStream;
 
@@ -38,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference positionRef, userRef;
-
+    SharedPreferences sharedPref;
     String position,userId;
 
     @Override
@@ -54,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton = (Button) findViewById(R.id.b1);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        sharedPref =  this.getPreferences(Context.MODE_PRIVATE);
+
+
+        //
+
+        //
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -138,7 +148,19 @@ public class LoginActivity extends AppCompatActivity {
                                 userId = dataSnapshot.child("Username").getValue().toString();
                                 Log.i(getLocalClassName(), "Username = " + userId);
                                 Log.i(getLocalClassName(), userId);
+
+                                //Subscribe for notification
+                                FirebaseMessaging.getInstance().subscribeToTopic(userId);
+
+
+
                                 position = dataSnapshot.child("Position").getValue().toString();
+
+                                //Shared Preferences
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("Username", userId);
+                                editor.putString("Position",position);
+                                editor.apply();
 
                                 DatabaseReference approvalRef = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
 

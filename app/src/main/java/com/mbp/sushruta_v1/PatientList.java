@@ -1,7 +1,9 @@
 package com.mbp.sushruta_v1;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -55,6 +57,12 @@ public class PatientList extends AppCompatActivity {
 
             Bundle b1 = getIntent().getExtras();
             final String subdoctor = b1.getString("user");
+            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+            String position = sharedPref.getString("Position","SubDoctor");
+
+            Log.d("Test Position",position);
+
             FloatingActionButton fbar = (FloatingActionButton) findViewById(R.id.fab);
 
             fbar.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +76,13 @@ public class PatientList extends AppCompatActivity {
             });
 
 
-
+            if(position.equals("Subdoctor")){
+                fbar.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                fbar.setVisibility(View.INVISIBLE);
+            }
 
             listref = fd.getReference("sushruta").child("PatientActivity").child(subdoctor);
             listref.addValueEventListener(new ValueEventListener() {

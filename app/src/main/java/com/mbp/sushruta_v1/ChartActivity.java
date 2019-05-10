@@ -51,6 +51,8 @@ public class ChartActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 graph.removeAllSeries();
                  LineGraphSeries<DataPoint> series1=new LineGraphSeries<>();
+
+
                  series1.setThickness(10);
                 graph.addSeries(series1);
                 graph.setTitle("Line Chart");

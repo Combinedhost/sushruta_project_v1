@@ -32,7 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     TextView textView;
@@ -60,7 +62,7 @@ int flag;
         button=(Button)findViewById(R.id.b3);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
-        user_ref=firebaseDatabase.getReference("sushruta").child("Login").child("Position");
+        user_ref=firebaseDatabase.getReference("sushruta").child("Login").child("Info");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +86,7 @@ int flag;
                                 List<String> usernames_list=new ArrayList<>();
                                 for(DataSnapshot ds:dataSnapshot.getChildren()){
                                     Log.i(getLocalClassName(),ds.getValue().toString());
-                                    usernames_list.add(ds.child("username").getValue().toString());
+                                    usernames_list.add(ds.child("Username").getValue().toString());
                                     if(usernames_list.contains(user))
                                     {
                                         Log.i(getLocalClassName(),"Username Exists");
@@ -138,6 +140,7 @@ int flag;
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Log.i(TAG,"Registeration Successfull");
+
                         Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
                         Intent intent=new Intent(RegisterActivity.this, RegisterActivity2.class);
                         intent.putExtra("Username",user);

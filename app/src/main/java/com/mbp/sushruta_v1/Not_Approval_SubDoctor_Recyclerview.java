@@ -21,6 +21,15 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,12 +37,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-
-
-
+import java.util.Map;
 
 
 public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<Not_Approval_SubDoctor_Recyclerview.subrecyclerholder> {
@@ -70,7 +80,7 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
     @Override
     public void onBindViewHolder(@NonNull final Not_Approval_SubDoctor_Recyclerview.subrecyclerholder viewHolder, int i) {
 
-         obj=obj_list.get(i);
+        obj=obj_list.get(i);
         viewHolder.t1.setText(obj.getName());
 
         Glide.with(ct).load(obj.getImageUrl()).into(viewHolder.im);
@@ -120,9 +130,11 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
                         DatabaseReference dataref = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
                         dataref.child("Approval").setValue("Approved");
 
-                        DatabaseReference dataref1 = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
-                        dataref.child("Approval").setValue("Approved");
+//                        DatabaseReference dataref1 = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
+//                        dataref.child("Approval").setValue("Approved");
 
+                        sendFCMPush("You are approved by the doctor",obj.getUsername());
+                        sendFCMPush(obj.getUsername()+ "has been approved as sub doctor under"+"doctor","Gowtham");
                         d.dismiss();
                     }
                 });
@@ -154,5 +166,69 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
             im=(ImageView)itemView.findViewById(R.id.imageButton);
             rl=(ConstraintLayout) itemView.findViewById(R.id.clayout);
         }
+    }
+
+    private void sendFCMPush(String msg,String topic) {
+
+        final String Legacy_SERVER_KEY = "AIzaSyD2ZLfhwQ7Mna9kwky99m3UGzcOYWlDxYs";
+        //msg = "You are approved by the doctor";
+        String title = "Approval Notification";
+        String token = "/topics/"+topic;
+
+        JSONObject obj = null;
+        JSONObject objData = null;
+        JSONObject dataobjData = null;
+
+        try {
+            obj = new JSONObject();
+            objData = new JSONObject();
+
+            objData.put("body", msg);
+            objData.put("title", title);
+            objData.put("sound", "default");
+            objData.put("icon", "icon_name"); //   icon_name image must be there in drawable
+            objData.put("tag", token);
+            objData.put("priority", "high");
+
+            dataobjData = new JSONObject();
+            dataobjData.put("text", msg);
+            dataobjData.put("title", title);
+
+            obj.put("to", token);
+            //obj.put("priority", "high");
+
+            obj.put("notification", objData);
+            obj.put("data", dataobjData);
+            Log.e("PASS:>", obj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, "https://android.googleapis.com/gcm/send", obj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("SUCCESS", response + "");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Errors--", error + "");
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "key=" + Legacy_SERVER_KEY);
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(ct);
+        int socketTimeout = 1000 * 60;// 60 seconds
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsObjRequest.setRetryPolicy(policy);
+        requestQueue.add(jsObjRequest);
     }
 }

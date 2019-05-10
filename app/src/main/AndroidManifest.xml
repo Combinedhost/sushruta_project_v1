@@ -79,7 +79,14 @@
             android:name=".ParameterValues"
             android:label="@string/title_activity_parameter_values" />
         <activity android:name=".ChartActivity" />
-        <activity android:name=".Not_Approval_Activity"></activity>
+        <activity android:name=".Not_Approval_Activity" />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
