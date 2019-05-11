@@ -3,9 +3,10 @@
     <color name="colorPrimary">#4169E1</color>
     <color name="colorPrimaryDark">#0000FF</color>
     <color name="colorAccent">#af87ceeb</color>
-    <color name="background">#FFFFFF</color>
+    <color name="background">#c7c5c5</color>
     <color name="textColor">#000000</color>
     <color name="popup">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-
+    <color name="loading">#2E86C1</color>
+    <color name="menubackground">#afeeee</color>
 </resources>

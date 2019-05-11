@@ -57,6 +57,8 @@ public class PatientList extends AppCompatActivity {
 
             Bundle b1 = getIntent().getExtras();
             final String subdoctor = b1.getString("user");
+
+
             SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 
             String position = sharedPref.getString("Position","SubDoctor");
@@ -76,7 +78,7 @@ public class PatientList extends AppCompatActivity {
             });
 
 
-            if(position.equals("Subdoctor")){
+            if(position.equals("SubDoctor")){
                 fbar.setVisibility(View.VISIBLE);
             }
             else

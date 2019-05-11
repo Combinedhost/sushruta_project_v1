@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicMarkableReference;
 
-public class ParameterValues extends Activity {
+public class ParameterValues extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -104,7 +105,7 @@ public class ParameterValues extends Activity {
                     rdate_list.add(val);
                 }
                 Collections.reverse(rdate_list);
-                mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
                 // Set up the ViewPager with the sections adapter.
                 mViewPager = (ViewPager) findViewById(R.id.container);
@@ -144,14 +145,14 @@ public class ParameterValues extends Activity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public SectionsPagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public android.support.v4.app.Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(rdate_list.get(position),user,param);
@@ -161,6 +162,7 @@ public class ParameterValues extends Activity {
         public int getCount() {
             // Show 3 total pages.
             return rdate_list.size();
+
         }
 
         @Override

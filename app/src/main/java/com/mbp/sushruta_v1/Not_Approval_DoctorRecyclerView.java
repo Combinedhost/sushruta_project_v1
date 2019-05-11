@@ -1,52 +1,53 @@
+
 package com.mbp.sushruta_v1;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+        import android.app.Activity;
+        import android.app.Dialog;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.net.Uri;
+        import android.support.annotation.NonNull;
+        import android.support.constraint.ConstraintLayout;
+        import android.support.v7.widget.RecyclerView;
+        import android.util.Log;
+        import android.view.ContextThemeWrapper;
+        import android.view.Gravity;
+        import android.view.LayoutInflater;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
+        import android.widget.ImageView;
+        import android.widget.PopupMenu;
+        import android.widget.RelativeLayout;
+        import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+        import com.android.volley.AuthFailureError;
+        import com.android.volley.DefaultRetryPolicy;
+        import com.android.volley.Request;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.RetryPolicy;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.android.volley.toolbox.Volley;
+        import com.bumptech.glide.Glide;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+        import java.util.ArrayList;
+        import java.util.HashMap;
+        import java.util.List;
+        import java.util.Map;
 
 
-public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<Not_Approval_SubDoctor_Recyclerview.subrecyclerholder> {
+public class Not_Approval_DoctorRecyclerView extends RecyclerView.Adapter<Not_Approval_DoctorRecyclerView.recyclerholder> {
     public Context ct;
     List<GetDoctorDetails> obj_list;
 
@@ -59,7 +60,7 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
     PopupMenu rightpopup;
     Button b;
     GetDoctorDetails obj;
-    public Not_Approval_SubDoctor_Recyclerview(Context c, List <GetDoctorDetails>obj_list, Activity a){
+    public Not_Approval_DoctorRecyclerView(Context c, List <GetDoctorDetails>obj_list, Activity a){
         this.obj_list = new ArrayList<GetDoctorDetails>();
         this.obj_list=obj_list;
         ct=c;
@@ -69,16 +70,16 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
 
     @NonNull
     @Override
-    public Not_Approval_SubDoctor_Recyclerview.subrecyclerholder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public Not_Approval_DoctorRecyclerView.recyclerholder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater=LayoutInflater.from(ct);
         View view=inflater.inflate(R.layout.recycler_layout_doctor,viewGroup,false);
-        return new subrecyclerholder(view);
+        return new recyclerholder(view);
     }
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull final Not_Approval_SubDoctor_Recyclerview.subrecyclerholder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final Not_Approval_DoctorRecyclerView.recyclerholder viewHolder, int i) {
 
         obj=obj_list.get(i);
         viewHolder.t1.setText(obj.getName());
@@ -133,8 +134,8 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
 //                        DatabaseReference dataref1 = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
 //                        dataref.child("Approval").setValue("Approved");
 
-                        sendFCMPush("You are approved by the doctor",obj.getUsername());
-                        sendFCMPush(obj.getUsername()+ "has been approved as sub doctor under"+"doctor","Gowtham");
+                        sendFCMPush("You are approved by the Head",obj.getUsername());
+//                        sendFCMPush(obj.getUsername()+ "has been approved as sub doctor under"+"doctor","Gowtham");
                         d.dismiss();
                     }
                 });
@@ -156,11 +157,11 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
         return obj_list.size();
     }
 
-    public class subrecyclerholder extends RecyclerView.ViewHolder{
+    public class recyclerholder extends RecyclerView.ViewHolder{
         TextView t1,t2,t3;
         ImageView im;
         public ConstraintLayout rl;
-        subrecyclerholder(@NonNull View itemView) {
+        public recyclerholder(@NonNull View itemView) {
             super(itemView);
             t1=(TextView)itemView.findViewById(R.id.textView10);
             im=(ImageView)itemView.findViewById(R.id.imageButton);
@@ -199,9 +200,7 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
 
             obj.put("notification", objData);
             obj.put("data", dataobjData);
-            Log.e("PASS", obj.toString());
-
-
+            Log.e("PASS:>", obj.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -216,7 +215,7 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Errors", error + "");
+                        Log.e("Errors--", error + "");
                     }
                 }) {
             @Override
@@ -227,14 +226,10 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
                 return params;
             }
         };
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(ct);
         int socketTimeout = 1000 * 60;// 60 seconds
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsObjRequest.setRetryPolicy(policy);
         requestQueue.add(jsObjRequest);
-
-
     }
 }

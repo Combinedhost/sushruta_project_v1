@@ -77,7 +77,8 @@
             android:label="@string/title_activity_parameters_patients" />
         <activity
             android:name=".ParameterValues"
-            android:label="@string/title_activity_parameter_values" />
+            android:label="@string/title_activity_parameter_values"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ChartActivity" />
         <activity android:name=".Not_Approval_Activity" />
 
@@ -87,6 +88,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".Doctor_Not_Approval_Activity"></activity>
     </application>
 
 </manifest>

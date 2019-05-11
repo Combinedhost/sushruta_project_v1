@@ -64,6 +64,19 @@ public class Patient_Information extends AppCompatActivity {
         Weight=(EditText) findViewById(R.id.weightinkg);
         InsuranceID=(EditText) findViewById(R.id.insuranceid);
 
+        Name.setEnabled(false);
+        Name.setScrollY(40);
+        BloodGroup.setEnabled(false);
+        Gender.setEnabled(false);
+        Age.setEnabled(false);
+        AadharNo.setEnabled(false);
+        Height.setEnabled(false);
+        Weight.setEnabled(false);
+        InsuranceID.setEnabled(false);
+        PatientId.setEnabled(false);
+        Medicines.setEnabled(false);
+        Address.setEnabled(false);
+
         fd = FirebaseDatabase.getInstance();
 
         Bundle b1=getIntent().getExtras();
@@ -106,17 +119,7 @@ public class Patient_Information extends AppCompatActivity {
                     Log.i(TAG,name+"  "+age+"  "+imageUrl);
 
 
-                    Name.setEnabled(false);
-                    BloodGroup.setEnabled(false);
-                    Gender.setEnabled(false);
-                    Age.setEnabled(false);
-                    AadharNo.setEnabled(false);
-                    Height.setEnabled(false);
-                    Weight.setEnabled(false);
-                    InsuranceID.setEnabled(false);
-                    PatientId.setEnabled(false);
-                    Medicines.setEnabled(false);
-                    Address.setEnabled(false);
+
 
                     Glide.with(Patient_Information.this).load(imageUrl).into(imageView);
                     Name.setText(name);

@@ -1,6 +1,7 @@
 package com.mbp.sushruta_v1;
 
-
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -19,20 +20,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-public class Not_Approval_Activity extends AppCompatActivity {
+
+public class Doctor_Not_Approval_Activity extends AppCompatActivity {
 
     FirebaseDatabase fd;
     DatabaseReference listref,dataref;
 
     List<GetDoctorDetails> sub_doctor_obj_list;
-
     String doctor;
 
     RecyclerView recyclerView2;
-    Not_Approval_SubDoctor_Recyclerview obj2;
+    Not_Approval_DoctorRecyclerView obj2;
 
     LinearLayoutManager mLayoutManager;
-    private static final String TAG = "SubDoctor_NotApproved";
+    private static final String TAG = "Doctor_Not_Approved";
     List< String> userList;
 
 
@@ -46,14 +47,8 @@ public class Not_Approval_Activity extends AppCompatActivity {
         fd = FirebaseDatabase.getInstance();
 
 
-        try{
 
-
-            Bundle b1=getIntent().getExtras();
-            doctor=b1.getString("user");
-
-
-            listref = fd.getReference("sushruta").child("SubDoctorActivity").child(doctor);
+            listref = fd.getReference("sushruta").child("DoctorActivity").child("Head");
             listref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot ds) {
@@ -72,6 +67,7 @@ public class Not_Approval_Activity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot ds2) {
 
                                 String Username = String.valueOf(ds2.getKey());
+
 
                                 GetDoctorDetails obj = new GetDoctorDetails();
                                 String Name = String.valueOf(ds2.child("Name").getValue());
@@ -98,15 +94,13 @@ public class Not_Approval_Activity extends AppCompatActivity {
                                 obj.setPhoneNo(PhoneNo);
                                 obj.setLicense(License);
 
-
-
                                 String approval=String.valueOf(ds2.child("Approval").getValue());
                                 if(approval.equals("Not Approved")){
                                     sub_doctor_obj_list.add(obj);
                                     if(userList.contains(Username)){
 
                                         int pos=userList.indexOf(Username);
-                                        Log.i(getLocalClassName(),String.valueOf(pos));
+                                        Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
                                         sub_doctor_obj_list.remove(pos);
                                         userList.remove(pos);
                                     }
@@ -117,7 +111,7 @@ public class Not_Approval_Activity extends AppCompatActivity {
                                     if(userList.contains(Username)){
 
                                         int pos=userList.indexOf(Username);
-                                        Log.i(getLocalClassName(),String.valueOf(pos));
+                                        Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
                                         sub_doctor_obj_list.remove(pos);
                                         userList.remove(pos);
                                     }
@@ -127,7 +121,7 @@ public class Not_Approval_Activity extends AppCompatActivity {
                                 Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
 
                                 recyclerView2.setLayoutManager(mLayoutManager);
-                                obj2 = new Not_Approval_SubDoctor_Recyclerview(Not_Approval_Activity.this, sub_doctor_obj_list,Not_Approval_Activity.this);
+                                obj2 = new Not_Approval_DoctorRecyclerView(Doctor_Not_Approval_Activity.this, sub_doctor_obj_list,Doctor_Not_Approval_Activity.this);
                                 recyclerView2.setAdapter(obj2);
 
                             }
@@ -155,9 +149,6 @@ public class Not_Approval_Activity extends AppCompatActivity {
 
 
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
     }
 
@@ -176,11 +167,13 @@ public class Not_Approval_Activity extends AppCompatActivity {
         int id = item.getItemId();
         if(id==R.id.approved){
             Intent intent=new Intent(this,DoctorListActivity.class);
-            intent.putExtra("user",doctor);
             startActivity(intent);
 
         }
         return super.onOptionsItemSelected(item);
     }
-}
 
+
+
+
+}

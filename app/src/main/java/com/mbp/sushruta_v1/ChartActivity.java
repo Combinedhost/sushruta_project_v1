@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ChartActivity extends AppCompatActivity {
     String user,param,date;
-    List<String> x_axis=new ArrayList<String>();
+    List<Date> x_axis=new ArrayList<Date>();
     List<String> y_axis=new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 graph.removeAllSeries();
-
+                x_axis.clear();
                 LineGraphSeries<DataPoint> series1=new LineGraphSeries<>();
 
                 series1.setThickness(10);
@@ -76,9 +76,9 @@ public class ChartActivity extends AppCompatActivity {
                 graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLACK);
                 graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 
-                graph.getViewport().setScrollable(true);
 
-               // graph.getViewport().setScalable(true);
+                graph.getViewport().setScrollable(true);
+                graph.getViewport().setScalable(true);
 
                 Log.i("Test",String.valueOf(dataSnapshot.getValue()));
                 int i=0;
@@ -90,14 +90,18 @@ public class ChartActivity extends AppCompatActivity {
 
 
 
-                    try {
+                    try
+                    {
                         Date date = df.parse(time);
-                        Log.i("Test",date.toString());
+                        Log.i("Test", date.toString());
 
                         series1.appendData(new DataPoint(date, Double.parseDouble(val)), true, 20);
-
+                        x_axis.add(date);
                         i=i+1;
-                    } catch (ParseException e) {
+
+                    }
+                    catch (ParseException e)
+                    {
                         e.printStackTrace();
                     }
 
@@ -117,7 +121,9 @@ public class ChartActivity extends AppCompatActivity {
                 });
 
 //                graph.getGridLabelRenderer().setHumanRounding(false);
-
+                graph.getViewport().setMinX(x_axis.get(0).getTime());
+                graph.getViewport().setMaxX(x_axis.get(x_axis.size()-1).getTime());
+                graph.getViewport().setXAxisBoundsManual(true);
 
             }
 
@@ -134,14 +140,4 @@ public class ChartActivity extends AppCompatActivity {
 
     }
 
-
-    public DataPoint[] data(){
-        int n=x_axis.size();     //to find out the no. of data-points
-        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
-        for(int i=0;i<n;i++){
-            DataPoint v = new DataPoint(Double.parseDouble(x_axis.get(i)),Double.parseDouble(y_axis.get(i)));
-            values[i] = v;
-        }
-        return values;
-    }
 }

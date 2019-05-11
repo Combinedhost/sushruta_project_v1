@@ -34,32 +34,31 @@
                     android:id="@+id/imageView4"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
-
-
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="9dp"
 
-
                     android:contentDescription="Image"
 
-                    android:src="@drawable/left_arrow"
-                    tools:srcCompat="@drawable/left_arrow" />
+                    app:srcCompat="@mipmap/left_arrow"/>
+                <!--android:src="@drawable/left_arrow"-->
+
 
                 <ImageView
                     android:id="@+id/chart"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_alignParentTop="true"
-
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="right"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:contentDescription="Image"
-                    android:src="@drawable/barchart"
-                    tools:srcCompat="@drawable/barchart" />
+
+                    app:srcCompat="@mipmap/barchart" />
+
+                <!--android:src="@drawable/barchart"-->
 
 
             </RelativeLayout>

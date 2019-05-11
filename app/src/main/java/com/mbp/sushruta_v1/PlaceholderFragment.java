@@ -35,7 +35,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 
-public  class PlaceholderFragment extends Fragment {
+public  class PlaceholderFragment extends android.support.v4.app.Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.

@@ -2,12 +2,15 @@ package com.mbp.sushruta_v1;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +31,8 @@ public class DoctorListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DoctorRecyclerView obj1;
+
+
 
     LinearLayoutManager mLayoutManager;
     private static final String TAG = "DoctorListActivity";
@@ -63,14 +68,6 @@ public class DoctorListActivity extends AppCompatActivity {
 
                             String Username = String.valueOf(ds2.getKey());
                             Log.i(TAG, Username);
-                            if(userList.contains(Username)){
-
-                                int pos=userList.indexOf(Username);
-                                Log.i(getLocalClassName(),String.valueOf(pos));
-                                doctor_obj_list.remove(pos);
-                                userList.remove(pos);
-                            }
-                            userList.add(Username);
 
                             GetDoctorDetails obj = new GetDoctorDetails();
                             String Name = String.valueOf(ds2.child("Name").getValue());
@@ -95,13 +92,40 @@ public class DoctorListActivity extends AppCompatActivity {
                             obj.setPhoneNo(PhoneNo);
 
 
-                            doctor_obj_list.add(obj);
+
                             Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
 
                             recyclerView.setLayoutManager(mLayoutManager);
 
                             obj1 = new DoctorRecyclerView(getApplicationContext(), doctor_obj_list,DoctorListActivity.this);
                             recyclerView.setAdapter(obj1);
+
+
+                            String approval=String.valueOf(ds2.child("Approval").getValue());
+
+                            if(approval.equals("Approved")){
+                                doctor_obj_list.add(obj);
+                                if(userList.contains(Username)){
+
+                                    int pos=userList.indexOf(Username);
+                                    Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
+                                    doctor_obj_list.remove(pos);
+                                    userList.remove(pos);
+                                }
+                                userList.add(Username);
+                            }
+                            if(approval.equals("Not Approved")){
+
+                                if(userList.contains(Username)){
+
+                                    int pos=userList.indexOf(Username);
+                                    Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
+                                    doctor_obj_list.remove(pos);
+                                    userList.remove(pos);
+                                }
+
+                            }
+
                         }
 
                         @Override
@@ -132,7 +156,27 @@ public class DoctorListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.not_approval_button, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if(id==R.id.not_approved){
+
+            Intent intent=new Intent(this,Doctor_Not_Approval_Activity.class);
+            startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

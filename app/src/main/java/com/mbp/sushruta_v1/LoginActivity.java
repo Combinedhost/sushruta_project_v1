@@ -129,8 +129,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void LoginDetails() {
          dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
-        dialog.setTitle("Logging in");
+//        dialog.setTitle("Logging in");
         dialog.show();
+        dialog.setMessage("Logging in");
         String emailaddress = Username.getText().toString();
         String password = Password.getText().toString();
 

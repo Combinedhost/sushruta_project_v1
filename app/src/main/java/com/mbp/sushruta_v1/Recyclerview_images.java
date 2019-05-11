@@ -28,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -121,6 +122,8 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
         viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Glide.with(context).asGif().load(R.drawable.loading1).into(viewHolder.status);
                 final int pos=viewHolder.getAdapterPosition();
                 final String name=NameList.get(pos);
                 final String mime=MimeList.get(pos);
@@ -249,11 +252,14 @@ public class Recyclerview_images extends RecyclerView.Adapter<Recyclerview_image
                 Log.i("Test",uri.toString());
 
 
-                PopupMenu rightclick=new PopupMenu(context,viewHolder.relativeLayout,Gravity.END,0, R.style.Documentstheme);
+//                PopupMenu rightclick=new PopupMenu(context,viewHolder.relativeLayout,Gravity.END,0, R.style.AppCompatAlertDialogStyle);
+                PopupMenu rightclick=new PopupMenu(context,viewHolder.relativeLayout,Gravity.END);
                 rightclick.getMenuInflater().inflate(R.menu.right_click_documents,rightclick.getMenu());
                 rightclick.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                         public boolean onMenuItemClick(MenuItem item) {
+
+
 
                         String action=item.getTitle().toString();
 
