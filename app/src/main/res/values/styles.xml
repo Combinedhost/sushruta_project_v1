@@ -8,12 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/popup</item>
         <item name="android:textColor">@color/textColor</item>
-
-
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
-
-
-
         <item name="alertDialogTheme">@color/popup</item>
 
     </style>

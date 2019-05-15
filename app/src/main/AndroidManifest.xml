@@ -40,6 +40,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -50,20 +53,24 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DoctorListActivity"
-            android:label="List of Doctors" />
+            android:label="List of Doctors"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SubDoctorListActivity"
-            android:label="List of Sub Doctors" />
+            android:label="List of Sub Doctors"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Patient_Information"
-            android:label="Patient Details" />
-        <!-- android:theme="@style/Theme.AppCompat.NoActionBar"/> -->
+            android:label="Patient Details"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Create_Patient"
-            android:label="Create new Patient" />
+            android:label="Create new Patient"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".PatientList"
-            android:label="List of Patients" />
+            android:label="List of Patients"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -72,17 +79,21 @@
         <activity android:name=".Test" />
         <activity
             android:name=".Documents_patients"
-            android:label="@string/title_activity_documents_patients" />
+            android:label="@string/title_activity_documents_patients"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Webview" />
         <activity
             android:name=".ParametersList"
-            android:label="@string/title_activity_parameters_patients" />
+            android:label="@string/title_activity_parameters_patients"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ParameterValues"
             android:label="@string/title_activity_parameter_values"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".ChartActivity" />
-        <activity android:name=".Not_Approval_Activity" />
+        <activity
+            android:name=".Not_Approval_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
@@ -90,7 +101,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Doctor_Not_Approval_Activity"></activity>
+        <activity
+            android:name=".Doctor_Not_Approval_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

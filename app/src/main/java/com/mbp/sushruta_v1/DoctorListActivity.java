@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorListActivity extends AppCompatActivity {
+public class DoctorListActivity extends Navigation {
 
     FirebaseDatabase fd;
     DatabaseReference listref,dataref;
@@ -32,15 +34,19 @@ public class DoctorListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DoctorRecyclerView obj1;
 
-
-
     LinearLayoutManager mLayoutManager;
     private static final String TAG = "DoctorListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_list);
+//        setContentView(R.layout.activity_doctor_list);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View contentView = inflater.inflate(R.layout.activity_doctor_list, null, false);
+        drawer.addView(contentView, 0);
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(this);
 
