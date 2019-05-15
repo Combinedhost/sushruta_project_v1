@@ -1,6 +1,7 @@
 package com.mbp.sushruta_v1;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-public class Not_Approval_Activity extends AppCompatActivity {
+public class Not_Approval_Activity extends Navigation {
 
     FirebaseDatabase fd;
     DatabaseReference listref,dataref;
@@ -35,11 +38,15 @@ public class Not_Approval_Activity extends AppCompatActivity {
     private static final String TAG = "SubDoctor_NotApproved";
     List< String> userList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sub_doctor_list);
+//        setContentView(R.layout.activity_sub_doctor_list);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View contentView = inflater.inflate(R.layout.activity_sub_doctor_list, null, false);
+        drawer.addView(contentView, 0);
 
         recyclerView2 = (RecyclerView) findViewById(R.id.recyclerView2);
         mLayoutManager = new LinearLayoutManager(this);
