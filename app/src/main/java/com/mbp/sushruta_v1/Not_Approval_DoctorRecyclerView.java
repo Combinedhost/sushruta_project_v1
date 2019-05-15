@@ -189,6 +189,7 @@ public class Not_Approval_DoctorRecyclerView extends RecyclerView.Adapter<Not_Ap
             objData.put("android_channel_id","Approval Notification");
 
 
+
             obj.put("to", token);;
             obj.put("notification", objData);
             Log.e("PASS:>", obj.toString());

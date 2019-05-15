@@ -1,5 +1,6 @@
 package com.mbp.sushruta_v1;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +17,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO: Handle FCM messages here.
@@ -24,35 +26,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // message, here is where that should be initiated.
 
 
-
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            String from=remoteMessage.getFrom();
+            String from = remoteMessage.getFrom();
             String title = remoteMessage.getNotification().getTitle(); //get title
             String message = remoteMessage.getNotification().getBody(); //get message
-            String channelId=remoteMessage.getNotification().getChannelId();
+            String channelId = remoteMessage.getNotification().getChannelId();
             Log.d(TAG, "Message Notification Title: " + title);
             Log.d(TAG, "Message Notification Body: " + message);
-            Log.d(TAG,channelId);
 
+            Log.d(TAG, channelId);
             Log.d(TAG, "Message Topic: " + from);
+            sendNotification(title, message, channelId);
 
-
-            sendNotification(title, message);
 
 
         }
     }
-    private void sendNotification(String title,String messageBody) {
+
+    private void sendNotification(String title, String messageBody, String CHANNEL_ID) {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String CHANNEL_ID = "Approval Notification";
+        CharSequence name;
+        String Description;
+
+        if (CHANNEL_ID.equals("Approval Notification")) {
+            name = "Approval Notification";
+            Description = "Notification about the approval of doctors";
+        } else {
+            name = "General Notification";
+            Description = "General Notification from the Head";
+        }
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
-
-
-            CharSequence name = "Approval Notification";
-            String Description = "Notification about the approval of doctors";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             mChannel.setDescription(Description);
@@ -63,8 +69,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mChannel.setShowBadge(false);
             notificationManager.createNotificationChannel(mChannel);
         }
-
-        Intent intent = new Intent(this, Test.class);
+        Intent intent;
+        intent= new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -80,5 +86,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+
+
+
     }
-}
+
+
+
+    }

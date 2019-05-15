@@ -59,11 +59,13 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
     PopupMenu rightpopup;
     Button b;
     GetDoctorDetails obj;
-    public Not_Approval_SubDoctor_Recyclerview(Context c, List <GetDoctorDetails>obj_list, Activity a){
+    String doctor;
+    public Not_Approval_SubDoctor_Recyclerview(Context c, List <GetDoctorDetails>obj_list, Activity a,String doctor){
         this.obj_list = new ArrayList<GetDoctorDetails>();
         this.obj_list=obj_list;
         ct=c;
         this.a=a;
+        this.doctor=doctor;
     }
 
 
@@ -134,7 +136,7 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
 //                        dataref.child("Approval").setValue("Approved");
 
                         sendFCMPush("You are approved by the doctor",obj.getUsername());
-                        sendFCMPush(obj.getUsername()+ " has been approved as sub doctor under "+"doctor","Head");
+                        sendFCMPush(obj.getUsername()+ " has been approved as sub doctor under "+doctor,"Head");
                         d.dismiss();
                     }
                 });
@@ -186,6 +188,7 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
             objData.put("body", msg);
             objData.put("title", title);
             objData.put("android_channel_id","Approval Notification");
+
 
 
             obj.put("to", token);

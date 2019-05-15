@@ -386,7 +386,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                                             position_ref.setValue(map1);
 
 
-                                            sendFCMPush("Head","New Doctor Registration","Sir, Doctor "+name+" has registered under you as doctor. Click the notification to take action");
+                                            sendFCMPush("Head","New Doctor Registration","Sir, Doctor "+name+" has registered under you as doctor. Click the notification to take action","Doctor");
 
 
 
@@ -436,7 +436,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                                                 position_ref.setValue(map1);
 
 
-                                                sendFCMPush(reg_under,"New SubDoctor Registration","Sir, Doctor "+name+" has registered under you as sub doctor. Click the notification to take action");
+                                                sendFCMPush(reg_under,"New SubDoctor Registration","Sir, Doctor "+name+" has registered under you as sub doctor. Click the notification to take action","SubDoctor");
 
 
                                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -497,7 +497,7 @@ public class RegisterActivity2 extends AppCompatActivity {
 
 
 
-    private void sendFCMPush(String topic,String title,String msg) {
+    private void sendFCMPush(String topic,String title,String msg,String Activity) {
 
         final String Legacy_SERVER_KEY = "AIzaSyD2ZLfhwQ7Mna9kwky99m3UGzcOYWlDxYs";
 //        String msg = "Sir, Doctor "+sd+" has registered under you as sub doctor. Click the notification to take action";
@@ -515,10 +515,9 @@ public class RegisterActivity2 extends AppCompatActivity {
             objData.put("body", msg);
             objData.put("title", title);
             objData.put("android_channel_id","Approval Notification");
-
-
             obj.put("to", token);
             obj.put("notification", objData);
+
             Log.e("PASS:>", obj.toString());
         } catch (JSONException e) {
             e.printStackTrace();

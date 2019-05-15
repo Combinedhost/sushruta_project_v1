@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference positionRef, userRef;
+    private DatabaseReference positionRef,approvalRef;
     SharedPreferences sharedPref;
     String position,userId;
 
@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         Username = (EditText) findViewById(R.id.username);
         Password = (EditText) findViewById(R.id.password);
         LoginButton = (Button) findViewById(R.id.b1);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -121,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         //super.onBackPressed();
 // dont call **super**, if u want disable back button in current screen.
     }
+
     public void register(View view) {
         Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
         startActivity(intent);
@@ -162,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(currentFirebaseUser.isEmailVerified()){
                         positionRef = firebaseDatabase.getReference("sushruta").child("Login").child("Info").child(UID);
-                        positionRef.addValueEventListener(new ValueEventListener() {
+                        positionRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 userId = dataSnapshot.child("Username").getValue().toString();
@@ -184,9 +186,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                                DatabaseReference approvalRef = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
+                                approvalRef  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
 
-                                approvalRef.addValueEventListener(new ValueEventListener() {
+
+                                approvalRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                                         String approval = dataSnapshot1.getValue().toString();
@@ -228,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
                                 });
-
+                                approvalRef.keepSynced(false);
 
 
 
@@ -240,6 +243,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         });
+                        positionRef.keepSynced(false);
 
                     }
                     else{

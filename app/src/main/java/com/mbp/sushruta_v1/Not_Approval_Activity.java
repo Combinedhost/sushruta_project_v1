@@ -127,7 +127,7 @@ public class Not_Approval_Activity extends AppCompatActivity {
                                 Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
 
                                 recyclerView2.setLayoutManager(mLayoutManager);
-                                obj2 = new Not_Approval_SubDoctor_Recyclerview(Not_Approval_Activity.this, sub_doctor_obj_list,Not_Approval_Activity.this);
+                                obj2 = new Not_Approval_SubDoctor_Recyclerview(Not_Approval_Activity.this, sub_doctor_obj_list,Not_Approval_Activity.this,doctor);
                                 recyclerView2.setAdapter(obj2);
 
                             }
