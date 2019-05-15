@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -145,6 +146,8 @@ public class Navigation extends AppCompatActivity
 
         if (id == R.id.nav_send) {
             FirebaseAuth.getInstance().signOut();
+            String username=sharedPref.getString("Username","");
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(username);
             Toast.makeText(getApplicationContext(), "You are Logged Out", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

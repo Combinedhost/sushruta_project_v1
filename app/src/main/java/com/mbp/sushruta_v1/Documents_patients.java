@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -73,10 +74,12 @@ public class Documents_patients extends Navigation {
         View contentView = inflater.inflate(R.layout.activity_documents_patients, null, false);
         drawer.addView(contentView, 0);
 
+
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
         Bundle bundle=getIntent().getExtras();
-         user=bundle.getString("user");
+        user=bundle.getString("user");
+
 
         getfirebaseDatabase=FirebaseDatabase.getInstance();
         getdatabaseReference=getfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
