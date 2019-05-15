@@ -40,9 +40,22 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference positionRef,approvalRef;
+    private DatabaseReference positionRef,approvalRefsync,approvalRef,approvalspref;
     SharedPreferences sharedPref;
     String position,userId;
+    static boolean active = false;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,41 +74,81 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPref =  this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
 
-
-        //
-
-        //
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        //Toast.makeText(getApplicationContext(),"Session User",Toast.LENGTH_SHORT).show();
-        if (user != null) {
+        if (user != null)
+        {
+            dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
+//        dialog.setTitle("Logging in");
+            dialog.show();
+            dialog.setMessage("Checking for valid session");
+            final String usernamesp=sharedPref.getString("Username","");
 
-            //selectionProcess();
-            Toast.makeText(getApplicationContext(), "Session valid", Toast.LENGTH_SHORT).show();
+            approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
 
-            String position = sharedPref.getString("Position","SubDoctor");
-            Log.i("test",position);
-            String username=sharedPref.getString("Username","");
+           approvalspref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String approval = dataSnapshot.getValue().toString();
+                    if (approval.equals("Approved")){
+                        dialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Session Valid",Toast.LENGTH_SHORT).show();
+                        String position = sharedPref.getString("Position","SubDoctor");
+                        Log.i("test",position);
+                        if (position.equals("Head")) {
 
+                            Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
+                            //intent.putExtra("user", userId);
+                            startActivity(intent);
+                        }
+                        else if (position.equals("Doctor")) {
 
-            if (position.equals("Head")) {
+                            Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
+                            intent.putExtra("user", usernamesp);
+                            startActivity(intent);
+                        }
+                        else if (position.equals("SubDoctor")) {
 
-                Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
-                //intent.putExtra("user", userId);
-                startActivity(intent);
-            }
-            else if (position.equals("Doctor")) {
+                            Intent intent = new Intent(LoginActivity.this, PatientList.class);
+                            intent.putExtra("user", usernamesp);
+                            startActivity(intent);
+                        }
+                    }
+                    else{
+                        dialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"No Valid Session",Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
-                intent.putExtra("user", username);
-                startActivity(intent);
-            }
-            else if (position.equals("SubDoctor")) {
+                    }
 
-                Intent intent = new Intent(LoginActivity.this, PatientList.class);
-                intent.putExtra("user", username);
-                startActivity(intent);
-            }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
+
+            approvalspref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String approval = dataSnapshot.getValue().toString();
+                    if (approval.equals("Not Approved")) {
+                        Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
+                        if(!active){
+                            Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
 
         }
         LoginButton.setOnClickListener(new View.OnClickListener() {
@@ -223,6 +276,8 @@ public class LoginActivity extends AppCompatActivity {
                                         {
                                             dialog.dismiss();
                                             Toast.makeText(getApplicationContext(),"Account is not Approved. Please contact Doctor",Toast.LENGTH_LONG).show();
+
+
                                         }
                                     }
 
@@ -231,6 +286,29 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
                                 });
+
+                                approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
+
+                                approvalspref.addValueEventListener(new ValueEventListener() {
+                                                                                 @Override
+                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                                     String approval = dataSnapshot.getValue().toString();
+                                                                                     if (approval.equals("Not Approved")) {
+                                                                                         Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
+                                                                                         if(!active){
+                                                                                             Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                                                                                             startActivity(intent);
+                                                                                         }
+
+                                                                                     }
+                                                                                 }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
                                 approvalRef.keepSynced(false);
 
 
