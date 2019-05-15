@@ -1,7 +1,9 @@
 package com.mbp.sushruta_v1;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -122,6 +124,7 @@ public class ParametersList extends Activity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_param_fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,6 +156,17 @@ public class ParametersList extends Activity {
 
             }
         });
+
+
+        SharedPreferences sharedPref = this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+        String position = sharedPref.getString("Position","SubDoctor");
+        if(position.equals("SubDoctor")){
+            fab.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            fab.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

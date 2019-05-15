@@ -12,7 +12,7 @@
         android:name=".GlobalClass"
         android:allowBackup="true"
         android:icon="@drawable/sushruta_white"
-        android:label=""
+        android:label="Sushruta"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -27,13 +27,13 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
+
         <activity android:name=".TestActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

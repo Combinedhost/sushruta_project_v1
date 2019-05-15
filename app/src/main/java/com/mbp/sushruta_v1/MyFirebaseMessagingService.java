@@ -30,9 +30,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String from=remoteMessage.getFrom();
             String title = remoteMessage.getNotification().getTitle(); //get title
             String message = remoteMessage.getNotification().getBody(); //get message
-
+            String channelId=remoteMessage.getNotification().getChannelId();
             Log.d(TAG, "Message Notification Title: " + title);
             Log.d(TAG, "Message Notification Body: " + message);
+            Log.d(TAG,channelId);
 
             Log.d(TAG, "Message Topic: " + from);
 
@@ -45,13 +46,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(String title,String messageBody) {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String CHANNEL_ID = "my_channel_01";
+        String CHANNEL_ID = "Approval Notification";
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
 
 
-            CharSequence name = "my_channel";
-            String Description = "This is my channel";
+            CharSequence name = "Approval Notification";
+            String Description = "Notification about the approval of doctors";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             mChannel.setDescription(Description);

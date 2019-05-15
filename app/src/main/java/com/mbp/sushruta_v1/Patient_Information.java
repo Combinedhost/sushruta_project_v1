@@ -2,9 +2,12 @@ package com.mbp.sushruta_v1;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -139,7 +142,22 @@ public class Patient_Information extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            Loadimage(imageUrl);
+                            ImageView close_button,zoom_image;
+                            picdialog = new Dialog(Patient_Information.this,R.style.AppCompatAlertDialogStyle);
+                            picdialog.setContentView(R.layout.popup_image);
+                            zoom_image=(ImageView)picdialog.findViewById(R.id.image);
+                            close_button=(ImageView) picdialog.findViewById(R.id.delete);
+
+//                            zoom_image.setImageResource(R.drawable.parameters);
+                            Glide.with(getApplicationContext()).load(imageUrl).into(zoom_image);
+                            picdialog.show();
+
+                            close_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    picdialog.dismiss();
+                                }
+                            });
 
 
                         }
@@ -189,7 +207,21 @@ public class Patient_Information extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.patient_info_menu, menu);
-        return true;
+        SharedPreferences sharedPref = this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+
+        String position = sharedPref.getString("Position","SubDoctor");
+
+        Log.d(getLocalClassName()+" position",position);
+
+
+
+        if(position.equals("SubDoctor")){
+                return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Override
@@ -201,6 +233,7 @@ public class Patient_Information extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.save) {
+
             Toast.makeText(getApplicationContext(),"Data saved successfully",Toast.LENGTH_SHORT).show();
             FirebaseDatabase fd4=FirebaseDatabase.getInstance();
             DatabaseReference dataref = fd4.getReference("sushruta").child("Details").child("Patient").child(PatientId.getText().toString());
@@ -235,10 +268,10 @@ public class Patient_Information extends AppCompatActivity {
             Address.setEnabled(false);
 
 
-            return true;
+
         }
         if (id == R.id.edit) {
-            Toast.makeText(getApplicationContext(),"Edit Mode On",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Edit Mode On", Toast.LENGTH_SHORT).show();
             Name.setEnabled(true);
             BloodGroup.setEnabled(true);
             Gender.setEnabled(true);
@@ -249,21 +282,13 @@ public class Patient_Information extends AppCompatActivity {
             InsuranceID.setEnabled(true);
             Medicines.setEnabled(true);
             Address.setEnabled(true);
-            return true;
+
         }
-
         return super.onOptionsItemSelected(item);
+
+
     }
 
 
-    public  void Loadimage(String imageUrl)
-    {
-        ImageView close_button,zoom_image;
-        picdialog = new Dialog(Patient_Information.this);
-        setContentView(R.layout.popup_image);
-        zoom_image=(ImageView)picdialog.findViewById(R.id.image);
-        close_button=(ImageView) picdialog.findViewById(R.id.delete);
-        Glide.with(Patient_Information.this).load(imageUrl).into(zoom_image);
 
-    }
 }

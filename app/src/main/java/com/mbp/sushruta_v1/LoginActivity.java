@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        sharedPref =  this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref =  this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
 
 
         //
@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 //Subscribe for notification
                                 FirebaseMessaging.getInstance().subscribeToTopic(userId);
-
+                                FirebaseMessaging.getInstance().subscribeToTopic("All");
 
 
                                 position = dataSnapshot.child("Position").getValue().toString();
@@ -181,6 +181,8 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("Username", userId);
                                 editor.putString("Position",position);
                                 editor.apply();
+
+
 
                                 DatabaseReference approvalRef = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
 
@@ -199,6 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 dialog.dismiss();
                                                 Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
                                                 //intent.putExtra("user", userId);
+                                                FirebaseMessaging.getInstance().subscribeToTopic("Head");
                                                 startActivity(intent);
                                             } else if (position.equals("Doctor")) {
                                                 dialog.dismiss();

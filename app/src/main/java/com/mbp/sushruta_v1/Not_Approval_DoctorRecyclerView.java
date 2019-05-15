@@ -134,8 +134,8 @@ public class Not_Approval_DoctorRecyclerView extends RecyclerView.Adapter<Not_Ap
 //                        DatabaseReference dataref1 = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
 //                        dataref.child("Approval").setValue("Approved");
 
-                        sendFCMPush("You are approved by the Head",obj.getUsername());
-//                        sendFCMPush(obj.getUsername()+ "has been approved as sub doctor under"+"doctor","Gowtham");
+                        sendFCMPush("Hello sir,we are happy to intimate that you are approved by the Head",obj.getUsername());
+                        sendFCMPush("Hello sir, you have approved doctor "+obj.getUsername(),"Head");
                         d.dismiss();
                     }
                 });
@@ -186,20 +186,11 @@ public class Not_Approval_DoctorRecyclerView extends RecyclerView.Adapter<Not_Ap
 
             objData.put("body", msg);
             objData.put("title", title);
-            objData.put("sound", "default");
-            objData.put("icon", "icon_name"); //   icon_name image must be there in drawable
-            objData.put("tag", token);
-            objData.put("priority", "high");
+            objData.put("android_channel_id","Approval Notification");
 
-            dataobjData = new JSONObject();
-            dataobjData.put("text", msg);
-            dataobjData.put("title", title);
 
-            obj.put("to", token);
-            //obj.put("priority", "high");
-
+            obj.put("to", token);;
             obj.put("notification", objData);
-            obj.put("data", dataobjData);
             Log.e("PASS:>", obj.toString());
         } catch (JSONException e) {
             e.printStackTrace();

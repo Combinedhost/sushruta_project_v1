@@ -288,7 +288,7 @@ public class Create_Patient extends AppCompatActivity {
 
 
                                         Map<String, String> map = new HashMap<String, String>();
-                                        map.put("Name", Name.getText().toString());
+
                                         map.put("Aadhar_no", AadharNo.getText().toString());
                                         map.put("Age", Age.getText().toString());
                                         map.put("Blood Group", BloodGroup.getText().toString());
@@ -300,6 +300,14 @@ public class Create_Patient extends AppCompatActivity {
                                         map.put("Address", Address.getText().toString());
                                         map.put("Gender", gender);
                                         map.put("Medicines", Medicine.getText().toString());
+                                        if(gender.equals("Male")){
+                                            map.put("Name", "Mr. "+Name.getText().toString());
+                                        }
+                                        if(gender.equals("Female")){
+                                            map.put("Name", "Mrs. "+Name.getText().toString());
+                                        }
+
+
                                         dataref.setValue(map);
 
                                         Intent intent = new Intent(getApplicationContext(), PatientList.class);

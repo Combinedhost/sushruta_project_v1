@@ -2,7 +2,9 @@ package com.mbp.sushruta_v1;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ public  class PlaceholderFragment extends android.support.v4.app.Fragment {
      * fragment.
      */
     List<String> time,value;
-    TableLayout stk;
+
     Dialog a;
     EditText text;
     Button b1;
@@ -70,157 +72,169 @@ public  class PlaceholderFragment extends android.support.v4.app.Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_parameter_values, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.date_text);
-        textView.setText(getArguments().getString("Dates"));
-          stk = (TableLayout) rootView.findViewById(R.id.tablelayout);
+        try {
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        date=getArguments().getString("Dates");
-        user=getArguments().getString("User");
-        param=getArguments().getString("Param");
+            TextView textView = (TextView) rootView.findViewById(R.id.date_text);
+            textView.setText(getArguments().getString("Dates"));
+            final TableLayout stk;
+            stk = (TableLayout) rootView.findViewById(R.id.tablelayout);
 
-        final TextView no_results=(TextView)rootView.findViewById(R.id.no_results);
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            date = getArguments().getString("Dates");
+            user = getArguments().getString("User");
+            param = getArguments().getString("Param");
+
+            final TextView no_results = (TextView) rootView.findViewById(R.id.no_results);
 
 
-        ImageView im=(ImageView)rootView.findViewById(R.id.imageView4);
-        im.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               getActivity().finish();
+            ImageView im = (ImageView) rootView.findViewById(R.id.imageView4);
+            im.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
+            FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.add_value);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    a = new Dialog(getActivity(), R.style.AppCompatAlertDialogStyle);
+                    a.setContentView(R.layout.getnamelayout);
+                    text = (EditText) a.findViewById(R.id.getname);
+
+                    b1 = (Button) a.findViewById(R.id.button);
+                    b1.setText("Update");
+
+                    heading = (TextView) a.findViewById(R.id.textView5);
+                    heading.setText("Enter the value");
+
+
+                    b1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DateFormat df = new SimpleDateFormat("h:mm:ss a");
+                            String time = df.format(Calendar.getInstance().getTime());
+                            String string = text.getText().toString();
+                            FirebaseDatabase fd = FirebaseDatabase.getInstance();
+                            DatabaseReference addv = fd.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
+                            String key = addv.push().getKey();
+                            Map map = new HashMap();
+                            map.put("time", time);
+                            map.put("value", string);
+                            addv.child(key).setValue(map);
+                            a.dismiss();
+                        }
+                    });
+
+                    a.show();
+
+                }
+            });
+            SharedPreferences sharedPref = getActivity().getSharedPreferences("mypref",Context.MODE_PRIVATE);
+            String position = sharedPref.getString("Position","SubDoctor");
+            if(position.equals("SubDoctor")){
+                fab.setVisibility(View.VISIBLE);
             }
-        });
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.add_value);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            else
+            {
+                fab.setVisibility(View.INVISIBLE);
+            }
+            ImageView chart = (ImageView) rootView.findViewById(R.id.chart);
+            chart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ChartActivity.class);
+                    intent.putExtra("date", date);
+                    intent.putExtra("user", user);
+                    intent.putExtra("param", param);
+                    startActivity(intent);
+                }
+            });
+
+            DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
 
 
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                a=new Dialog(getActivity(),R.style.AppCompatAlertDialogStyle);
-                a.setContentView(R.layout.getnamelayout);
-                text=(EditText)a.findViewById(R.id.getname);
+            databaseReference.addValueEventListener(new ValueEventListener() {
 
-                b1=(Button)a.findViewById(R.id.button);
-                b1.setText("Update");
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                heading=(TextView)a.findViewById(R.id.textView5) ;
-                heading.setText("Enter the value");
+                    stk.removeAllViews();
+                    TableRow tbrow0 = new TableRow(getContext());
+                    tbrow0.setPadding(50, 10, 50, 10);
+                    tbrow0.setGravity(Gravity.CENTER);
+                    TextView tv0 = new TextView(getActivity());
+                    tv0.setText("           Time             ");
+                    tv0.setAllCaps(true);
+                    tv0.setTextColor(Color.BLACK);
+                    tv0.setTextSize(18);
+                    tv0.setTypeface(tv0.getTypeface(), Typeface.BOLD);
+                    tbrow0.addView(tv0);
 
 
+                    TextView tv1 = new TextView(getActivity());
+                    tv1.setText("           Value        ");
+                    tv1.setTextColor(Color.BLACK);
+                    tv1.setAllCaps(true);
+                    tv1.setTextSize(18);
+                    tv1.setTypeface(tv0.getTypeface(), Typeface.BOLD);
+                    tbrow0.addView(tv1);
+                    stk.addView(tbrow0);
 
 
-                b1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DateFormat df = new SimpleDateFormat("h:mm:ss a");
-                        String time = df.format(Calendar.getInstance().getTime());
-                        String string = text.getText().toString();
-                        FirebaseDatabase fd = FirebaseDatabase.getInstance();
-                        DatabaseReference addv=fd.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
-                        String key=addv.push().getKey();
-                        Map map=new HashMap();
-                        map.put("time",time);
-                        map.put("value",string);
-                        addv.child(key).setValue(map);
-                        a.dismiss();
+                    value = new ArrayList<>();
+                    time = new ArrayList<>();
+                    int i = 0;
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        i = i + 1;
+                        String time = String.valueOf(dataSnapshot1.child("time").getValue());
+                        String pred = String.valueOf(dataSnapshot1.child("value").getValue());
+                        String com = time + pred;
+
+
+                        TableRow tbrow = new TableRow(getActivity());
+                        tbrow.setGravity(Gravity.CENTER);
+                        tbrow.setPadding(50, 10, 50, 10);
+                        TextView t1v = new TextView(getActivity());
+                        t1v.setText(time);
+                        t1v.setTextColor(Color.BLACK);
+                        t1v.setGravity(Gravity.CENTER);
+                        t1v.setTextSize(18);
+                        tbrow.addView(t1v);
+                        TextView t2v = new TextView(getActivity());
+                        t2v.setText(pred);
+                        t2v.setTextColor(Color.BLACK);
+                        t2v.setGravity(Gravity.CENTER);
+                        t2v.setTextSize(18);
+                        tbrow.setDividerPadding(20);
+                        tbrow.addView(t2v);
+
+
+                        stk.addView(tbrow);
+
                     }
-                });
-
-                a.show();
-
-            }
-        });
-
-        ImageView chart=(ImageView)rootView.findViewById(R.id.chart);
-        chart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),ChartActivity.class);
-                intent.putExtra("date",date);
-                intent.putExtra("user",user);
-                intent.putExtra("param",param);
-                startActivity(intent);
-            }
-        });
-
-        DatabaseReference databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
+                    if (i > 0) {
+                        no_results.setVisibility(View.INVISIBLE);
+                    } else {
+                        no_results.setVisibility(View.VISIBLE);
+                    }
+                }
 
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                stk.removeAllViews();
-                TableRow tbrow0 = new TableRow(getActivity());
-                tbrow0.setPadding(50, 10, 50, 10);
-                tbrow0.setGravity(Gravity.CENTER);
-                TextView tv0 = new TextView(getActivity());
-                tv0.setText("           Time             ");
-                tv0.setAllCaps(true);
-                tv0.setTextColor(Color.BLACK);
-                tv0.setTextSize(18);
-                tv0.setTypeface(tv0.getTypeface(), Typeface.BOLD);
-                tbrow0.addView(tv0);
-
-
-                TextView tv1 = new TextView(getActivity());
-                tv1.setText("           Value        ");
-                tv1.setTextColor(Color.BLACK);
-                tv1.setAllCaps(true);
-                tv1.setTextSize(18);
-                tv1.setTypeface(tv0.getTypeface(), Typeface.BOLD);
-                tbrow0.addView(tv1);
-                stk.addView(tbrow0);
-
-
-                value = new ArrayList<>();
-                time = new ArrayList<>();
-                int i=0;
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    i=i+1;
-                    String time = String.valueOf(dataSnapshot1.child("time").getValue());
-                    String pred = String.valueOf(dataSnapshot1.child("value").getValue());
-                    String com = time + pred;
-
-
-                    TableRow tbrow = new TableRow(getActivity());
-                    tbrow.setGravity(Gravity.CENTER);
-                    tbrow.setPadding(50, 10, 50, 10);
-                    TextView t1v = new TextView(getActivity());
-                    t1v.setText(time);
-                    t1v.setTextColor(Color.BLACK);
-                    t1v.setGravity(Gravity.CENTER);
-                    t1v.setTextSize(18);
-                    tbrow.addView(t1v);
-                    TextView t2v = new TextView(getActivity());
-                    t2v.setText(pred);
-                    t2v.setTextColor(Color.BLACK);
-                    t2v.setGravity(Gravity.CENTER);
-                    t2v.setTextSize(18);
-                    tbrow.setDividerPadding(20);
-                    tbrow.addView(t2v);
-
-
-                    stk.addView(tbrow);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-                if(i>0){
-                    no_results.setVisibility(View.INVISIBLE);
-                }
-                else
-                {
-                    no_results.setVisibility(View.VISIBLE);
-                }
-            }
-
-
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            });
+            return rootView;
         }
-    });
-                        return rootView;
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return rootView;
     }
 }

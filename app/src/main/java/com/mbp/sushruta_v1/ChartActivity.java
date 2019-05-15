@@ -64,7 +64,7 @@ public class ChartActivity extends AppCompatActivity {
                 LineGraphSeries<DataPoint> series1=new LineGraphSeries<>();
 
                 series1.setThickness(10);
-
+                series1.setDataPointsRadius(50);
                 graph.addSeries(series1);
                 graph.setTitle("Line Chart");
                 graph.setClickable(true);
@@ -100,7 +100,7 @@ public class ChartActivity extends AppCompatActivity {
                         i=i+1;
 
                     }
-                    catch (ParseException e)
+                    catch (Exception e)
                     {
                         e.printStackTrace();
                     }
@@ -120,11 +120,12 @@ public class ChartActivity extends AppCompatActivity {
                     }
                 });
 
+                if(x_axis.size()>0) {
 //                graph.getGridLabelRenderer().setHumanRounding(false);
-                graph.getViewport().setMinX(x_axis.get(0).getTime());
-                graph.getViewport().setMaxX(x_axis.get(x_axis.size()-1).getTime());
-                graph.getViewport().setXAxisBoundsManual(true);
-
+                    graph.getViewport().setMinX(x_axis.get(0).getTime());
+                    graph.getViewport().setMaxX(x_axis.get(x_axis.size() - 1).getTime());
+                    graph.getViewport().setXAxisBoundsManual(true);
+                }
             }
 
 

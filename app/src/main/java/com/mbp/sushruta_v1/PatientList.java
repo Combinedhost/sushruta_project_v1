@@ -59,7 +59,7 @@ public class PatientList extends AppCompatActivity {
             final String subdoctor = b1.getString("user");
 
 
-            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences sharedPref = this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
 
             String position = sharedPref.getString("Position","SubDoctor");
 

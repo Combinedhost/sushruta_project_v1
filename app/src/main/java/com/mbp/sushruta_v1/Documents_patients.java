@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -136,7 +137,15 @@ public class Documents_patients extends Activity {
       });
 
 
-
+        SharedPreferences sharedPref = this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+        String position = sharedPref.getString("Position","SubDoctor");
+        if(position.equals("SubDoctor")){
+            Add_file_fab.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            Add_file_fab.setVisibility(View.INVISIBLE);
+        }
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -178,6 +187,7 @@ public class Documents_patients extends Activity {
                     Log.i(getLocalClassName(),name.getText().toString());
                     dialog.dismiss();
                     filename=name.getText().toString();
+                    filename=user+filename;
                     uploadImage(filename);
                 }
             });

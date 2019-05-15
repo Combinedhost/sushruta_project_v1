@@ -209,7 +209,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 Log.i(TAG, "onViewCreated: " + Specialization.getText().toString());
 
 
-                name = Name.getText().toString();
+                name = "Dr. "+Name.getText().toString();
                 age = Age.getText().toString();
                 Id = DoctorID.getText().toString();
                 license = LicenseID.getText().toString();
@@ -386,7 +386,9 @@ public class RegisterActivity2 extends AppCompatActivity {
                                             position_ref.setValue(map1);
 
 
-                                            sendFCMPush(name,"Gowtham");
+                                            sendFCMPush("Head","New Doctor Registration","Sir, Doctor "+name+" has registered under you as doctor. Click the notification to take action");
+
+
 
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             startActivity(intent);
@@ -433,7 +435,9 @@ public class RegisterActivity2 extends AppCompatActivity {
                                                 map1.put("Username", user);
                                                 position_ref.setValue(map1);
 
-                                                sendFCMPush(name,reg_under);
+
+                                                sendFCMPush(reg_under,"New SubDoctor Registration","Sir, Doctor "+name+" has registered under you as sub doctor. Click the notification to take action");
+
 
                                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                                 startActivity(intent);
@@ -493,11 +497,11 @@ public class RegisterActivity2 extends AppCompatActivity {
 
 
 
-    private void sendFCMPush(String sd,String topic) {
+    private void sendFCMPush(String topic,String title,String msg) {
 
         final String Legacy_SERVER_KEY = "AIzaSyD2ZLfhwQ7Mna9kwky99m3UGzcOYWlDxYs";
-        String msg = "Sir, Doctor "+sd+" has registered under you as sub doctor. Click the notification to take action";
-        String title = "New SubDoctor Registration";
+//        String msg = "Sir, Doctor "+sd+" has registered under you as sub doctor. Click the notification to take action";
+//        String title = "New SubDoctor Registration";
         String token = "/topics/"+topic;
 
         JSONObject obj = null;
@@ -510,20 +514,11 @@ public class RegisterActivity2 extends AppCompatActivity {
 
             objData.put("body", msg);
             objData.put("title", title);
-            objData.put("sound", "default");
-            objData.put("icon", "icon_name"); //   icon_name image must be there in drawable
-            objData.put("tag", token);
-            objData.put("priority", "high");
+            objData.put("android_channel_id","Approval Notification");
 
-            dataobjData = new JSONObject();
-            dataobjData.put("text", msg);
-            dataobjData.put("title", title);
 
             obj.put("to", token);
-            //obj.put("priority", "high");
-
             obj.put("notification", objData);
-            obj.put("data", dataobjData);
             Log.e("PASS:>", obj.toString());
         } catch (JSONException e) {
             e.printStackTrace();
