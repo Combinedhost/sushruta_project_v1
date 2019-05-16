@@ -50,11 +50,19 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DoctorListActivity"
+
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".SubDoctorListActivity"
             android:label=" "
+
+
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".SubDoctorListActivity"
+
+
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Patient_Information"
