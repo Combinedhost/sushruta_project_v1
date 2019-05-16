@@ -4,19 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,8 @@ public class Doctor_Not_Approval_Activity extends AppCompatActivity {
 
     List<GetDoctorDetails> sub_doctor_obj_list;
     String doctor;
+
+    TextView no_results;
 
     RecyclerView recyclerView2;
     Not_Approval_DoctorRecyclerView obj2;
@@ -46,8 +53,26 @@ public class Doctor_Not_Approval_Activity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         fd = FirebaseDatabase.getInstance();
 
+        no_results=(TextView) findViewById(R.id.notavailable);
+
+        Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(mTopToolbar);
 
 
+        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.doctorspinner);
+        spinner.setItems("List of Not Approved Doctors","List of Approved Doctors");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+
+
+                if(item.equals("List of Approved Doctors")){
+                    Intent intent=new Intent(Doctor_Not_Approval_Activity.this,DoctorListActivity.class);
+                    startActivity(intent);
+                }
+//                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
             listref = fd.getReference("sushruta").child("DoctorActivity").child("Head");
             listref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -124,6 +149,14 @@ public class Doctor_Not_Approval_Activity extends AppCompatActivity {
                                 obj2 = new Not_Approval_DoctorRecyclerView(Doctor_Not_Approval_Activity.this, sub_doctor_obj_list,Doctor_Not_Approval_Activity.this);
                                 recyclerView2.setAdapter(obj2);
 
+
+                                if(userList.size()==0){
+                                    no_results.setText("Not Available");
+                                }
+                                else
+                                {
+                                    no_results.setText("");
+                                }
                             }
 
                             @Override
@@ -155,7 +188,7 @@ public class Doctor_Not_Approval_Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.approved_button, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 

@@ -5,12 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Doctor_Not_Approval_Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/doctorspinner"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:textColor="@color/textColor"
+            />
+
+
+    </android.support.v7.widget.Toolbar>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="685dp"
+        android:layout_below="@+id/toolbar2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="0dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
+
+    <TextView
+        android:id="@+id/notavailable"
+        android:layout_width="298dp"
+        android:layout_height="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 </RelativeLayout>

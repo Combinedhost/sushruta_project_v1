@@ -50,11 +50,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DoctorListActivity"
-            android:label="List of Doctors"
+            android:label=" "
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".SubDoctorListActivity"
-            android:label="List of Sub Doctors"
+            android:label=" "
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Patient_Information"
@@ -86,6 +86,7 @@
         <activity android:name=".ChartActivity" />
 
         <activity android:name=".Not_Approval_Activity"
+            android:label=" "
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <service android:name=".MyFirebaseMessagingService">
@@ -95,6 +96,7 @@
         </service>
 
         <activity android:name=".Doctor_Not_Approval_Activity"
+            android:label=" "
             android:theme="@style/AppTheme.NoActionBar"
             />
     </application>

@@ -77,77 +77,79 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null)
         {
-            dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
-//        dialog.setTitle("Logging in");
-            dialog.show();
-            dialog.setMessage("Checking for valid session");
+
             final String usernamesp=sharedPref.getString("Username","");
+            if(!usernamesp.isEmpty()) {
 
-            approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
+                dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
+                //        dialog.setTitle("Logging in");
+                dialog.show();
+                dialog.setMessage("Checking for valid session");
+                approvalspref = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
 
-           approvalspref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String approval = dataSnapshot.getValue().toString();
-                    if (approval.equals("Approved")){
-                        dialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"Session Valid",Toast.LENGTH_SHORT).show();
-                        String position = sharedPref.getString("Position","SubDoctor");
-                        Log.i("test",position);
-                        if (position.equals("Head")) {
+                approvalspref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String approval = dataSnapshot.getValue().toString();
+                        if (approval.equals("Approved")) {
+                            dialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Session Valid", Toast.LENGTH_SHORT).show();
+                            String position = sharedPref.getString("Position", "SubDoctor");
+                            Log.i("test", position);
+                            if (position.equals("Head")) {
 
-                            Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
-                            //intent.putExtra("user", userId);
-                            startActivity(intent);
-                        }
-                        else if (position.equals("Doctor")) {
+                                Intent intent = new Intent(LoginActivity.this, DoctorListActivity.class);
+                                //intent.putExtra("user", userId);
+                                startActivity(intent);
+                            } else if (position.equals("Doctor")) {
 
-                            Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
-                            intent.putExtra("user", usernamesp);
-                            startActivity(intent);
-                        }
-                        else if (position.equals("SubDoctor")) {
+                                Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
+                                intent.putExtra("user", usernamesp);
+                                startActivity(intent);
+                            } else if (position.equals("SubDoctor")) {
 
-                            Intent intent = new Intent(LoginActivity.this, PatientList.class);
-                            intent.putExtra("user", usernamesp);
-                            startActivity(intent);
-                        }
-                    }
-                    else{
-                        dialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"No Valid Session",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, PatientList.class);
+                                intent.putExtra("user", usernamesp);
+                                startActivity(intent);
+                            }
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "No Valid Session", Toast.LENGTH_SHORT).show();
 
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
-
-            approvalspref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String approval = dataSnapshot.getValue().toString();
-                    if (approval.equals("Not Approved")) {
-                        Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
-                        if(!active){
-                            Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
-                            startActivity(intent);
                         }
 
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+
+
+                approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
+
+                approvalspref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String approval = dataSnapshot.getValue().toString();
+                        if (approval.equals("Not Approved")) {
+                            Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
+                            if(!active){
+                                Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
 
 
         }
