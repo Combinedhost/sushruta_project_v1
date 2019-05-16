@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/approved"
-        android:icon="@drawable/tick"
-        android:title="approved"
-        app:showAsAction="ifRoom" />
+
+        android:checkable="false"
+        android:title="Approved Doctors"
+        android:visible="true"
+        app:showAsAction="always" />
+    <!--android:icon="@drawable/tick"-->
 </menu>

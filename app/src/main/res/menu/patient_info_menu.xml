@@ -6,10 +6,25 @@
         android:id="@+id/save"
         android:icon="@drawable/ic_save"
         android:title="Save"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/edit"
         android:icon="@drawable/ic_edit"
         android:title="Edit"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/profile"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="LogOut" />
+
+    <item
+        android:id="@+id/delete"
+        android:title="Delete this Account" />
+
+
+
 </menu>

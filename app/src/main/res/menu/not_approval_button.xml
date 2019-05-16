@@ -4,8 +4,7 @@
 
     <item
         android:id="@+id/not_approved"
-        android:icon="@android:drawable/ic_lock_idle_lock"
-        android:title="Not_approved"
+        android:title="Not_approved Doctors"
         app:showAsAction="ifRoom" />
-
+    <!--android:icon="@android:drawable/ic_lock_idle_lock"-->
 </menu>

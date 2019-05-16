@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ParametersList extends Navigation {
+public class ParametersList extends Activity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     ArrayList<String> param_list;
@@ -45,16 +44,11 @@ public class ParametersList extends Navigation {
     Button b1;
     TextView heading;
     String user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_parameters_patients);
+        setContentView(R.layout.activity_parameters_patients);
 
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View contentView = inflater.inflate(R.layout.activity_parameters_patients, null, false);
-        drawer.addView(contentView, 0);
 
         firebaseDatabase=FirebaseDatabase.getInstance();
         param_list=new ArrayList<String>();

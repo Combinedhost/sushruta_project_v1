@@ -3,27 +3,36 @@ package com.mbp.sushruta_v1;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
-public class DoctorListActivity extends Navigation {
+public class DoctorListActivity extends AppCompatActivity {
 
     FirebaseDatabase fd;
     DatabaseReference listref,dataref;
@@ -34,21 +43,32 @@ public class DoctorListActivity extends Navigation {
     RecyclerView recyclerView;
     DoctorRecyclerView obj1;
 
+
+    Toolbar mTopToolbar;
+
     LinearLayoutManager mLayoutManager;
     private static final String TAG = "DoctorListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_doctor_list);
-
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View contentView = inflater.inflate(R.layout.activity_doctor_list, null, false);
-        drawer.addView(contentView, 0);
-
+        setContentView(R.layout.activity_doctor_list);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(this);
+
+
+        mTopToolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(mTopToolbar);
+
+
+        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.doctorspinner);
+        spinner.setItems("List of Approved Doctors","List of Not Approved Doctors");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
 
 
         fd = FirebaseDatabase.getInstance();
@@ -165,7 +185,7 @@ public class DoctorListActivity extends Navigation {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.not_approval_button, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -175,12 +195,12 @@ public class DoctorListActivity extends Navigation {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if(id==R.id.not_approved){
-
-            Intent intent=new Intent(this,Doctor_Not_Approval_Activity.class);
-            startActivity(intent);
-
-        }
+//        if(id==R.id.not_approved){
+//
+//            Intent intent=new Intent(this,Doctor_Not_Approval_Activity.class);
+//            startActivity(intent);
+//
+//        }
         return super.onOptionsItemSelected(item);
     }
 
