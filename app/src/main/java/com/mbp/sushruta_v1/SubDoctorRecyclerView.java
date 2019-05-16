@@ -128,11 +128,11 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
             @Override
             public boolean onLongClick(View v) {
 
-//                Context wrapper = new ContextThemeWrapper(ct, R.style.AppCompatAlertDialogStyle);
+                Context wrapper = new ContextThemeWrapper(ct, R.style.AppCompatAlertDialogStyle);
 
-//                rightpopup=new PopupMenu(wrapper,viewHolder.rl,Gravity.RIGHT);
+                rightpopup=new PopupMenu(wrapper,viewHolder.rl,Gravity.RIGHT);
 
-                rightpopup=new PopupMenu(ct,viewHolder.rl,Gravity.RIGHT);
+//                rightpopup=new PopupMenu(ct,viewHolder.rl,Gravity.RIGHT);
 
                 rightpopup.getMenuInflater().inflate(R.menu.right_click_menu,rightpopup.getMenu());
 

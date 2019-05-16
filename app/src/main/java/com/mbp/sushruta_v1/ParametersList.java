@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -41,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ParametersList extends Activity {
+public class ParametersList extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     ArrayList<String> param_list;
@@ -57,6 +59,17 @@ public class ParametersList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parameters_patients);
 
+        ImageView back=(ImageView) findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(mTopToolbar);
 
         firebaseDatabase=FirebaseDatabase.getInstance();
         param_list=new ArrayList<String>();
