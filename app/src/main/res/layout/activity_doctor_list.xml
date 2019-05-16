@@ -21,22 +21,13 @@
             android:id="@+id/doctorspinner"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_margin="8dp"
             android:textColor="@color/textColor"
             />
 
 
     </android.support.v7.widget.Toolbar>
 
-    <!--<android.support.v7.widget.AppCompatSpinner-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-
-    <!--android:background="#FFFFFF"-->
-    <!--android:backgroundTint="#FFFFFF"-->
-    <!--android:id="@+id/doctorspinner"-->
-    <!--android:popupBackground="@color/popup"-->
-    <!--android:dropDownSelector="@color/textColor">-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -47,5 +38,17 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="1dp" />
+        android:layout_marginBottom="1dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/notavailable"
+        android:layout_width="298dp"
+        android:layout_height="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 </RelativeLayout>

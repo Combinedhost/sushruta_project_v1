@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +45,7 @@ public class DoctorListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DoctorRecyclerView obj1;
 
+    TextView no_results;
 
     Toolbar mTopToolbar;
 
@@ -56,9 +59,11 @@ public class DoctorListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(this);
 
+        no_results=(TextView) findViewById(R.id.notavailable);
 
         mTopToolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(mTopToolbar);
+
 
 
         MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.doctorspinner);
@@ -66,7 +71,13 @@ public class DoctorListActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+
+
+                if(item.equals("List of Not Approved Doctors")){
+                                Intent intent=new Intent(DoctorListActivity.this,Doctor_Not_Approval_Activity.class);
+                                startActivity(intent);
+                }
+//                Snackbar.make(view, "Displaying " + item, Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -152,6 +163,13 @@ public class DoctorListActivity extends AppCompatActivity {
 
                             }
 
+                            if(userList.size()==0){
+                                no_results.setText("Not Available");
+                            }
+                            else
+                            {
+                                no_results.setText("");
+                            }
                         }
 
                         @Override
