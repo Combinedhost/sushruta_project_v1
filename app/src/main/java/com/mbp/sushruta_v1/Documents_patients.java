@@ -18,8 +18,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -55,7 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class Documents_patients extends Activity {
+public class Documents_patients extends AppCompatActivity {
 
     private static final int PICK_FILE = 40;
     private Uri filePath;
@@ -75,6 +77,18 @@ public class Documents_patients extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documents_patients);
 
+
+        ImageView back=(ImageView) findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(mTopToolbar);
 
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();

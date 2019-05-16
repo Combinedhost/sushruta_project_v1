@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.github.mikephil.charting.data.BarEntry;
 import com.google.firebase.database.DataSnapshot;
@@ -31,11 +33,20 @@ public class ChartActivity extends AppCompatActivity {
     String user,param,date;
     List<Date> x_axis=new ArrayList<Date>();
     List<String> y_axis=new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
+        ImageView back=(ImageView) findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Bundle bundle=getIntent().getExtras();
         user=bundle.getString("user");
