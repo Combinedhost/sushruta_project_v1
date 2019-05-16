@@ -11,9 +11,9 @@
     <application
         android:name=".GlobalClass"
         android:allowBackup="true"
-        android:icon="@drawable/sushruta_white"
+        android:icon="@drawable/sushruta_icon_white"
         android:label="Sushruta"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/sushruta_ic_launcher"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:largeHeap="true"

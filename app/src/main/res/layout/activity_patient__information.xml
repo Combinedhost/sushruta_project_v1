@@ -98,7 +98,6 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
 
                         app:cardElevation="10dp">
 
@@ -137,7 +136,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -172,7 +170,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -210,7 +207,6 @@
                         android:layout_marginEnd="20dp"
 
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -250,7 +246,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -291,7 +286,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -331,7 +325,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -374,7 +367,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -417,7 +409,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
@@ -461,7 +452,6 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="#ffffff"
-                        app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
                         <RelativeLayout
