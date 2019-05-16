@@ -15,4 +15,13 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
+    <TextView
+        android:id="@+id/notavailable"
+        android:layout_width="298dp"
+        android:layout_height="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 </RelativeLayout>

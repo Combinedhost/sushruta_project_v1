@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -44,6 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 
 public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<Not_Approval_SubDoctor_Recyclerview.subrecyclerholder> {
@@ -88,65 +90,74 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
         Glide.with(ct).load(obj.getImageUrl()).into(viewHolder.im);
 
 
+        SharedPreferences sharedPref = ct.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
-        viewHolder.rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos=viewHolder.getAdapterPosition();
-
-                d=new Dialog(a);
+        String position = sharedPref.getString("Position", "SubDoctor");
+        Log.i("test", position);
+        if (position.equals("SubDoctor")) {
 
 
+            viewHolder.rl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos=viewHolder.getAdapterPosition();
 
-                d.setContentView(R.layout.popup_notapproved);
-
-
-                imageView=(ImageView)d.findViewById(R.id.view4);
-                t1=(TextView)d.findViewById(R.id.textView);
-                t2=(TextView)d.findViewById(R.id.textView2);
-                t3=(TextView)d.findViewById(R.id.textView3);
-                t4=(TextView)d.findViewById(R.id.textView5);
-                t5=(TextView)d.findViewById(R.id.textView6);
-                close=(ImageView)d.findViewById(R.id.image);
-                approve=(ImageView)d.findViewById(R.id.tick);
+                    d=new Dialog(a);
 
 
-                Glide.with(ct).load(obj.getImageUrl()).into(imageView);
-                t1.setText(obj.getName());
-                t2.setText(obj.getDoctorID());
-                t3.setText(obj.getSpecialization());
-                t4.setText(obj.getLicense());
-                t5.setText(obj.getPhoneNo());
 
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        d.dismiss();
-                    }
-                });
+                    d.setContentView(R.layout.popup_notapproved);
 
-                approve.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FirebaseDatabase fd=FirebaseDatabase.getInstance();
-                        DatabaseReference dataref = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
-                        dataref.child("Approval").setValue("Approved");
+
+                    imageView=(ImageView)d.findViewById(R.id.view4);
+                    t1=(TextView)d.findViewById(R.id.textView);
+                    t2=(TextView)d.findViewById(R.id.textView2);
+                    t3=(TextView)d.findViewById(R.id.textView3);
+                    t4=(TextView)d.findViewById(R.id.textView5);
+                    t5=(TextView)d.findViewById(R.id.textView6);
+                    close=(ImageView)d.findViewById(R.id.image);
+                    approve=(ImageView)d.findViewById(R.id.tick);
+
+
+                    Glide.with(ct).load(obj.getImageUrl()).into(imageView);
+                    t1.setText(obj.getName());
+                    t2.setText(obj.getDoctorID());
+                    t3.setText(obj.getSpecialization());
+                    t4.setText(obj.getLicense());
+                    t5.setText(obj.getPhoneNo());
+
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            d.dismiss();
+                        }
+                    });
+
+                    approve.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FirebaseDatabase fd=FirebaseDatabase.getInstance();
+                            DatabaseReference dataref = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
+                            dataref.child("Approval").setValue("Approved");
 
 //                        DatabaseReference dataref1 = fd.getReference("sushruta").child("Details").child("Doctor").child(obj.getUsername());
 //                        dataref.child("Approval").setValue("Approved");
 
-                        sendFCMPush("You are approved by the doctor",obj.getUsername());
-                        sendFCMPush(obj.getUsername()+ " has been approved as sub doctor under "+doctor,"Head");
-                        d.dismiss();
-                    }
-                });
+                            sendFCMPush("You are approved by the doctor",obj.getUsername());
+                            sendFCMPush(obj.getUsername()+ " has been approved as sub doctor under "+doctor,"Head");
+                            d.dismiss();
+                        }
+                    });
 
-                d.show();
-                d.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    d.show();
+                    d.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
 
-            }
-        });
+                }
+            });
+
+        }
+
 
 
 

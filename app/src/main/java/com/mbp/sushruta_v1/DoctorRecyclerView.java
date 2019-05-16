@@ -96,10 +96,13 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
         viewHolder.rl.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Context wrapper = new ContextThemeWrapper(ct, R.style.AppCompatAlertDialogStyle);
 
-                rightpopup=new PopupMenu(wrapper,viewHolder.rl,Gravity.RIGHT);
+//                Context wrapper = new ContextThemeWrapper(ct, R.style.AppCompatAlertDialogStyle);
+//
+//                rightpopup=new PopupMenu(wrapper,viewHolder.rl,Gravity.RIGHT);
 
+
+                rightpopup=new PopupMenu(ct,viewHolder.rl,Gravity.RIGHT);
 
                 rightpopup.getMenuInflater().inflate(R.menu.right_click_menu,rightpopup.getMenu());
 
