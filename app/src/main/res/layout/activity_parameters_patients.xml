@@ -7,15 +7,33 @@
     android:background="#77c2f4"
     tools:context=".ParametersList">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/toolbar3"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="7dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/left" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        >
+
+        android:layout_marginTop="60dp"
+        android:background="#FFFFFF">
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_param_fab"
@@ -34,21 +52,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/t1"
-            android:divider="#b9353333"
-            android:dividerHeight="1dp"
-            android:layout_marginStart="20dp"
             android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp" />
+            android:divider="#b9353333"
+            android:dividerHeight="1dp" />
 
 
         <TextView
             android:id="@+id/t1"
-            android:layout_width="226dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="10dp"
             android:text="PARAMETERS"
             android:textAlignment="center"
             android:textSize="24sp"
