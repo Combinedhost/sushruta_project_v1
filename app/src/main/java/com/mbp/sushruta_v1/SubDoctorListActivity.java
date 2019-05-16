@@ -78,6 +78,7 @@ public class SubDoctorListActivity extends AppCompatActivity {
 
                 if(item.equals("List of Not Approved SubDoctors")){
                     Intent intent=new Intent(SubDoctorListActivity.this,Not_Approval_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("user",doctor);
                     startActivity(intent);
                 }

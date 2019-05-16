@@ -55,6 +55,7 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
 
             //Toast.makeText(ct,"You clicked "+userarray[viewHolder.getAdapterPosition()], Toast.LENGTH_LONG ).show();
             Intent i1 = new Intent(ct, Patient_Information.class);
+            i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             int pos=viewHolder.getAdapterPosition();
             GetPatientDetails objj=obj_list.get(pos);
             i1.putExtra("Patient",objj.getPatientID());

@@ -77,6 +77,7 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
 
                 //Toast.makeText(ct,"You clicked "+userarray[viewHolder.getAdapterPosition()], Toast.LENGTH_LONG ).show();
                 Intent i1 = new Intent(a, PatientList.class);
+                i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 int pos=viewHolder.getAdapterPosition();
                 GetDoctorDetails objj=obj_list.get(pos);
                 i1.putExtra("user",objj.getUsername());

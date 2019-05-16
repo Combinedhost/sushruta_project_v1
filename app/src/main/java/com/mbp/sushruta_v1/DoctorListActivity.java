@@ -84,6 +84,7 @@ public class DoctorListActivity extends AppCompatActivity {
 
                 if(item.equals("List of Not Approved Doctors")){
                                 Intent intent=new Intent(DoctorListActivity.this,Doctor_Not_Approval_Activity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                                 startActivity(intent);
                 }
 //                Snackbar.make(view, "Displaying " + item, Snackbar.LENGTH_LONG).show();

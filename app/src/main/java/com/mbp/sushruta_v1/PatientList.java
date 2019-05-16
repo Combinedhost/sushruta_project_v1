@@ -84,6 +84,7 @@ public class PatientList extends AppCompatActivity {
                     Intent i;
                     i = new Intent(getApplicationContext(), Create_Patient.class);
                     i.putExtra("Subdoctor", subdoctor);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                 }
             });
