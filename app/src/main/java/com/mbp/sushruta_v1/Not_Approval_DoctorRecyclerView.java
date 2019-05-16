@@ -91,8 +91,9 @@ public class Not_Approval_DoctorRecyclerView extends RecyclerView.Adapter<Not_Ap
         viewHolder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos=viewHolder.getAdapterPosition();
 
+                int pos=viewHolder.getAdapterPosition();
+                obj=obj_list.get(pos);
                 d=new Dialog(a);
 
 

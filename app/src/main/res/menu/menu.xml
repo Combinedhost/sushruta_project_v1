@@ -8,7 +8,7 @@
         android:id="@+id/logout"
         android:title="LogOut" />
 
-    <item
-        android:id="@+id/delete"
-        android:title="Delete this Account" />
+    <!--<item-->
+        <!--android:id="@+id/delete"-->
+        <!--android:title="Delete this Account" />-->
 </menu>

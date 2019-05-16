@@ -21,15 +21,23 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -322,6 +330,101 @@ public class Documents_patients extends Activity {
 
             }
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if(id==R.id.profile)
+        {
+            final Dialog dialog=new Dialog(Documents_patients.this);
+
+            dialog.setContentView(R.layout.popup);
+
+
+            final ImageView imageView = (ImageView) dialog.findViewById(R.id.view4);
+            final TextView name = (TextView) dialog.findViewById(R.id.textView);
+            final TextView docid = (TextView) dialog.findViewById(R.id.textView2);
+            final TextView spec = (TextView) dialog.findViewById(R.id.textView3);
+            final TextView licid =(TextView)dialog.findViewById(R.id.textView6);
+            ImageView close = (ImageView) dialog.findViewById(R.id.button);
+
+
+            SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
+            String username=sharedPref.getString("Username","");
+            Log.i("test",username);
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("sushruta").child("Details").child("Doctor").child(username);
+            Log.i("test",username);
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    String Name = String.valueOf(dataSnapshot.child("Name").getValue());
+                    String ImageUrl = String.valueOf(dataSnapshot.child("ImageUrl").getValue());
+                    String Specialist = String.valueOf(dataSnapshot.child("Specialization").getValue());
+                    String DocID=String.valueOf(dataSnapshot.child("DoctorID").getValue());
+                    String LicID=String.valueOf(dataSnapshot.child("LicenseID").getValue());
+
+
+                    Glide.with(getApplicationContext()).load(ImageUrl).into(imageView);
+                    name.setText(Name);
+                    docid.setText(DocID);
+                    spec.setText(Specialist);
+                    licid.setText(LicID);
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.getWindow().setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                infodialog.getWindow().setColorMode(Color.TRANSPARENT);
+            dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.show();
+
+        }
+        if(id==R.id.logout)
+        {
+            SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
+            String username=sharedPref.getString("Username","");
+            if(username!=null){
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(username);
+            }
+
+
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getApplicationContext(), "You are Logged Out", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
