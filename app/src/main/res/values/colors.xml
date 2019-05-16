@@ -8,5 +8,5 @@
     <color name="popup">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="loading">#2E86C1</color>
-    <color name="menubackground">#039be5</color>
+    <color name="menubackground">@drawable/line</color>
 </resources>
