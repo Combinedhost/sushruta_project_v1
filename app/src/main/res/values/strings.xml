@@ -32,11 +32,22 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_chart">ChartActivity</string>
+    <string name="finish">Click to finish</string>
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
 
 
     <string-array name="doc_list">
-    <item>List of Approved Doctors</item>
-    <item>List of Not Approved Doctors</item>
+        <item>List of Approved Doctors</item>
+        <item>List of Not Approved Doctors</item>
+
 
     </string-array>
 </resources>
