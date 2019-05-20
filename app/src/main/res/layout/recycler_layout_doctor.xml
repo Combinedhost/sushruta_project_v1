@@ -8,19 +8,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     card_view:cardUseCompatPadding="true"
-
+    card_view:cardBackgroundColor="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardBackgroundColor="#FFF"
 
-    card_view:contentPadding="10dp">
+   >
+    <ImageView
+        android:src="@drawable/b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
 
+    <!--card_view:contentPadding="10dp"-->
+
+    <!--card_view:cardBackgroundColor="@drawable/b"-->
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF">
+
+        >
 
 
         <TextView
@@ -46,8 +54,8 @@
 
             android:id="@+id/imageButton"
             class="de.hdodenhof.circleimageview.CircleImageView"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
 
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
