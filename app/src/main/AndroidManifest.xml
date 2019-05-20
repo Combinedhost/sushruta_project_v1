@@ -39,6 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -103,7 +105,7 @@
             android:name=".Doctor_Not_Approval_Activity"
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".WelcomeActivity"></activity>
+
     </application>
 
 </manifest>
