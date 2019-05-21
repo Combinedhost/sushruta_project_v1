@@ -96,7 +96,7 @@ PatientList extends AppCompatActivity {
             }
             else
             {
-                fbar.setVisibility(View.INVISIBLE);
+                fbar.setVisibility(View.VISIBLE);
             }
 
             listref = fd.getReference("sushruta").child("PatientActivity").child(subdoctor);

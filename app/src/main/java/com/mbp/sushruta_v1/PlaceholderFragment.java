@@ -140,7 +140,7 @@ public  class PlaceholderFragment extends android.support.v4.app.Fragment {
             }
             else
             {
-                fab.setVisibility(View.INVISIBLE);
+                fab.setVisibility(View.VISIBLE);
             }
             ImageView chart = (ImageView) rootView.findViewById(R.id.chart);
             chart.setOnClickListener(new View.OnClickListener() {

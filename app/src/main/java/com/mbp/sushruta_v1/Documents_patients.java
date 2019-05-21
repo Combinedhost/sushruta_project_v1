@@ -169,7 +169,7 @@ public class Documents_patients extends AppCompatActivity {
         }
         else
         {
-            Add_file_fab.setVisibility(View.INVISIBLE);
+            Add_file_fab.setVisibility(View.VISIBLE);
         }
 
         if (ContextCompat.checkSelfPermission(this,

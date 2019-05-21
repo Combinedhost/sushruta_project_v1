@@ -186,7 +186,7 @@ public class ParametersList extends AppCompatActivity {
         }
         else
         {
-            fab.setVisibility(View.INVISIBLE);
+            fab.setVisibility(View.VISIBLE);
         }
 
 
