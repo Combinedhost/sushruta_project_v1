@@ -47,7 +47,7 @@ public class Create_Patient extends AppCompatActivity {
     FirebaseDatabase fd4;
     DatabaseReference ref4;
     ImageView imageView;
-    EditText Name, Address, BloodGroup, Height, Weight, PatientId, Gender, Age, AadharNo, InsuranceID, Medicine;
+    EditText Name, Address, BloodGroup, Height, Weight, PatientId, Gender, Age, AadharNo, InsuranceID, Medicine,PhoneNo;
     RadioButton radioButton1, radioButton2, radioButton3;
     Button b;
     String gender;
@@ -96,6 +96,7 @@ public class Create_Patient extends AppCompatActivity {
         Weight = (EditText) findViewById(R.id.weightinkg);
         InsuranceID = (EditText) findViewById(R.id.insuranceid);
         Medicine = (EditText) findViewById(R.id.medicineid);
+        PhoneNo=(EditText)findViewById(R.id.phone_number);
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -300,6 +301,7 @@ public class Create_Patient extends AppCompatActivity {
                                         map.put("Address", Address.getText().toString());
                                         map.put("Gender", gender);
                                         map.put("Medicines", Medicine.getText().toString());
+                                        map.put("PhoneNo",PhoneNo.getText().toString());
                                         if(gender.equals("Male")){
                                             map.put("Name", "Mr. "+Name.getText().toString());
                                         }

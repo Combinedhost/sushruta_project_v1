@@ -5,6 +5,6 @@
         android:title="@string/message" />
 
     <item
-        android:id="@+id/disapprove"
-        android:title="Disapprove"/>
+        android:id="@+id/delete"
+        android:title="Delete"/>
 </menu>

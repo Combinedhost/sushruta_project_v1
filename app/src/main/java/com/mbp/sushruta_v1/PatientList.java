@@ -41,7 +41,7 @@ PatientList extends AppCompatActivity {
 
     List<GetPatientDetails> patient_obj_list;
     TextView no_results;
-    List<String> userList;
+    List<String> userList,UIDList;
     RecyclerView recyclerView3;
     PatientRecyclerView obj3;
 
@@ -105,15 +105,21 @@ PatientList extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot ds) {
                     patient_obj_list = new ArrayList<GetPatientDetails>();
                     userList = new ArrayList<>();
+                    UIDList=new ArrayList<>();
 
 
                     //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
 
                     for (DataSnapshot ds1 : ds.getChildren()) {
 
+                        String UID =String.valueOf(ds1.getKey());
 
                         String Username = String.valueOf(ds1.getValue());
+
+                        UIDList.add(UID);
+
                         Log.i(TAG, Username);
+
 
                         DatabaseReference dataref = fd.getReference("sushruta").child("Details").child("Patient").child(Username);
                         dataref.addValueEventListener(new ValueEventListener() {
@@ -159,7 +165,7 @@ PatientList extends AppCompatActivity {
 
                                 Log.i(TAG, "Value = " + Name + ImageUrl);
                                 recyclerView3.setLayoutManager(mLayoutManager);
-                                obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list, subdoctor);
+                                obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list, subdoctor,UIDList);
                                 recyclerView3.setAdapter(obj3);
 
 

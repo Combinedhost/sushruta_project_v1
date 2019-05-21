@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,6 +138,21 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
 //                rightpopup=new PopupMenu(ct,viewHolder.rl,Gravity.RIGHT);
 
                 rightpopup.getMenuInflater().inflate(R.menu.right_click_menu,rightpopup.getMenu());
+
+
+                SharedPreferences sharedPref = ct.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
+                String position = sharedPref.getString("Position", "Doctor");
+                Log.i("test", position);
+                Menu popupMenu = rightpopup.getMenu();
+
+                if (position.equals("Doctor")) {
+
+                    popupMenu.findItem(R.id.disapprove).setVisible(true);
+                }
+                else{
+                    popupMenu.findItem(R.id.disapprove).setVisible(false);
+                }
 
                 rightpopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override

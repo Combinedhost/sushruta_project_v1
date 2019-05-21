@@ -42,7 +42,7 @@ public class Patient_Information extends AppCompatActivity {
     DatabaseReference dataref,listref;
     ImageView imageView;
     EditText Name,Gender,Age;
-    EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines;
+    EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines,PhoneNo;
     TableLayout layout;
     RelativeLayout documentrl,parameterrl;
     String patient,imageUrl;
@@ -70,6 +70,7 @@ public class Patient_Information extends AppCompatActivity {
         Height=(EditText) findViewById(R.id.heightinches);
         Weight=(EditText) findViewById(R.id.weightinkg);
         InsuranceID=(EditText) findViewById(R.id.insuranceid);
+        PhoneNo=(EditText)findViewById(R.id.phone_number);
 
         Name.setEnabled(false);
         Name.setScrollY(40);
@@ -83,6 +84,7 @@ public class Patient_Information extends AppCompatActivity {
         PatientId.setEnabled(false);
         Medicines.setEnabled(false);
         Address.setEnabled(false);
+        PhoneNo.setEnabled(false);
 
         fd = FirebaseDatabase.getInstance();
 
@@ -108,6 +110,7 @@ public class Patient_Information extends AppCompatActivity {
                     String patientId=String.valueOf(ds1.child("PatientId").getValue());
                     String address=String.valueOf(ds1.child("Address").getValue());
                     String medicine=String.valueOf(ds1.child("Medicines").getValue());
+                    String Phoneno=String.valueOf(ds1.child("PhoneNo").getValue());
 
                     Log.i(TAG,name);
                     Log.i(TAG,age);
@@ -140,7 +143,7 @@ public class Patient_Information extends AppCompatActivity {
                     PatientId.setText(patientId);
                     Address.setText(address);
                     Medicines.setText(medicine);
-
+                    PhoneNo.setText(Phoneno);
 
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -256,6 +259,7 @@ public class Patient_Information extends AppCompatActivity {
             map.put("Address", Address.getText().toString());
             map.put("Gender", Gender.getText().toString());
             map.put("Medicines", Medicines.getText().toString());
+            map.put("PhoneNo",PhoneNo.getText().toString());
             dataref.setValue(map);
 
 
@@ -270,7 +274,7 @@ public class Patient_Information extends AppCompatActivity {
             PatientId.setEnabled(false);
             Medicines.setEnabled(false);
             Address.setEnabled(false);
-
+            PhoneNo.setEnabled(false);
 
 
         }
@@ -286,6 +290,7 @@ public class Patient_Information extends AppCompatActivity {
             InsuranceID.setEnabled(true);
             Medicines.setEnabled(true);
             Address.setEnabled(true);
+            PhoneNo.setEnabled(true);
 
         }
 

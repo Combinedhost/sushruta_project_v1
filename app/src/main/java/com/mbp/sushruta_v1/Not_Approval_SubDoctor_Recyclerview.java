@@ -92,16 +92,16 @@ public class Not_Approval_SubDoctor_Recyclerview extends RecyclerView.Adapter<No
 
         SharedPreferences sharedPref = ct.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
-        String position = sharedPref.getString("Position", "SubDoctor");
+        String position = sharedPref.getString("Position", "Doctor");
         Log.i("test", position);
-        if (position.equals("SubDoctor")) {
+        if (position.equals("Doctor")) {
 
 
             viewHolder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos=viewHolder.getAdapterPosition();
-
+                    obj=obj_list.get(pos);
                     d=new Dialog(a);
 
 
