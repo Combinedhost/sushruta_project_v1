@@ -3,6 +3,7 @@
     android:shape="rectangle" android:padding="10dp">
     <!-- you can use any color you want I used here gray color-->
     <solid android:color="#5BB6C4"/>
+
     <gradient
         android:startColor="@color/colorPrimary"
         android:endColor="@color/colorPrimaryDark"
