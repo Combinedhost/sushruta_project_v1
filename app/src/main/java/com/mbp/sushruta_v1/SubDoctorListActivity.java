@@ -123,7 +123,7 @@ public class SubDoctorListActivity extends AppCompatActivity {
                             String Specialization=String.valueOf(ds2.child("Specialization").getValue());
                             String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
                             String PhoneNo=String.valueOf(ds2.child("Phoneno").getValue());
-
+                            String License=String.valueOf(ds2.child("LicenseID").getValue());
                             obj.setAge(Age);
                             obj.setUsername(Username);
                             obj.setDesignation(Designation);
@@ -134,6 +134,7 @@ public class SubDoctorListActivity extends AppCompatActivity {
                             obj.setDoctorID(DoctorId);
                             obj.setSpecialization(Specialization);
                             obj.setPhoneNo(PhoneNo);
+                            obj.setLicense(License);
 
                             String approval=String.valueOf(ds2.child("Approval").getValue());
                             if(approval.equals("Approved")){

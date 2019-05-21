@@ -104,12 +104,14 @@ public class SubDoctorRecyclerView extends RecyclerView.Adapter<SubDoctorRecycle
                 t1=(TextView)d.findViewById(R.id.textView);
                 t2=(TextView)d.findViewById(R.id.textView2);
                 t3=(TextView)d.findViewById(R.id.textView3);
+                t4=(TextView)d.findViewById(R.id.textView6);
                 close=(ImageView)d.findViewById(R.id.button);
 
                 Glide.with(ct).load(objj.getImageUrl()).into(imageView);
                 t1.setText(objj.getName());
                 t2.setText(objj.getDoctorID());
                 t3.setText(objj.getSpecialization());
+                t4.setText(objj.getLicense());
 
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override

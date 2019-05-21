@@ -167,12 +167,15 @@ public class DoctorRecyclerView extends RecyclerView.Adapter<DoctorRecyclerView.
                 t1=(TextView)infodialog.findViewById(R.id.textView);
                 t2=(TextView)infodialog.findViewById(R.id.textView2);
                 t3=(TextView)infodialog.findViewById(R.id.textView3);
+                t4=(TextView)infodialog.findViewById(R.id.textView6);
+
                 close=(ImageView)infodialog.findViewById(R.id.button);
 
                 Glide.with(ct).load(objj.getImageUrl()).into(imageView);
                 t1.setText(objj.getName());
                 t2.setText(objj.getDoctorID());
                 t3.setText(objj.getSpecialization());
+                t4.setText(objj.getLicense());
 
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
