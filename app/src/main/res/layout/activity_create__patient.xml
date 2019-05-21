@@ -240,7 +240,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="106dp"
+                                android:layout_marginStart="80dp"
+                                android:layout_marginEnd="80dp"
+                                android:layout_toEndOf="@+id/id"
                                 android:hint="Patient Id"
                                 android:textColor="#000000"
                                 android:textColorHint="#000000"
@@ -278,7 +280,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="97dp"
+                                android:layout_marginStart="70dp"
+                                android:layout_marginEnd="70dp"
+                                android:layout_toEndOf="@+id/blood"
                                 android:hint="Blood Group"
                                 android:textColor="#000000"
                                 android:textColorHint="#000000"
@@ -316,7 +320,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="96dp"
+                                android:layout_marginStart="75dp"
+                                android:layout_marginEnd="75dp"
+                                android:layout_toEndOf="@+id/insurance_icon"
                                 android:hint="Insurance ID"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -355,7 +361,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="120dp"
+                                android:layout_marginStart="100dp"
+                                android:layout_marginEnd="100dp"
+                                android:layout_toEndOf="@+id/height_icon"
                                 android:hint="Height"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -394,7 +402,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="117dp"
+                                android:layout_marginStart="100dp"
+                                android:layout_marginEnd="100dp"
+                                android:layout_toEndOf="@+id/weight_icon"
                                 android:hint="Weight"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -482,6 +492,51 @@
                                 android:layout_marginBottom="42dp"
                                 android:layout_toEndOf="@+id/address_icon"
                                 android:hint="Address"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textColorHint="#000000"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+
+                        android:backgroundTint="#ffffff"
+                        app:cardElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/phone"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/call_icon" />
+
+                            <EditText
+                                android:id="@+id/phoneid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="43dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="27dp"
+                                android:layout_marginEnd="25dp"
+                                android:layout_marginBottom="42dp"
+                                android:layout_toEndOf="@+id/phone"
+                                android:hint="Phone Number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#000000"
