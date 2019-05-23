@@ -140,7 +140,7 @@ public  class PlaceholderFragment extends android.support.v4.app.Fragment {
             }
             else
             {
-                fab.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.INVISIBLE);
             }
             ImageView chart = (ImageView) rootView.findViewById(R.id.chart);
             chart.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +163,7 @@ public  class PlaceholderFragment extends android.support.v4.app.Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     stk.removeAllViews();
-                    TableRow tbrow0 = new TableRow(getContext());
+                    TableRow tbrow0 = new TableRow(getActivity());
                     tbrow0.setPadding(50, 10, 50, 10);
                     tbrow0.setGravity(Gravity.CENTER);
                     TextView tv0 = new TextView(getActivity());
