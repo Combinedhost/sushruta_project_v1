@@ -236,7 +236,7 @@
 
                             <EditText
                                 android:id="@+id/idnumber"
-                                android:layout_width="wrap_content"
+                                android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
@@ -276,7 +276,7 @@
 
                             <EditText
                                 android:id="@+id/bloodgroup"
-                                android:layout_width="wrap_content"
+                                android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
@@ -316,7 +316,7 @@
 
                             <EditText
                                 android:id="@+id/insuranceid"
-                                android:layout_width="wrap_content"
+                                android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
@@ -402,7 +402,7 @@
 
                             <EditText
                                 android:id="@+id/heightinches"
-                                android:layout_width="wrap_content"
+                                android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
@@ -443,7 +443,7 @@
 
                             <EditText
                                 android:id="@+id/weightinkg"
-                                android:layout_width="wrap_content"
+                                android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
