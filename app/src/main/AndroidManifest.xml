@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.mbp.sushruta_v1.GlobalClass"
+        android:name=".GlobalClass"
         android:allowBackup="true"
         android:icon="@drawable/sushruta_white"
         android:label=""
@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Alert"></activity>
+        <activity android:name=".Attendance_history" />
+        <activity android:name=".Location_history" />
+        <activity android:name=".NotificationActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
@@ -34,7 +38,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisterActivity3"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DoctorListActivity"
             android:label="List of Doctors" />
@@ -55,7 +59,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Test"></activity>
+        <activity android:name=".Test" />
     </application>
 
 </manifest>
