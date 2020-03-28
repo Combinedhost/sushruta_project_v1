@@ -15,33 +15,28 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="124dp"
+            android:layout_height="200dp"
 
             >
 
             <view
                 android:id="@+id/Patient_profile"
                 class="de.hdodenhof.circleimageview.CircleImageView"
-                android:layout_width="116dp"
-                android:layout_height="96dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="3dp"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/pro" />
 
             <TextView
                 android:id="@+id/Patient_name"
                 android:layout_width="235dp"
-                android:layout_height="49dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="33dp"
-                android:layout_toStartOf="@+id/Patient_profile"
-
+                android:layout_height="50dp"
                 android:gravity="center"
+                android:layout_below="@+id/Patient_profile"
+                android:layout_marginTop="5dp"
+                android:text="Patient Name"
+                android:layout_centerHorizontal="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
@@ -49,13 +44,10 @@
                 android:layout_width="226dp"
                 android:layout_height="37dp"
                 android:layout_below="@+id/Patient_name"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="29dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="37dp"
-                android:layout_toStartOf="@+id/Patient_profile"
-                android:text="Gender-Age"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="Gender-Age"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>
