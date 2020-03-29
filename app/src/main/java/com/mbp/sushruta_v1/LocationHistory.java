@@ -3,7 +3,12 @@ package com.mbp.sushruta_v1;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Location_history extends AppCompatActivity {
+import com.google.android.gms.location.FusedLocationProviderClient;
+
+public class LocationHistory extends AppCompatActivity {
+
+    int PERMISSION_ID = 44;
+    FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
