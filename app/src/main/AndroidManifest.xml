@@ -15,7 +15,7 @@
         android:icon="@drawable/sushruta_icon_white"
         android:label="Sushruta"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/sushruta_ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
