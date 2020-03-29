@@ -33,12 +33,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+android:layout_below="@+id/toolbar3"
+        android:padding="10dp"
 
 
-        android:layout_marginTop="60dp"
-
-
-        android:background="#FFFFFF">
+        android:background="#eeeeee">
 
         <TextView
             android:id="@+id/t1"
@@ -58,24 +57,22 @@
             android:id="@+id/add_file_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_margin="16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="11dp"
-            android:layout_marginBottom="11dp"
             android:clickable="true"
-            android:src="@android:drawable/ic_input_add" />
+            android:backgroundTint="#FFFFFF"
+            android:src="@drawable/plus" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/t1"
+            android:layout_marginTop="10dp"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-
-            android:layout_marginEnd="20dp" />
+            android:background="#f5f5f5"
+             />
 
 
     </RelativeLayout>
