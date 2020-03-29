@@ -21,25 +21,7 @@
 
             >
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentStart="true"
-android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/location" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/attn" />
 
             <view
                 android:id="@+id/Patient_profile"
@@ -142,6 +124,102 @@ android:layout_marginTop="10dp"
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
+
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#ffffff"
+                        app:cardElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/location_tracking"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/location" />
+
+                            <EditText
+                                android:id="@+id/editText3"
+                                android:layout_width="250dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="60dp"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:text="Location History"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#ffffff"
+                        app:cardElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/address_tracking"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+android:layout_centerVertical="true"
+                                android:layout_alignParentStart="true"
+android:layout_marginStart="10dp"
+                                android:src="@drawable/attn" />
+
+                            <EditText
+                                android:id="@+id/editText5"
+                                android:layout_width="250dp"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+android:textSize="18sp"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="60dp"
+                                android:inputType="textPersonName"
+                                android:text="Name" />
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+
+
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
