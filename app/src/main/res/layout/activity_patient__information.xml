@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#77c2f4"
+    android:background="#f5f5f5"
     tools:context=".Patient_Information">
 
 
@@ -17,68 +17,61 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="124dp"
+            android:layout_height="200dp"
 
             >
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+           android:src="@drawable/location"/>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+             android:src="@drawable/attn"
+              />
 
             <view
                 android:id="@+id/Patient_profile"
                 class="de.hdodenhof.circleimageview.CircleImageView"
-                android:layout_width="116dp"
-                android:layout_height="96dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="3dp"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/pro" />
 
-            <EditText
+            <TextView
                 android:id="@+id/Patient_name"
                 android:layout_width="235dp"
-                android:layout_height="49dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="33dp"
-                android:layout_toStartOf="@+id/Patient_profile"
-
+                android:layout_height="50dp"
                 android:gravity="center"
-                android:hint="Name"
-                android:textColor="#000000"
-                android:textColorHint="#000000"
-                android:textSize="18sp" />
+                android:layout_below="@+id/Patient_profile"
+                android:layout_marginTop="5dp"
+                android:text="Patient Name"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-            <EditText
-                android:id="@+id/Gender"
-                android:layout_width="80dp"
-                android:layout_height="42dp"
+            <TextView
+                android:id="@+id/Gender_Age"
+                android:layout_width="226dp"
+                android:layout_height="37dp"
                 android:layout_below="@+id/Patient_name"
-                android:layout_alignStart="@+id/Patient_name"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="9dp"
-
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Gender"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/Age"
-                android:layout_width="80dp"
-                android:layout_height="41dp"
-                android:layout_below="@+id/Patient_name"
-                android:layout_alignEnd="@+id/Patient_name"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="10dp"
-
-                android:gravity="center"
-                android:text="Age"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:layout_centerHorizontal="true"
+                android:text="Gender-Age"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -110,21 +103,21 @@
 
                             <ImageView
                                 android:id="@+id/adhaar"
-                                android:layout_width="110dp"
-                                android:layout_height="110dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginTop="3dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/aadhaar_logo" />
 
                             <EditText
                                 android:id="@+id/adhaarnumber"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="82dp"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/_858837467920"
+                                android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
@@ -147,18 +140,20 @@
 
                             <ImageView
                                 android:id="@+id/id"
-                                android:layout_width="110dp"
-                                android:layout_height="110dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/id" />
 
                             <EditText
                                 android:id="@+id/idnumber"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="106dp"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/_5555544"
+                                android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
@@ -181,20 +176,21 @@
 
                             <ImageView
                                 android:id="@+id/blood"
-                                android:layout_width="110dp"
-                                android:layout_height="110dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/blood" />
 
                             <EditText
                                 android:id="@+id/bloodgroup"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="121dp"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/o_ve"
+                                android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
@@ -218,21 +214,20 @@
 
                             <ImageView
                                 android:id="@+id/insurance_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/insurance" />
 
                             <EditText
                                 android:id="@+id/insuranceid"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="106dp"
+                                android:layout_marginEnd="60dp"
                                 android:text="AB12345"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -258,22 +253,21 @@
 
                             <ImageView
                                 android:id="@+id/phone_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/call_icon" />
 
                             <EditText
                                 android:id="@+id/phone_number"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
+
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginTop="33dp"
-                                android:layout_marginEnd="86dp"
+                   android:layout_centerVertical="true"
+                                android:layout_marginEnd="60dp"
                                 android:enabled="false"
                                 android:text="Phone Number"
                                 android:textAlignment="center"
@@ -299,21 +293,20 @@
 
                             <ImageView
                                 android:id="@+id/height_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/height_icon" />
 
                             <EditText
                                 android:id="@+id/heightinches"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="127dp"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/_5_8"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -339,21 +332,20 @@
 
                             <ImageView
                                 android:id="@+id/weight_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/weight_icon" />
 
                             <EditText
                                 android:id="@+id/weightinkg"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="127dp"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/_63"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -378,23 +370,22 @@
 
                             <ImageView
                                 android:id="@+id/medicine"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/medicine_icon" />
 
                             <EditText
                                 android:id="@+id/medicineid"
-                                android:layout_width="220dp"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
+
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginStart="32dp"
-                                android:layout_marginTop="24dp"
-                                android:layout_marginEnd="32dp"
+                             android:layout_centerVertical="true"
+
+                                android:layout_marginEnd="10dp"
                                 android:layout_toEndOf="@+id/medicine"
                                 android:text="@string/ciprofloxacin_azithromycin_and_ceftriaxone"
                                 android:textAlignment="center"
@@ -420,23 +411,24 @@
 
                             <ImageView
                                 android:id="@+id/address_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/address" />
 
                             <EditText
                                 android:id="@+id/addressid"
-                                android:layout_width="220dp"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
+                           android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginStart="32dp"
-                                android:layout_marginTop="24dp"
-                                android:layout_marginEnd="32dp"
+
+
+                                android:layout_marginEnd="10dp"
                                 android:layout_toEndOf="@+id/address_icon"
                                 android:text="@string/_134_sengunthar_nagar_erode_638004"
                                 android:textAlignment="center"
@@ -463,22 +455,20 @@
 
                             <ImageView
                                 android:id="@+id/param_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/parameters" />
 
                             <EditText
                                 android:id="@+id/parameters"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
+android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginTop="35dp"
-                                android:layout_marginEnd="84dp"
+                                android:layout_marginEnd="60dp"
                                 android:enabled="false"
                                 android:text="Parameters"
                                 android:textAlignment="center"
@@ -491,13 +481,12 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="112dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_height="100dp"
                         android:backgroundTint="#ffffff"
-                        app:cardElevation="10dp">
+                        app:cardElevation="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="10dp">
 
                         <RelativeLayout
                             android:id="@+id/documents_rl"
@@ -506,22 +495,20 @@
 
                             <ImageView
                                 android:id="@+id/documents_icon"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
                                 android:src="@drawable/docs_icon" />
 
                             <EditText
                                 android:id="@+id/documents"
-                                android:layout_width="wrap_content"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginTop="33dp"
-                                android:layout_marginEnd="86dp"
+android:layout_centerVertical="true"
+                                android:layout_marginEnd="60dp"
                                 android:enabled="false"
                                 android:text="Documents"
                                 android:textAlignment="center"
