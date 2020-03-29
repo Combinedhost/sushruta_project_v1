@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -37,7 +38,7 @@ public class Patient_Information extends AppCompatActivity {
     FirebaseDatabase fd;
     DatabaseReference dataref,listref;
     ImageView imageView;
-    EditText Name,Gender,Age;
+    TextView Name,Gender,Age;
     EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines,PhoneNo;
     TableLayout layout;
     RelativeLayout documentrl,parameterrl;
@@ -55,11 +56,11 @@ public class Patient_Information extends AppCompatActivity {
         parameterrl=(RelativeLayout)findViewById(R.id.parameters_rl);
 
         imageView=(ImageView)findViewById(R.id.Patient_profile);
-        Name=(EditText) findViewById(R.id.Patient_name);
+        Name=(TextView) findViewById(R.id.Patient_name);
         Address=(EditText) findViewById(R.id.addressid);
         BloodGroup=(EditText) findViewById(R.id.bloodgroup);
-        Gender=(EditText) findViewById(R.id.Gender);
-        Age=(EditText) findViewById(R.id.Age);
+        Gender=(TextView) findViewById(R.id.Gender);
+        Age=(TextView) findViewById(R.id.Age);
         Medicines=(EditText) findViewById(R.id.medicineid);
         PatientId=(EditText) findViewById(R.id.idnumber);
         AadharNo=(EditText) findViewById(R.id.adhaarnumber);

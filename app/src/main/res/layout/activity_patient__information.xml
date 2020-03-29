@@ -17,7 +17,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
 
             >
 
@@ -25,50 +25,66 @@
                 android:id="@+id/imageView3"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerVertical="true"
-android:layout_alignParentStart="true"
+                android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-           android:src="@drawable/location"/>
+                android:src="@drawable/location" />
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-             android:src="@drawable/attn"
-              />
+                android:src="@drawable/attn" />
 
             <view
                 android:id="@+id/Patient_profile"
                 class="de.hdodenhof.circleimageview.CircleImageView"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"
                 android:src="@drawable/pro" />
 
             <TextView
                 android:id="@+id/Patient_name"
                 android:layout_width="235dp"
-                android:layout_height="50dp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/Patient_profile"
-                android:layout_marginTop="5dp"
-                android:text="Patient Name"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Patient Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/Gender_Age"
-                android:layout_width="226dp"
-                android:layout_height="37dp"
+                android:id="@+id/Gender"
+                android:layout_width="235dp"
+                android:layout_height="30dp"
                 android:layout_below="@+id/Patient_name"
+                android:layout_alignStart="@+id/Patient_name"
+                android:layout_alignEnd="@+id/Patient_name"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:gravity="center"
+                android:text="Gender"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/Age"
+                android:layout_width="235dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/Gender"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:text="Gender-Age"
+                android:text="Age"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>
@@ -105,8 +121,10 @@ android:layout_alignParentStart="true"
                                 android:id="@+id/adhaar"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
                                 android:src="@drawable/aadhaar_logo" />
 
                             <EditText
@@ -143,6 +161,7 @@ android:layout_alignParentStart="true"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
                                 android:src="@drawable/id" />
 
                             <EditText
@@ -180,6 +199,7 @@ android:layout_alignParentStart="true"
                                 android:layout_height="70dp"
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
                                 android:src="@drawable/blood" />
 
                             <EditText
@@ -383,10 +403,9 @@ android:layout_alignParentStart="true"
                                 android:layout_height="wrap_content"
 
                                 android:layout_alignParentEnd="true"
-                             android:layout_centerVertical="true"
+                                android:layout_centerVertical="true"
 
-                                android:layout_marginEnd="10dp"
-                                android:layout_toEndOf="@+id/medicine"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/ciprofloxacin_azithromycin_and_ceftriaxone"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -424,12 +443,11 @@ android:layout_alignParentStart="true"
                                 android:id="@+id/addressid"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                           android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
 
 
-                                android:layout_marginEnd="10dp"
-                                android:layout_toEndOf="@+id/address_icon"
+                                android:layout_marginEnd="60dp"
                                 android:text="@string/_134_sengunthar_nagar_erode_638004"
                                 android:textAlignment="center"
                                 android:textColor="#000000"

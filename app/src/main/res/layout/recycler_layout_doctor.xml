@@ -8,63 +8,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     card_view:cardUseCompatPadding="true"
-    android:background="#f5f5f5"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="#FFF"
+    card_view:cardCornerRadius="10dp"
+    card_view:contentPadding="10dp">
 
-   >
-    <ImageView
-        android:src="#FFFFFF"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
-
-    <!--card_view:contentPadding="10dp"-->
-
-    <!--card_view:cardBackgroundColor="@drawable/b"-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        >
+        android:background="#FFF">
 
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="271dp"
-            android:layout_height="56dp"
+            android:layout_width="158dp"
+            android:layout_height="26dp"
 
 
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginStart="8dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="Dr.AbdulKalam"
-            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
-            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/imageButton"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <view
-
             android:id="@+id/imageButton"
             class="de.hdodenhof.circleimageview.CircleImageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:scaleType="centerInside"
 
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+
+            android:layout_marginStart="10dp"
 
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            card_view:layout_constraintTop_toTopOf="parent"  />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

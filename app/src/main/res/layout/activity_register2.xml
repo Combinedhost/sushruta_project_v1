@@ -111,7 +111,6 @@ android:layout_centerInParent="true"
                         android:layout_height="100dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-android:scaleType="centerInside"
                         android:layout_marginTop="10dp"
                         android:gravity="top"
                         android:src="@drawable/add_profile" />
@@ -182,7 +181,7 @@ android:layout_centerHorizontal="true"
                             android:layout_width="250dp"
 
 
-                            android:layout_height="wrap_content"
+                            android:layout_height="200dp"
 
                             android:layout_below="@+id/textView4"
                             android:layout_marginTop="10dp"

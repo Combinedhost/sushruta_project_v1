@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:padding="10dp"
             android:layout_gravity="center">
 
             <TextView
@@ -75,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:onClick="register"
-                android:text="Register Here"
+                android:text="@string/register"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:textColor="#5E5F63" />
         </LinearLayout>
     </ScrollView>
