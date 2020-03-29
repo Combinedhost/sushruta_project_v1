@@ -3,9 +3,8 @@ package com.mbp.sushruta_v1;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.RelativeLayout;
 
 public class SplashScreen extends Activity {
 private static int SPLASH_TIME_OUT=2000;
