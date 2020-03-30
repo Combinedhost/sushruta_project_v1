@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
     ProgressDialog dialog;
@@ -201,6 +208,21 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void triggerLocationWorker(){
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
+                .build();
+
+
+        PeriodicWorkRequest locationWork=
+                new PeriodicWorkRequest.Builder(LocationWorker.class, 15, TimeUnit.MINUTES)
+                        .setConstraints(constraints).build();
+
+        WorkManager.getInstance().enqueue(locationWork);
+    }
+
     private void Validate(final String userName, String passWord){
 
         firebaseAuth.signInWithEmailAndPassword(userName,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -263,6 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                             } else if (position.equals("SubDoctor")) {
                                                 dialog.dismiss();
+                                                triggerLocationWorker();
                                                 Intent intent = new Intent(LoginActivity.this, PatientList.class);
                                                 intent.putExtra("user", userId);
                                                 startActivity(intent);
