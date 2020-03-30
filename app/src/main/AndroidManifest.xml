@@ -12,7 +12,7 @@
         android:name=".GlobalClass"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher"
         android:label="Sushruta"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
