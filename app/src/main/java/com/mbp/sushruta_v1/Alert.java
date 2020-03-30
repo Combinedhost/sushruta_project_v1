@@ -17,13 +17,11 @@ public class Alert extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
 
-        WorkManager mWorkManager = WorkManager.getInstance();
-
         PeriodicWorkRequest.Builder dayWorkBuilder =
-                new PeriodicWorkRequest.Builder(NotificationActivity.class, 1, TimeUnit.MINUTES, 5, TimeUnit.MINUTES);
+                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES);
 
         PeriodicWorkRequest dayWork = dayWorkBuilder.build();
 
-        mWorkManager.enqueue(dayWork);
+        WorkManager.getInstance().enqueue(dayWork);
     }
 }

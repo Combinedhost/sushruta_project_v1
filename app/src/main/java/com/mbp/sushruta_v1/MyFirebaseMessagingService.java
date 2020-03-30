@@ -24,7 +24,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated.
 
-
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             String from = remoteMessage.getFrom();
@@ -37,9 +36,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, channelId);
             Log.d(TAG, "Message Topic: " + from);
             sendNotification(title, message, channelId);
-
-
-
         }
     }
 
