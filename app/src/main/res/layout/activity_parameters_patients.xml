@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#77c2f4"
+    android:background="#f5f5f5"
     tools:context=".ParametersList">
 
 
@@ -27,6 +27,18 @@
         android:foregroundGravity="center"
         android:src="@drawable/left" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_param_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:backgroundTint="#FFFFFF"
+        android:layout_alignParentBottom="true"
+android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:src="@drawable/plus" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,18 +46,6 @@
         android:layout_marginTop="60dp"
         android:background="#FFFFFF">
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_param_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="11dp"
-            android:layout_marginBottom="11dp"
-            android:clickable="true"
-            android:src="@android:drawable/ic_input_add" />
 
         <ListView
             android:id="@+id/listview"

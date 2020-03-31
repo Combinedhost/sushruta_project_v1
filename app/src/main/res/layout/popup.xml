@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#2E86C1"
-   >
+    android:background="#FFFFFF"
+    >
 
     <RelativeLayout
-        android:layout_width="267dp"
-        android:layout_height="313dp"
+        android:layout_width="264dp"
+        android:layout_height="288dp"
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -19,13 +19,14 @@
         android:layout_marginBottom="24dp">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+
 
 
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:backgroundTint="#fff"
+            android:backgroundTint="#eeeeee"
             app:cardCornerRadius="10dp">
 
             <RelativeLayout
@@ -38,10 +39,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="71dp"
-                    android:background="@drawable/b"
+                    android:layout_marginTop="75dp"
                     android:fontFamily="sans-serif-condensed"
-
+                    android:text="Name"
                     android:textAlignment="center"
                     android:textSize="24sp" />
 
@@ -55,9 +55,8 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@drawable/b"
                     android:fontFamily="sans-serif-condensed"
-
+                    android:text="Doctor ID"
                     android:textAlignment="center"
                     android:textSize="24sp" />
 
@@ -67,65 +66,54 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView2"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/b"
+                    android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-condensed"
-
+                    android:text="Specialisation"
                     android:textAlignment="center"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/textView6"
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView3"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/b"
+                    android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-condensed"
-
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
-
-
+                    android:layout_centerHorizontal="true"
+                    android:textSize="24sp"
+                    android:text="TextView" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="264dp"
-
-
-
-        android:layout_height="167dp"
-
+        android:layout_width="267dp"
+        android:layout_height="163dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="0dp"
-
         android:layout_marginEnd="24dp">
 
         <view
             android:id="@+id/view4"
             class="de.hdodenhof.circleimageview.CircleImageView"
-            android:layout_width="154dp"
-            android:layout_height="129dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="34dp"
+            android:layout_marginTop="35dp"
             android:elevation="10dp"
-            />
+            android:src="@drawable/pro" />
 
         <ImageView
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="0dp"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            android:layout_marginTop="5dp"
+            android:src="@drawable/close"/>
 
     </RelativeLayout>
 
