@@ -38,11 +38,11 @@
 
         <activity android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
         </activity>
         <activity android:name=".TestActivity">
 <!--        <intent-filter>-->
@@ -120,6 +120,19 @@
             android:name=".Doctor_Not_Approval_Activity"
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Alert"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".NotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
     </application>
 

@@ -33,20 +33,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1048056992937-up3j72j4b9uice1t4v8nvc7jg4gh4pi8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     },
@@ -58,6 +51,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1048056992937-o8kupgv1ahokvg1n1kdtg08mu6gs6k3d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mbp.sushruta_v1",
+            "certificate_hash": "24ba841f572adc790d0541f5ee90f1dd3af0f0c4"
+          }
+        },
         {
           "client_id": "1048056992937-p5bgl405eshas8kju48ij1ieors6a1pg.apps.googleusercontent.com",
           "client_type": 1,
@@ -77,20 +78,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1048056992937-up3j72j4b9uice1t4v8nvc7jg4gh4pi8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
