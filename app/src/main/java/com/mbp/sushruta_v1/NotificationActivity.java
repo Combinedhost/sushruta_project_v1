@@ -9,7 +9,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -33,7 +32,7 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-         
+
                 Map<String, String> map1 = new HashMap<String, String>();
                 map1.put("Attendance Time", dateFormat);
                 dataRef.setValue(map1);
