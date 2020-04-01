@@ -468,6 +468,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="60dp"
                                 android:hint="Phone Number"
+                                android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#000000"
@@ -475,89 +476,6 @@
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
-
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-
-                        android:backgroundTint="#ffffff"
-                        app:cardElevation="10dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:id="@+id/attendance_id"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
-                                android:src="@drawable/attn" />
-
-                            <EditText
-                                android:id="@+id/attendance_history"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
-                                android:hint="Attendance History"
-                                android:textAlignment="center"
-                                android:textColor="#000000"
-                                android:textColorHint="#000000"
-                                android:textSize="18sp" />
-                        </RelativeLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-
-                        android:backgroundTint="#ffffff"
-                        app:cardElevation="10dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:id="@+id/location_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
-                                android:src="@drawable/location" />
-
-                            <EditText
-                                android:id="@+id/location_history"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
-                                android:hint="Location History"
-                                android:textAlignment="center"
-                                android:textColor="#000000"
-                                android:textColorHint="#000000"
-                                android:textSize="18sp" />
-                        </RelativeLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-
-
 
 
                     <RelativeLayout

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="#e0e0e0"
     android:padding="10dp"
     android:orientation="vertical"
     tools:context=".RegisterActivity2"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 android:layout_centerInParent="true"
-        android:backgroundTint="#9ccc65"
+        android:backgroundTint="#fafafa"
         app:cardCornerRadius="10dp">
 
         <ScrollView
@@ -36,10 +36,10 @@ android:layout_centerInParent="true"
                         android:layout_below="@+id/image"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
-
+android:backgroundTint="@color/textColor"
                         android:hint="Name"
-                        android:textColor="@android:color/background_light"
-                        android:textColorHint="@android:color/background_light" />
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/textColor" />
 
                     <EditText
                         android:id="@+id/Age"
@@ -49,8 +49,9 @@ android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:hint="Age"
-                        android:textColor="@android:color/background_light"
-                        android:textColorHint="@android:color/background_light" />
+                        android:backgroundTint="@color/textColor"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/textColor" />
 
                     <EditText
                         android:id="@+id/DoctorId"
@@ -61,14 +62,16 @@ android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:hint="Doctor ID"
-                        android:textColor="@android:color/background_light"
-                        android:textColorHint="@android:color/background_light" />
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/textColor"
+                        android:backgroundTint="@color/textColor"/>
 
                     <RadioGroup
                         android:id="@+id/gender"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-
+android:backgroundTint="@color/textColor"
+android:weightSum="3"
                         android:layout_below="@+id/DoctorId"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
@@ -81,16 +84,17 @@ android:layout_centerInParent="true"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Male"
-                            android:textColor="@android:color/background_light" />
+                            android:backgroundTint="@color/textColor"
+                            android:textColor="@color/textColor" />
 
                         <RadioButton
                             android:id="@+id/Female"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
                             android:layout_weight="1"
                             android:text="Female"
-                            android:textColor="@android:color/background_light" />
+                            android:backgroundTint="@color/textColor"
+                            android:textColor="@color/textColor" />
 
                         <RadioButton
                             android:id="@+id/Other"
@@ -98,7 +102,8 @@ android:layout_centerInParent="true"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Other"
-                            android:textColor="@android:color/background_light" />
+                            android:backgroundTint="@color/textColor"
+                            android:textColor="@color/textColor" />
                     </RadioGroup>
 
 
@@ -111,27 +116,27 @@ android:layout_centerInParent="true"
                         android:layout_height="100dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-android:scaleType="centerInside"
                         android:layout_marginTop="10dp"
                         android:gravity="top"
                         android:src="@drawable/add_profile" />
 
                     <EditText
                         android:id="@+id/Specialisation"
-                        android:layout_width="155dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-
+android:backgroundTint="@color/textColor"
                         android:layout_below="@+id/gender"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:hint="Specialisation"
-                        android:textColor="@android:color/background_light"
-                        android:textColorHint="@android:color/background_light" />
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/textColor" />
 
                     <RadioGroup
                         android:id="@+id/selection"
                         android:layout_width="227dp"
-
+android:backgroundTint="@color/textColor"
+                        android:weightSum="2"
                         android:layout_height="33dp"
                         android:layout_below="@+id/Specialisation"
                         android:layout_centerHorizontal="true"
@@ -140,19 +145,21 @@ android:scaleType="centerInside"
 
                         <RadioButton
                             android:id="@+id/Doctor"
-                            android:layout_width="90dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Doctor"
-                            android:textColor="@android:color/background_light" />
+android:textColorHint="@color/textColor"
+                            android:textColor="@color/textColor" />
 
                         <RadioButton
                             android:id="@+id/SubDoctor"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Sub-Doctor"
-                            android:textColor="@android:color/background_light" />
+                            android:textColorHint="@color/textColor"
+                            android:textColor="@color/textColor" />
                     </RadioGroup>
 
                     <RelativeLayout
@@ -175,14 +182,14 @@ android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text="Select the Doctor"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@android:color/background_light" />
+                            android:textColor="@color/textColor" />
 
                         <ListView
                             android:id="@+id/listview"
                             android:layout_width="250dp"
 
 
-                            android:layout_height="wrap_content"
+                            android:layout_height="150dp"
 
                             android:layout_below="@+id/textView4"
                             android:layout_marginTop="10dp"
@@ -199,6 +206,8 @@ android:layout_centerHorizontal="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:hint="Phone no"
+                 android:backgroundTint="@color/textColor"
+                        android:textColorHint="@color/textColor"
                         android:inputType="phone" />
 
                     <EditText
@@ -207,9 +216,12 @@ android:layout_centerHorizontal="true"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/phonenumber"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="27dp"
+                        android:layout_marginTop="30dp"
+
                         android:hint="LicenseId"
                         android:ems="10"
+                      android:backgroundTint="@color/textColor"
+                        android:textColorHint="@color/textColor"
                         android:inputType="text" />
 
                     <Button
@@ -223,7 +235,7 @@ android:layout_centerHorizontal="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="30dp"
-                        android:background="#689f38"
+                        android:background="@drawable/b"
                         android:text="Submit" />
 
                 </RelativeLayout>

@@ -7,16 +7,19 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".GlobalClass"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/sushruta_icon_white"
+        android:icon="@mipmap/ic_launcher"
         android:label="Sushruta"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/sushruta_ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <provider
@@ -41,7 +44,13 @@
 <!--            <category android:name="android.intent.category.LAUNCHER" />-->
 <!--        </intent-filter>-->
         </activity>
-        <!--<activity android:name=".TestActivity" />-->
+        <activity android:name=".TestActivity">
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
+        </activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar"/>
@@ -79,6 +88,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Test" />
+        <activity android:name=".LocationHistory" />
         <activity
             android:name=".Documents_patients"
             android:label=""

@@ -51,6 +51,8 @@ public class LocationWorker extends Worker {
                         @Override
                         public void onComplete(@NonNull Task<Location> task) {
                             Location location = task.getResult();
+                            Log.i("Location Accuracy", String.valueOf(location.getAccuracy()));
+                            Log.i("Location Provider", String.valueOf(location.getProvider()));
                             if (location == null) {
                                 requestNewLocationData();
                             } else {
@@ -67,15 +69,15 @@ public class LocationWorker extends Worker {
     @SuppressLint("MissingPermission")
     private void requestNewLocationData() {
 
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(0);
-        mLocationRequest.setFastestInterval(0);
-        mLocationRequest.setNumUpdates(1);
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(0);
+        locationRequest.setFastestInterval(0);
+        locationRequest.setNumUpdates(1);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
         mFusedLocationClient.requestLocationUpdates(
-                mLocationRequest, null
+                locationRequest, null
         );
 
     }

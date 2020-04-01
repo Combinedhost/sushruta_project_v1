@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -42,10 +43,12 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference positionRef,approvalRefsync,approvalRef,approvalspref;
+    private DatabaseReference positionRef, approvalRefsync, approvalRef, approvalspref;
     SharedPreferences sharedPref;
     String position,userId;
     static boolean active = false;
+    static String ATTENDANCE_PERIODIC_WORK = "attendance_periodic_work";
+    static String LOCATION_PERIODIC_WORK = "locaion_periodic_work";
 
     @Override
     public void onStart() {
@@ -109,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("user", usernamesp);
                                 startActivity(intent);
                             } else if (position.equals("SubDoctor")) {
-
+                                triggerLocationWorker();
                                 Intent intent = new Intent(LoginActivity.this, PatientList.class);
                                 intent.putExtra("user", usernamesp);
                                 startActivity(intent);
@@ -220,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                 new PeriodicWorkRequest.Builder(LocationWorker.class, 15, TimeUnit.MINUTES)
                         .setConstraints(constraints).build();
 
-        WorkManager.getInstance().enqueue(locationWork);
+        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork(LOCATION_PERIODIC_WORK, ExistingPeriodicWorkPolicy.KEEP, locationWork);
     }
 
     private void Validate(final String userName, String passWord){
