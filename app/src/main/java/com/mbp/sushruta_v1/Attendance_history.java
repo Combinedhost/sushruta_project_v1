@@ -34,6 +34,7 @@ public class Attendance_history extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_history);
+
         Bundle bundle = getIntent().getExtras();
         param = bundle.getString("param");
         user = bundle.getString("user");
@@ -53,7 +54,7 @@ public class Attendance_history extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ParameterValuesNew.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Attendance_history.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         dateFilter.setText(getDate(dayOfMonth, month, year));
