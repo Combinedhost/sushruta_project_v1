@@ -16,7 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -38,31 +40,22 @@ public class NotificationActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.post_attendance);
 
-        String dateParameter = new SimpleDateFormat("DD MMM YYYY", Locale.getDefault()).format(new Date());
+//        String dateParameter = new SimpleDateFormat("DD MMM YYYY", Locale.getDefault()).format(new Date());
+        DateFormat df = new SimpleDateFormat("d MMM yyyy");
+        String date = df.format(Calendar.getInstance().getTime());
 
         final FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
-        final DatabaseReference dataRef = dataBase.getReference("sushruta").child("Details").child("Parameters").child(patientId).child("Attendance").child(dateParameter);
+        final DatabaseReference dataRef = dataBase.getReference("sushruta").child("Details").child("Attendance").child(patientId).child(date);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String dateFormat = new SimpleDateFormat("hh:mm:ss aa", Locale.getDefault()).format(new Date());
 
-                dataRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String dateFormat = new SimpleDateFormat("hh:mm:ss aa", Locale.getDefault()).format(new Date());
-                        String key = dataBase.push().getKey();
-                        Map<String, String> map1 = new HashMap<String, String>();
-                        map1.put("time", dateFormat);
-                        dataRef.setValue(map1);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
+                String key = dataRef.push().getKey();
+                Map<String, String> map1 = new HashMap<String, String>();
+                map1.put("time", dateFormat);
+                dataRef.child(key).setValue(map1);
             }
         });
 
