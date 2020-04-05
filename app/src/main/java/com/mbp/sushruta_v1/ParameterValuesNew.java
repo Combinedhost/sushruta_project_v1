@@ -88,7 +88,6 @@ public class ParameterValuesNew extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
                     tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
                     tbrow0.setPadding(50, 10, 50, 10);

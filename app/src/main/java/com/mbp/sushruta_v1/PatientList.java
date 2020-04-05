@@ -34,8 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class
-PatientList extends AppCompatActivity {
+public class PatientList extends AppCompatActivity {
     FirebaseDatabase fd;
     DatabaseReference  listref;
 
@@ -59,12 +58,6 @@ PatientList extends AppCompatActivity {
 
         no_results=(TextView) findViewById(R.id.notavailable);
         fd = FirebaseDatabase.getInstance();
-        //        if(position.equals("SubDoctor")){
-//
-//        }
-//       else{
-//            fbar.setVisibility(View.INVISIBLE);
-//        }
         try {
 
             Bundle b1 = getIntent().getExtras();
@@ -107,9 +100,6 @@ PatientList extends AppCompatActivity {
                     userList = new ArrayList<>();
                     UIDList=new ArrayList<>();
 
-
-                    //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
-
                     for (DataSnapshot ds1 : ds.getChildren()) {
 
                         String UID =String.valueOf(ds1.getKey());
@@ -117,9 +107,6 @@ PatientList extends AppCompatActivity {
                         String Username = String.valueOf(ds1.getValue());
 
                         UIDList.add(UID);
-
-                        Log.i(TAG, Username);
-
 
                         DatabaseReference dataref = fd.getReference("sushruta").child("Details").child("Patient").child(Username);
                         dataref.addValueEventListener(new ValueEventListener() {
@@ -135,7 +122,6 @@ PatientList extends AppCompatActivity {
                                     patient_obj_list.remove(pos);
                                     userList.remove(pos);
                                 }
-
 
                                 userList.add(Username);
 
