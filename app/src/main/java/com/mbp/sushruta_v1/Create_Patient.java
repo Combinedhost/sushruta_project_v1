@@ -5,12 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +18,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,10 +43,10 @@ public class Create_Patient extends AppCompatActivity {
     FirebaseDatabase fd4;
     DatabaseReference ref4;
     ImageView imageView;
-    EditText Name, Address, BloodGroup, Height, Weight, PatientId, Gender, Age, AadharNo, InsuranceID, Medicine,PhoneNo;
+    EditText Name, Address, BloodGroup, Height, Weight, PatientId, Gender, Age, AadharNo, InsuranceID, Medicine, PhoneNo, quarantineLatitude, quarantineLongitude;
     RadioButton radioButton1, radioButton2, radioButton3;
     Button b;
-    String gender;
+    String gender = "";
     private static final String TAG = "Create_Patient";
     Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
@@ -74,8 +75,6 @@ public class Create_Patient extends AppCompatActivity {
         Bundle b1 = getIntent().getExtras();
         subdoctor = b1.getString("Subdoctor");
 
-        Log.i(TAG, subdoctor);
-
         b = (Button) findViewById(R.id.button2);
 
         imageView = (ImageView) findViewById(R.id.Patient_profile);
@@ -91,7 +90,9 @@ public class Create_Patient extends AppCompatActivity {
         Weight = (EditText) findViewById(R.id.weightinkg);
         InsuranceID = (EditText) findViewById(R.id.insuranceid);
         Medicine = (EditText) findViewById(R.id.medicineid);
-        PhoneNo=(EditText)findViewById(R.id.phone_number);
+        PhoneNo = (EditText) findViewById(R.id.phone_number);
+        quarantineLatitude = (EditText)findViewById(R.id.quarantine_latitude);
+        quarantineLatitude = (EditText)findViewById(R.id.quarantine_longitude);
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -129,20 +130,19 @@ public class Create_Patient extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-                camdialog= new Dialog(Create_Patient.this);
+                camdialog = new Dialog(Create_Patient.this);
                 camdialog.setContentView(R.layout.popup_camera);
 
                 Window window = camdialog.getWindow();
-                if(window!=null){
+                if (window != null) {
                     window.setGravity(Gravity.CENTER);
                 }
 
                 camdialog.setTitle("Select any on of the options");
 
-                ImageView close=(ImageView)camdialog.findViewById(R.id.close);
-                ImageView camera=(ImageView)camdialog.findViewById(R.id.camera);
-                ImageView gallery=(ImageView)camdialog.findViewById(R.id.gallery);
+                ImageView close = (ImageView) camdialog.findViewById(R.id.close);
+                ImageView camera = (ImageView) camdialog.findViewById(R.id.camera);
+                ImageView gallery = (ImageView) camdialog.findViewById(R.id.gallery);
 
 
                 close.setOnClickListener(new View.OnClickListener() {
@@ -157,23 +157,21 @@ public class Create_Patient extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         File rootPath = new File(Environment.getExternalStorageDirectory(), "Sushruta");
-                        if(!rootPath.exists()) {
+                        if (!rootPath.exists()) {
                             rootPath.mkdirs();
                         }
-                        String file = rootPath+"/"+UUID.randomUUID().toString()+".jpg";
-                        Log.i("Test",file);
+                        String file = rootPath + "/" + UUID.randomUUID().toString() + ".jpg";
+                        Log.i("Test", file);
                         File newfile = new File(file);
                         try {
                             newfile.createNewFile();
-                        }
-                        catch (IOException e)
-                        {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
 
                         //     Uri outputFileUri = Uri.fromFile(newfile);
                         Uri outputFileUri = FileProvider.getUriForFile(Create_Patient.this, "com.mbp.sushruta_v1.fileprovider", newfile);
-                        filePath=outputFileUri;
+                        filePath = outputFileUri;
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
@@ -184,10 +182,10 @@ public class Create_Patient extends AppCompatActivity {
                 gallery.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                         Intent intent = new Intent();
-                         intent.setType("image/*");
-                         intent.setAction(Intent.ACTION_GET_CONTENT);
-                         startActivityForResult(Intent.createChooser(intent, "Choose a image"), PICK_IMAGE_REQUEST);
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Choose a image"), PICK_IMAGE_REQUEST);
                     }
                 });
 
@@ -218,7 +216,6 @@ public class Create_Patient extends AppCompatActivity {
             filePath = data.getData();
 
             String s = data.getScheme();
-            Log.i(TAG, "onActivityResult: " + s);
 
             try {
 
@@ -247,13 +244,94 @@ public class Create_Patient extends AppCompatActivity {
         }
     }
 
+    public boolean isValidLatLng(double lat, double lng) {
+        if (lat < -90 || lat > 90) {
+            return false;
+        } else if (lng < -180 || lng > 180) {
+            return false;
+        }
+        return true;
+    }
+
+    private Boolean isDataValid() {
+
+        if (Name.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid name", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (Age.getText().toString().trim().equals("") || (Integer.parseInt(Age.getText().toString()) <= 0)) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid age", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (gender.trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly select a gender", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (AadharNo.getText().toString().trim().equals("") || AadharNo.getText().toString().length() < 12 ||  AadharNo.getText().toString().length() > 12) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid aadhar no", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (PatientId.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid patient id", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (BloodGroup.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid blood group", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (InsuranceID.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid insurance id", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+        if (Height.getText().toString().trim().equals("") || (Integer.parseInt(Height.getText().toString()) < 40)) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid height", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (Weight.getText().toString().trim().equals("") || (Integer.parseInt(Weight.getText().toString()) < 2)) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid weigth", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (Address.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid address", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (Medicine.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid medicine", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (PhoneNo.getText().toString().trim().equals("") || (Integer.parseInt(PhoneNo.getText().toString())) < 10 || (Integer.parseInt(PhoneNo.getText().toString())) > 10) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid phone number", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!isValidLatLng(Double.parseDouble(quarantineLatitude.getText().toString()), Double.parseDouble(quarantineLongitude.getText().toString()))) {
+            Toast.makeText(Create_Patient.this, "Quarentine location is not vlaid", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
+    }
 
     private void uploadImage() {
         try {
 
+            if (!isDataValid()) {
+                return;
+            }
 
             if (filePath != null) {
                 map = new HashMap<String, String>();
+
                 final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
                 progressDialog.setTitle("Registering Patient");
                 progressDialog.show();
@@ -296,16 +374,27 @@ public class Create_Patient extends AppCompatActivity {
                                         map.put("Address", Address.getText().toString());
                                         map.put("Gender", gender);
                                         map.put("Medicines", Medicine.getText().toString());
-                                        map.put("PhoneNo",PhoneNo.getText().toString());
-                                        if(gender.equals("Male")){
-                                            map.put("Name", "Mr. "+Name.getText().toString());
+                                        map.put("PhoneNo", PhoneNo.getText().toString());
+                                        map.put("Quarentine_Latitude", quarantineLatitude.getText().toString());
+                                        map.put("Quarentine_Longitude", quarantineLongitude.getText().toString());
+                                        if (gender.equals("Male")) {
+                                            map.put("Name", "Mr. " + Name.getText().toString());
                                         }
-                                        if(gender.equals("Female")){
-                                            map.put("Name", "Mrs. "+Name.getText().toString());
+                                        if (gender.equals("Female")) {
+                                            map.put("Name", "Mrs. " + Name.getText().toString());
                                         }
 
 
                                         dataref.setValue(map);
+
+                                        DatabaseReference loginRef = fd4.getReference("sushruta").child("Login").child("Patient").child(PhoneNo.getText().toString());
+
+
+                                        Map<String, String> loginMap = new HashMap<String, String>();
+                                        map.put("doctor_name", PhoneNo.getText().toString());
+                                        map.put("patient_id", PatientId.getText().toString());
+                                        loginRef.setValue(loginMap);
+
 
                                         Intent intent = new Intent(getApplicationContext(), PatientList.class);
                                         intent.putExtra("user", subdoctor);
@@ -337,8 +426,7 @@ public class Create_Patient extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "Upload a Profile Image", Toast.LENGTH_SHORT).show();
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
