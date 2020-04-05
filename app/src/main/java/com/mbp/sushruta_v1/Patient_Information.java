@@ -39,7 +39,7 @@ public class Patient_Information extends AppCompatActivity {
     DatabaseReference dataref,listref;
     ImageView imageView;
     TextView Name,Gender,Age;
-    EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines,PhoneNo;
+    EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines,PhoneNo, quarentineLatitude, quarentineLongitude;
     TableLayout layout;
     RelativeLayout documentrl,parameterrl;
     String patient,imageUrl;
@@ -68,6 +68,8 @@ public class Patient_Information extends AppCompatActivity {
         Weight=(EditText) findViewById(R.id.weightinkg);
         InsuranceID=(EditText) findViewById(R.id.insuranceid);
         PhoneNo=(EditText)findViewById(R.id.phone_number);
+        quarentineLatitude = (EditText) findViewById(R.id.quarentine_latitude);
+        quarentineLongitude = (EditText) findViewById(R.id.quarentine_longitude);
 
         Name.setEnabled(false);
         Name.setScrollY(40);
@@ -82,6 +84,8 @@ public class Patient_Information extends AppCompatActivity {
         Medicines.setEnabled(false);
         Address.setEnabled(false);
         PhoneNo.setEnabled(false);
+        quarentineLatitude.setEnabled(false);
+        quarentineLongitude.setEnabled(false);
 
         fd = FirebaseDatabase.getInstance();
 
@@ -108,24 +112,8 @@ public class Patient_Information extends AppCompatActivity {
                     String address=String.valueOf(ds1.child("Address").getValue());
                     String medicine=String.valueOf(ds1.child("Medicines").getValue());
                     String Phoneno=String.valueOf(ds1.child("PhoneNo").getValue());
-
-                    Log.i(TAG,name);
-                    Log.i(TAG,age);
-                    Log.i(TAG,imageUrl);
-                    Log.i(TAG,gender);
-                    Log.i(TAG,bloodGroup);
-                    Log.i(TAG,aadhar_no);
-                    Log.i(TAG,height);
-                    Log.i(TAG,weigth);
-                    Log.i(TAG,insurance);
-                    Log.i(TAG,patientId);
-                    Log.i(TAG,address);
-                    Log.i(TAG,medicine);
-
-
-                    Log.i(TAG,name+"  "+age+"  "+imageUrl);
-
-
+                    String latitude = String.valueOf(ds1.child("Quarentine_Latitude").getValue());
+                    String longitude = String.valueOf(ds1.child("Quarentine_Longitude").getValue());
 
 
                     Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
@@ -141,7 +129,8 @@ public class Patient_Information extends AppCompatActivity {
                     Address.setText(address);
                     Medicines.setText(medicine);
                     PhoneNo.setText(Phoneno);
-
+                    quarentineLatitude.setText(latitude);
+                    quarentineLongitude.setText(longitude);
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -257,6 +246,8 @@ public class Patient_Information extends AppCompatActivity {
             map.put("Gender", Gender.getText().toString());
             map.put("Medicines", Medicines.getText().toString());
             map.put("PhoneNo",PhoneNo.getText().toString());
+            map.put("Quarentine_Latitude", quarentineLatitude.getText().toString());
+            map.put("Quarentine_Longitude", quarentineLongitude.getText().toString());
             dataref.setValue(map);
 
 
@@ -272,6 +263,9 @@ public class Patient_Information extends AppCompatActivity {
             Medicines.setEnabled(false);
             Address.setEnabled(false);
             PhoneNo.setEnabled(false);
+            quarentineLatitude.setEnabled(false);
+            quarentineLongitude.setEnabled(false);
+
 
 
         }
@@ -288,6 +282,8 @@ public class Patient_Information extends AppCompatActivity {
             Medicines.setEnabled(true);
             Address.setEnabled(true);
             PhoneNo.setEnabled(true);
+            quarentineLatitude.setEnabled(true);
+            quarentineLongitude.setEnabled(true);
 
         }
 

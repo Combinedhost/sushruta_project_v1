@@ -91,8 +91,8 @@ public class Create_Patient extends AppCompatActivity {
         InsuranceID = (EditText) findViewById(R.id.insuranceid);
         Medicine = (EditText) findViewById(R.id.medicineid);
         PhoneNo = (EditText) findViewById(R.id.phone_number);
-//        quarantineLatitude = (EditText)findViewById(R.id.quarantine_latitude);
-//        quarantineLatitude = (EditText)findViewById(R.id.quarantine_longitude);
+        quarantineLatitude = (EditText)findViewById(R.id.quarantine_latitude);
+        quarantineLatitude = (EditText)findViewById(R.id.quarantine_longitude);
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -304,20 +304,20 @@ public class Create_Patient extends AppCompatActivity {
             return false;
         }
 
-//        if (Medicine.getText().toString().trim().equals("")) {
-//            Toast.makeText(Create_Patient.this, "Kindly enter a valid medicine", Toast.LENGTH_LONG).show();
-//            return false;
-//        }
+        if (Medicine.getText().toString().trim().equals("")) {
+            Toast.makeText(Create_Patient.this, "Kindly enter a valid medicine", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         if (PhoneNo.getText().toString().trim().equals("") || (Integer.parseInt(PhoneNo.getText().toString())) < 10 || (Integer.parseInt(PhoneNo.getText().toString())) > 10) {
             Toast.makeText(Create_Patient.this, "Kindly enter a valid phone number", Toast.LENGTH_LONG).show();
             return false;
         }
 
-//        if (!isValidLatLng(Double.parseDouble(quarantineLatitude.getText().toString()), Double.parseDouble(quarantineLongitude.getText().toString()))) {
-//            Toast.makeText(Create_Patient.this, "Quarentine location is not vlaid", Toast.LENGTH_LONG).show();
-//            return false;
-//        }
+        if (!isValidLatLng(Double.parseDouble(quarantineLatitude.getText().toString()), Double.parseDouble(quarantineLongitude.getText().toString()))) {
+            Toast.makeText(Create_Patient.this, "Quarentine location is not vlaid", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
     }
@@ -375,8 +375,8 @@ public class Create_Patient extends AppCompatActivity {
                                         map.put("Gender", gender);
                                         map.put("Medicines", Medicine.getText().toString());
                                         map.put("PhoneNo", PhoneNo.getText().toString());
-//                                        map.put("Quarentine_Latitude", quarantineLatitude.getText().toString());
-//                                        map.put("Quarentine_Longitude", quarantineLongitude.getText().toString());
+                                        map.put("Quarentine_Latitude", quarantineLatitude.getText().toString());
+                                        map.put("Quarentine_Longitude", quarantineLongitude.getText().toString());
                                         if (gender.equals("Male")) {
                                             map.put("Name", "Mr. " + Name.getText().toString());
                                         }

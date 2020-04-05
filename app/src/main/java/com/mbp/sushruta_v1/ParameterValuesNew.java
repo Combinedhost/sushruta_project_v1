@@ -9,13 +9,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,11 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class ParameterValuesNew extends AppCompatActivity {
 
@@ -35,6 +31,7 @@ public class ParameterValuesNew extends AppCompatActivity {
     TableLayout tableLayout;
     int datePickerYear, datePickerMonth, datePickerDay;
     TextView dateFilter;
+    ImageView noDataFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +48,8 @@ public class ParameterValuesNew extends AppCompatActivity {
         dateFilter = (TextView) findViewById(R.id.date_filter);
         dateFilter.getPaint().setUnderlineText(true);
         tableLayout = (TableLayout) findViewById(R.id.tablelayout);
+        noDataFound = (ImageView) findViewById(R.id.no_data);
+        noDataFound.setVisibility(View.GONE);
 
         final Calendar c = Calendar.getInstance();
         datePickerYear = c.get(Calendar.YEAR);
@@ -67,9 +66,9 @@ public class ParameterValuesNew extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         dateFilter.setText(getDate(dayOfMonth, month, year));
                         loadValues(dateFilter.getText().toString());
-                        datePickerYear=year;
-                        datePickerMonth=month;
-                        datePickerDay=dayOfMonth;
+                        datePickerYear = year;
+                        datePickerMonth = month;
+                        datePickerDay = dayOfMonth;
                     }
                 }, datePickerYear, datePickerMonth, datePickerDay);
                 datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
@@ -80,15 +79,15 @@ public class ParameterValuesNew extends AppCompatActivity {
         loadValues(dateFilter.getText().toString());
     }
 
-    public void loadValues(String currentDate){
+    public void loadValues(String currentDate) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(currentDate);
         Log.i("test", databaseReference.toString());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tableLayout.removeAllViews();
                 if (dataSnapshot.exists()) {
-                    tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
                     tbrow0.setPadding(50, 10, 50, 10);
                     tbrow0.setGravity(Gravity.CENTER);
@@ -138,9 +137,11 @@ public class ParameterValuesNew extends AppCompatActivity {
                         tableLayout.addView(tbrow);
 
                     }
+                    if (i > 0) {
+                        noDataFound.setVisibility(View.GONE);
+                    }
                 } else {
-                    Log.i("Test", " No values");
-                    // Add No data Image
+                    noDataFound.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -177,8 +178,8 @@ public class ParameterValuesNew extends AppCompatActivity {
 //    }
 
 
-    public String getDate(int day, int month, int year){
-        return String.format("%02d", day) + "-" + String.format("%02d", month+1) + "-" + String.valueOf(year);
+    public String getDate(int day, int month, int year) {
+        return String.format("%02d", day) + "-" + String.format("%02d", month + 1) + "-" + String.valueOf(year);
     }
 
 }
