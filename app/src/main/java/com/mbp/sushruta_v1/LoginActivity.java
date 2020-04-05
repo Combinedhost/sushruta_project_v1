@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 //        dialog.setTitle("Logging in");
                 dialog.show();
                 dialog.setMessage("Checking for valid session");
+                dialog.setCancelable(false);
                 approvalspref = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
 
                 approvalspref.addListenerForSingleValueEvent(new ValueEventListener() {

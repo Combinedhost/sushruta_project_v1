@@ -3,10 +3,20 @@ package com.mbp.sushruta_v1;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.location.LocationResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
 
@@ -30,6 +40,22 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
                     Log.i("Location Accuracy", String.valueOf(location.getAccuracy()));
                     locationUtils.findDistance(location.getLatitude(), location.getLongitude());
                     Log.i("Location Provider", String.valueOf(location.getProvider()));
+
+                    if(location.getAccuracy() < 50 ) {
+                        SharedPreferences sharedPref = context.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                        String patientId = sharedPref.getString("patient_id", null);
+                        if(patientId != null){
+                            FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+                            String dateFormat = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault()).format(new Date());
+                            final DatabaseReference dataRef = dataBase.getReference().child("sushruta/Details/Location").child(patientId).child(dateFormat);
+                            String timeFormat = new SimpleDateFormat("h:mm:ss a", Locale.getDefault()).format(new Date());
+                            String key = dataRef.push().getKey();
+                            Map<String, String> map1 = new HashMap<String, String>();
+                            map1.put("time", timeFormat);
+                            map1.put("location", location.getLatitude() + " " + location.getLongitude());
+                            dataRef.child(key).setValue(map1);
+                        }
+                    }
                 }
                 else{
                     Log.i("Location Receiver", "Null result");
