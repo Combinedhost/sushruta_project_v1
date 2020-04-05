@@ -133,7 +133,7 @@ public class ParametersList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getApplicationContext(),ParameterValues.class);
+                Intent intent=new Intent(getApplicationContext(),ParameterValuesNew.class);
                 intent.putExtra("param",String.valueOf(listView.getItemAtPosition(position)));
                 intent.putExtra("user",user);
                 startActivity(intent);

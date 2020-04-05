@@ -128,7 +128,7 @@ public class Patient_Information extends AppCompatActivity {
 
 
 
-                    Glide.with(Patient_Information.this).load(imageUrl).into(imageView);
+                    Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
                     Name.setText(name);
                     BloodGroup.setText(bloodGroup);
                     Gender.setText(gender);
