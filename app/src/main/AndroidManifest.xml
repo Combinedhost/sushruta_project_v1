@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".GlobalClass"
@@ -33,23 +34,24 @@
         </provider>
 
 
-
+        <receiver android:name=".LocationUpdateBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.mbp.sushruta_v1.location_update_pending_intent.action" />
+            </intent-filter>
+        </receiver>
 
 
         <activity android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
+<!-- -->
         </activity>
         <activity android:name=".TestActivity">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity
             android:name=".SplashScreen"
@@ -123,11 +125,11 @@
 
         <activity android:name=".Alert"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <activity android:name=".NotificationActivity"

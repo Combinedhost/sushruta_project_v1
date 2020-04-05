@@ -2,11 +2,12 @@ package com.mbp.sushruta_v1;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -26,10 +27,12 @@ public class LocationWorker extends Worker {
     Context context;
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
+    LocationUtils locationUtils;
 
     public LocationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
+        locationUtils = new LocationUtils(context);
     }
 
     @NonNull
@@ -39,30 +42,18 @@ public class LocationWorker extends Worker {
 
         Log.d("RefreshDataWorker", "refreshing data....");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
-        getLocation();
-        return Worker.Result.success();
-    }
+        if (locationUtils.checkPermissions()) {
+            if (locationUtils.isLocationEnabled()) {
+                requestNewLocationData();
+            }
+            else{
+//                locationUtils.showNotification("Location is not turned on. Kindly on the location now");
 
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        if (checkPermissions() && isLocationEnabled()) {
-            mFusedLocationClient.getLastLocation().addOnCompleteListener(
-                    new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            Location location = task.getResult();
-                            Log.i("Location Accuracy", String.valueOf(location.getAccuracy()));
-                            Log.i("Location Provider", String.valueOf(location.getProvider()));
-                            if (location == null) {
-                                requestNewLocationData();
-                            } else {
-                                findDistance(location.getLatitude(), location.getLongitude());
-
-                            }
-                        }
-                    }
-            );
+            }
+        }else{
+//            locationUtils.showNotification("Location permissions are not granted. Kindly grant permissions now");
         }
+        return Worker.Result.success();
     }
 
 
@@ -71,59 +62,24 @@ public class LocationWorker extends Worker {
 
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setMaxWaitTime(60000 * 10);
         locationRequest.setInterval(0);
         locationRequest.setFastestInterval(0);
-        locationRequest.setNumUpdates(1);
+        locationRequest.setNumUpdates(10);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+
+        Intent intent = new Intent(context, LocationUpdateBroadcastReceiver.class);
+        intent.setAction(LocationUpdateBroadcastReceiver.ACTION_PROCESS_UPDATES);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         mFusedLocationClient.requestLocationUpdates(
-                locationRequest, null
+                locationRequest, pendingIntent
         );
 
-    }
-
-    private LocationCallback mLocationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            Location mLastLocation = locationResult.getLastLocation();
-            Log.i("Latitude", String.valueOf(mLastLocation.getLatitude()));
-            Log.i("Longitude", String.valueOf(mLastLocation.getLongitude()));
-            findDistance(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-
-        }
-    };
-
-    private void findDistance(Double latitude, Double longitude){
-        Location startPoint = new Location("locationA");
-        startPoint.setLatitude(latitude);
-        startPoint.setLongitude(longitude);
-
-        Location endPoint = new Location("locationA");
-        endPoint.setLatitude(11.034435);
-        endPoint.setLongitude(78.086872);
-
-        double distance = startPoint.distanceTo(endPoint);
-        Log.i("Distance", String.valueOf(distance));
-        if (distance > 100) {
-            Log.i("Alert the Patient", String.valueOf(distance));
-        }
+        Log.i("Location Worker", "New Location requested");
 
     }
 
-    private boolean checkPermissions() {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
-    }
-
-
-    private boolean isLocationEnabled() {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER
-        );
-    }
 }
 

@@ -1,23 +1,27 @@
 package com.mbp.sushruta_v1;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,10 +49,11 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference positionRef, approvalRefsync, approvalRef, approvalspref;
     SharedPreferences sharedPref;
-    String position,userId;
+    String position, userId;
     static boolean active = false;
     static String ATTENDANCE_PERIODIC_WORK = "attendance_periodic_work";
     static String LOCATION_PERIODIC_WORK = "locaion_periodic_work";
+    int PERMISSION_ID = 44;
 
     @Override
     public void onStart() {
@@ -77,16 +82,15 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        sharedPref =  this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+        sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null)
-        {
+        if (user != null) {
 
-            final String usernamesp=sharedPref.getString("Username","");
-            if(!usernamesp.isEmpty()) {
+            final String usernamesp = sharedPref.getString("Username", "");
+            if (!usernamesp.isEmpty()) {
 
-                dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
+                dialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
                 //        dialog.setTitle("Logging in");
                 dialog.show();
                 dialog.setMessage("Checking for valid session");
@@ -107,12 +111,10 @@ public class LoginActivity extends AppCompatActivity {
                                 //intent.putExtra("user", userId);
                                 startActivity(intent);
                             } else if (position.equals("Doctor")) {
-
                                 Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
                                 intent.putExtra("user", usernamesp);
                                 startActivity(intent);
                             } else if (position.equals("SubDoctor")) {
-                                triggerLocationWorker();
                                 Intent intent = new Intent(LoginActivity.this, PatientList.class);
                                 intent.putExtra("user", usernamesp);
                                 startActivity(intent);
@@ -132,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
 
-                approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
+                approvalspref = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(usernamesp).child("Approval");
 
                 approvalspref.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -140,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                         String approval = dataSnapshot.getValue().toString();
                         if (approval.equals("Not Approved")) {
                             Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
-                            if(!active){
+                            if (!active) {
                                 Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                                 startActivity(intent);
                             }
@@ -156,7 +158,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
-
         }
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,13 +167,8 @@ public class LoginActivity extends AppCompatActivity {
                 LoginDetails();
 
 
-
-
             }
         });
-
-
-
 
 
     }
@@ -184,13 +180,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
 
     private void LoginDetails() {
-         dialog=new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
+        dialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 //        dialog.setTitle("Logging in");
         dialog.show();
         dialog.setMessage("Logging in");
@@ -201,43 +197,28 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Username and Password Fields are Empty", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         } else if (emailaddress.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Username Field is Empty",  Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Username Field is Empty", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         } else if (password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Password Field is Empty",  Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Password Field is Empty", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         } else {
             Validate(emailaddress, password);
         }
     }
 
-    private void triggerLocationWorker(){
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(false)
-                .setRequiresStorageNotLow(false)
-                .build();
+    private void Validate(final String userName, String passWord) {
 
-
-        PeriodicWorkRequest locationWork=
-                new PeriodicWorkRequest.Builder(LocationWorker.class, 15, TimeUnit.MINUTES)
-                        .setConstraints(constraints).build();
-
-        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork(LOCATION_PERIODIC_WORK, ExistingPeriodicWorkPolicy.KEEP, locationWork);
-    }
-
-    private void Validate(final String userName, String passWord){
-
-        firebaseAuth.signInWithEmailAndPassword(userName,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(userName, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
 
-                    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-                    String UID=currentFirebaseUser.getUid();
+                    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String UID = currentFirebaseUser.getUid();
 
-                    if(currentFirebaseUser.isEmailVerified()){
+                    if (currentFirebaseUser.isEmailVerified()) {
                         positionRef = firebaseDatabase.getReference("sushruta").child("Login").child("Info").child(UID);
                         positionRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -256,12 +237,11 @@ public class LoginActivity extends AppCompatActivity {
                                 //Shared Preferences
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("Username", userId);
-                                editor.putString("Position",position);
+                                editor.putString("Position", position);
                                 editor.apply();
 
 
-
-                                approvalRef  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
+                                approvalRef = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
 
 
                                 approvalRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -288,19 +268,14 @@ public class LoginActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                             } else if (position.equals("SubDoctor")) {
                                                 dialog.dismiss();
-                                                triggerLocationWorker();
                                                 Intent intent = new Intent(LoginActivity.this, PatientList.class);
                                                 intent.putExtra("user", userId);
                                                 startActivity(intent);
                                             }
 
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             dialog.dismiss();
-                                            Toast.makeText(getApplicationContext(),"Account is not Approved. Please contact Doctor",Toast.LENGTH_LONG).show();
-
-
+                                            Toast.makeText(getApplicationContext(), "Account is not Approved. Please contact Doctor", Toast.LENGTH_LONG).show();
                                         }
                                     }
 
@@ -310,21 +285,21 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                approvalspref  = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
+                                approvalspref = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(userId).child("Approval");
 
                                 approvalspref.addValueEventListener(new ValueEventListener() {
-                                                                                 @Override
-                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                                                     String approval = dataSnapshot.getValue().toString();
-                                                                                     if (approval.equals("Not Approved")) {
-                                                                                         Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
-                                                                                         if(!active){
-                                                                                             Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
-                                                                                             startActivity(intent);
-                                                                                         }
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        String approval = dataSnapshot.getValue().toString();
+                                        if (approval.equals("Not Approved")) {
+                                            Toast.makeText(getApplicationContext(), "Your Account disapproved by doctor. Please contact Doctor", Toast.LENGTH_LONG).show();
+                                            if (!active) {
+                                                Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                            }
 
-                                                                                     }
-                                                                                 }
+                                        }
+                                    }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -333,8 +308,6 @@ public class LoginActivity extends AppCompatActivity {
                                 });
 
                                 approvalRef.keepSynced(false);
-
-
 
                             }
 
@@ -346,15 +319,10 @@ public class LoginActivity extends AppCompatActivity {
                         });
                         positionRef.keepSynced(false);
 
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Email is not verified",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Email is not verified", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
-
-
-
-
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
