@@ -50,4 +50,5 @@
 
 
     </string-array>
+    <string name="title_activity_patient_login">PatientLoginActivity</string>
 </resources>
