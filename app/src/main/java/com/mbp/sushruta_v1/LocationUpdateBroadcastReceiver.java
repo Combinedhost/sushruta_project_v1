@@ -46,7 +46,7 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
                         String patientId = sharedPref.getString("patient_id", null);
                         if(patientId != null){
                             FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
-                            String dateFormat = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault()).format(new Date());
+                            String dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
                             final DatabaseReference dataRef = dataBase.getReference().child("sushruta/Details/Location").child(patientId).child(dateFormat);
                             String timeFormat = new SimpleDateFormat("h:mm:ss a", Locale.getDefault()).format(new Date());
                             String key = dataRef.push().getKey();
