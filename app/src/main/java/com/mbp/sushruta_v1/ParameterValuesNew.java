@@ -51,6 +51,14 @@ public class ParameterValuesNew extends AppCompatActivity {
         noDataFound = (ImageView) findViewById(R.id.no_data);
         noDataFound.setVisibility(View.GONE);
 
+        ImageView im = (ImageView) findViewById(R.id.imageView4);
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         final Calendar c = Calendar.getInstance();
         datePickerYear = c.get(Calendar.YEAR);
         datePickerMonth = c.get(Calendar.MONTH);
