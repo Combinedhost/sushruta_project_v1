@@ -37,12 +37,13 @@ public class NotificationActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
         Log.i("Preference", sharedPref.toString());
         String patientId = sharedPref.getString("patient_id", "");
+        String patientName = sharedPref.getString("patient_name", "");
 
         button = (Button) findViewById(R.id.post_attendance);
 
 //        String dateParameter = new SimpleDateFormat("DD MMM YYYY", Locale.getDefault()).format(new Date());
-        DateFormat df = new SimpleDateFormat("d MMM yyyy");
-        String date = df.format(Calendar.getInstance().getTime());
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+//        String date = df.format(Calendar.getInstance().getTime());
 
         final FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         final DatabaseReference dataRef = dataBase.getReference("sushruta").child("Details").child("Attendance").child(patientId).child(date);

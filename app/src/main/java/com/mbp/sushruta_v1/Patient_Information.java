@@ -43,13 +43,13 @@ public class Patient_Information extends AppCompatActivity {
     RelativeLayout documentrl,parameterrl;
     String patient,imageUrl;
     Dialog picdialog;
+    SharedPreferences sharedPref;
 
     private static final String TAG = "Patient_Information";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__information);
-
 
         documentrl=(RelativeLayout)findViewById(R.id.documents_rl) ;
         parameterrl=(RelativeLayout)findViewById(R.id.parameters_rl);
@@ -85,6 +85,10 @@ public class Patient_Information extends AppCompatActivity {
         PhoneNo.setEnabled(false);
         quarentineLatitude.setEnabled(false);
         quarentineLongitude.setEnabled(false);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("patient_name", Name.getText().toString());
+        editor.apply();
 
         fd = FirebaseDatabase.getInstance();
 
@@ -134,24 +138,22 @@ public class Patient_Information extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            ImageView close_button,zoom_image;
-                            picdialog = new Dialog(Patient_Information.this,R.style.AppCompatAlertDialogStyle);
-                            picdialog.setContentView(R.layout.popup_image);
-                            zoom_image=(ImageView)picdialog.findViewById(R.id.image);
-                            close_button=(ImageView) picdialog.findViewById(R.id.delete);
+                    ImageView close_button,zoom_image;
+                    picdialog = new Dialog(Patient_Information.this,R.style.AppCompatAlertDialogStyle);
+                    picdialog.setContentView(R.layout.popup_image);
+                    zoom_image=(ImageView)picdialog.findViewById(R.id.image);
+                    close_button=(ImageView) picdialog.findViewById(R.id.delete);
 
 //                            zoom_image.setImageResource(R.drawable.parameters);
-                            Glide.with(getApplicationContext()).load(imageUrl).into(zoom_image);
-                            picdialog.show();
+                    Glide.with(getApplicationContext()).load(imageUrl).into(zoom_image);
+                    picdialog.show();
 
-                            close_button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    picdialog.dismiss();
-                                }
-                            });
-
-
+                    close_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            picdialog.dismiss();
+                        }
+                    });
                         }
                     });
 
@@ -168,10 +170,6 @@ public class Patient_Information extends AppCompatActivity {
         {
             e.printStackTrace();
         }
-
-
-
-
 
         parameterrl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,9 +188,6 @@ public class Patient_Information extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     @Override
@@ -204,8 +199,6 @@ public class Patient_Information extends AppCompatActivity {
         String position = sharedPref.getString("Position","SubDoctor");
 
         Log.d(getLocalClassName()+" position",position);
-
-
 
         if(position.equals("SubDoctor")){
                 return true;
@@ -230,7 +223,6 @@ public class Patient_Information extends AppCompatActivity {
             FirebaseDatabase fd4=FirebaseDatabase.getInstance();
             DatabaseReference dataref = fd4.getReference("sushruta").child("Details").child("Patient").child(PatientId.getText().toString());
 
-
             Map<String, String> map = new HashMap<String, String>();
             map.put("Name", Name.getText().toString());
             map.put("Aadhar_no", AadharNo.getText().toString());
@@ -249,7 +241,6 @@ public class Patient_Information extends AppCompatActivity {
             map.put("Quarentine_Longitude", quarentineLongitude.getText().toString());
             dataref.setValue(map);
 
-
             Name.setEnabled(false);
             BloodGroup.setEnabled(false);
             Gender.setEnabled(false);
@@ -264,10 +255,8 @@ public class Patient_Information extends AppCompatActivity {
             PhoneNo.setEnabled(false);
             quarentineLatitude.setEnabled(false);
             quarentineLongitude.setEnabled(false);
-
-
-
         }
+
         if (id == R.id.edit) {
             Toast.makeText(getApplicationContext(), "Edit Mode On", Toast.LENGTH_SHORT).show();
             Name.setEnabled(true);
@@ -283,9 +272,7 @@ public class Patient_Information extends AppCompatActivity {
             PhoneNo.setEnabled(true);
             quarentineLatitude.setEnabled(true);
             quarentineLongitude.setEnabled(true);
-
         }
-
 
         if(id==R.id.profile)
         {
@@ -293,14 +280,12 @@ public class Patient_Information extends AppCompatActivity {
 
             dialog.setContentView(R.layout.popup);
 
-
             final ImageView imageView = (ImageView) dialog.findViewById(R.id.view4);
             final TextView name = (TextView) dialog.findViewById(R.id.textView);
             final TextView docid = (TextView) dialog.findViewById(R.id.textView2);
             final TextView spec = (TextView) dialog.findViewById(R.id.textView3);
             final TextView licid =(TextView)dialog.findViewById(R.id.textView6);
             ImageView close = (ImageView) dialog.findViewById(R.id.button);
-
 
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
@@ -320,7 +305,6 @@ public class Patient_Information extends AppCompatActivity {
                     String DocID=String.valueOf(dataSnapshot.child("DoctorID").getValue());
                     String LicID=String.valueOf(dataSnapshot.child("LicenseID").getValue());
 
-
                     Glide.with(getApplicationContext()).load(ImageUrl).into(imageView);
                     name.setText(Name);
                     docid.setText(DocID);
@@ -333,7 +317,6 @@ public class Patient_Information extends AppCompatActivity {
 
                 }
             });
-
 
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -365,10 +348,5 @@ public class Patient_Information extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
-
-
     }
-
-
-
 }

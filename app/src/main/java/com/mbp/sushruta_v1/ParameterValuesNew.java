@@ -1,6 +1,5 @@
 package com.mbp.sushruta_v1;
 
-
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -37,8 +36,6 @@ public class ParameterValuesNew extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parameter_values_new);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
 
         Bundle bundle = getIntent().getExtras();
         param = bundle.getString("param");
@@ -68,7 +65,6 @@ public class ParameterValuesNew extends AppCompatActivity {
         dateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ParameterValuesNew.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
