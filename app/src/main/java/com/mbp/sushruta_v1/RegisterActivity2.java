@@ -363,7 +363,6 @@ public class RegisterActivity2 extends AppCompatActivity {
                                             String key=register_reference1.push().getKey();
                                             register_reference1.child(key).setValue(user);
 
-
                                             register_reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
@@ -384,10 +383,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                                             map1.put("Username", user);
                                             position_ref.setValue(map1);
 
-
                                             sendFCMPush("Head","New Doctor Registration","Sir, Doctor "+name+" has registered under you as doctor. Click the notification to take action","Doctor");
-
-
 
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             startActivity(intent);
@@ -409,10 +405,6 @@ public class RegisterActivity2 extends AppCompatActivity {
                                                 map.put("PhoneNo",phnumber);
                                                 map.put("LicenseID",license);
                                                 map.put("Approval","Not Approved");
-
-
-
-
 
                                                 register_reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
