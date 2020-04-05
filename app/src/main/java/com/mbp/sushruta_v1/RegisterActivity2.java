@@ -383,7 +383,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                                             map1.put("Username", user);
                                             position_ref.setValue(map1);
 
-                                            sendFCMPush("Head","New Doctor Registration","Sir, Doctor "+name+" has registered under you as doctor. Click the notification to take action","Doctor");
+                                            NotificationUtils.sendFCMPush(RegisterActivity2.this, "Head","New Doctor Registration","Sir, Doctor "+name+" has registered under you as doctor. Click the notification to take action","Doctor", "Approval Notification");
 
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             startActivity(intent);
@@ -427,7 +427,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                                                 position_ref.setValue(map1);
 
 
-                                                sendFCMPush(reg_under,"New SubDoctor Registration","Sir, Doctor "+name+" has registered under you as sub doctor. Click the notification to take action","SubDoctor");
+                                                NotificationUtils.sendFCMPush(RegisterActivity2.this, reg_under,"New SubDoctor Registration","Sir, Doctor "+name+" has registered under you as sub doctor. Click the notification to take action","SubDoctor", "Approval Notification");
 
 
                                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -488,58 +488,6 @@ public class RegisterActivity2 extends AppCompatActivity {
 
 
 
-    private void sendFCMPush(String topic,String title,String msg,String Activity) {
 
-        final String Legacy_SERVER_KEY = "AIzaSyD2ZLfhwQ7Mna9kwky99m3UGzcOYWlDxYs";
-//        String msg = "Sir, Doctor "+sd+" has registered under you as sub doctor. Click the notification to take action";
-//        String title = "New SubDoctor Registration";
-        String token = "/topics/"+topic;
-
-        JSONObject obj = null;
-        JSONObject objData = null;
-        JSONObject dataobjData = null;
-
-        try {
-            obj = new JSONObject();
-            objData = new JSONObject();
-
-            objData.put("body", msg);
-            objData.put("title", title);
-            objData.put("android_channel_id","Approval Notification");
-            obj.put("to", token);
-            obj.put("notification", objData);
-
-            Log.e("PASS:>", obj.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, "https://android.googleapis.com/gcm/send", obj,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("SUCCESS", response + "");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Errors--", error + "");
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "key=" + Legacy_SERVER_KEY);
-                params.put("Content-Type", "application/json");
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        int socketTimeout = 1000 * 60;// 60 seconds
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        jsObjRequest.setRetryPolicy(policy);
-        requestQueue.add(jsObjRequest);
-    }
 }
 

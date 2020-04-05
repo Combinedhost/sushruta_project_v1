@@ -445,7 +445,7 @@ public class Patient_Information extends AppCompatActivity {
 
 
         PeriodicWorkRequest locationWork =
-                new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES)
+                new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
                         .setConstraints(constraints).build();
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(LOCATION_PERIODIC_WORK, ExistingPeriodicWorkPolicy.KEEP, locationWork);
@@ -454,8 +454,14 @@ public class Patient_Information extends AppCompatActivity {
 
 
     private void triggerAttendanceWorker() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
+                .build();
+
         PeriodicWorkRequest.Builder dayWorkBuilder =
-                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES);
+                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
+                .setConstraints(constraints);
 
         PeriodicWorkRequest dayWork = dayWorkBuilder.build();
 
