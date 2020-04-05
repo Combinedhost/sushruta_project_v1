@@ -1,5 +1,6 @@
 package com.mbp.sushruta_v1;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +23,14 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,8 +42,10 @@ public class PatientLoginActivity extends AppCompatActivity {
     private EditText otpCode, phoneNo;
     private Button sendOtp, verifyOtp;
     SharedPreferences sharedPref;
-
+    ProgressDialog progressDialog;
     private FirebaseAuth auth;
+
+    String patientId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,9 @@ public class PatientLoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        progressDialog = new ProgressDialog(PatientLoginActivity.this, R.style.AppCompatAlertDialogStyle);
+        progressDialog.setMessage("Please wait..");
+        progressDialog.setCancelable(false);
 
         otpCode = (EditText) findViewById(R.id.otp);
         phoneNo = (EditText) findViewById(R.id.phone_no);
@@ -52,25 +64,57 @@ public class PatientLoginActivity extends AppCompatActivity {
         sendOtp = (Button) findViewById(R.id.send_sms);
         verifyOtp = (Button) findViewById(R.id.verify_otp);
 
+        otpCode.setVisibility(View.GONE);
+        verifyOtp.setVisibility(View.GONE);
+
+
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
-        //Shared Preferences
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("patient_id", "GF4567");
-        editor.apply();
-
-        Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("Patient", "GF4567");
-        startActivity(intent);
-
-
         auth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+
+            Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("Patient", sharedPref.getString("patient_id", null));
+            startActivity(intent);
+
+        }
 
         sendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendVerificationCode(phoneNo.getText().toString());
+
+
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                final DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Login").child("Patient").child(phoneNo.getText().toString());
+                Log.i("test", databaseReference.toString());
+                progressDialog.show();
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            //Shared Preferences
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("patient_id", dataSnapshot.child("patient_id").getValue().toString());
+                            editor.putString("doctor_name", dataSnapshot.child("doctor_name").getValue().toString());
+                            editor.apply();
+
+                            patientId = dataSnapshot.child("patient_id").getValue().toString();
+                            sendVerificationCode(phoneNo.getText().toString());
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(PatientLoginActivity.this, "Phone no is not registered in the databse", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        progressDialog.dismiss();
+                    }
+                });
+
             }
         });
 
@@ -94,7 +138,7 @@ public class PatientLoginActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
-    Log.i("Phone no ", mobile);
+        Log.i("Phone no ", mobile);
     }
 
 
@@ -102,6 +146,9 @@ public class PatientLoginActivity extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
 
             //Getting the code sent by SMS
             String code = phoneAuthCredential.getSmsCode();
@@ -119,12 +166,18 @@ public class PatientLoginActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
+            progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
+            progressDialog.dismiss();
+            otpCode.setVisibility(View.VISIBLE);
+            verifyOtp.setVisibility(View.VISIBLE);
+            sendOtp.setVisibility(View.GONE);
+
             Log.i("PatientLoginActivity", "code sent -  " + s);
             //storing the verification id that is sent to the user
             verificationId = s;
@@ -133,6 +186,7 @@ public class PatientLoginActivity extends AppCompatActivity {
 
 
     private void verifyVerificationCode(String code) {
+        progressDialog.show();
         //creating the credential
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
 
@@ -145,13 +199,15 @@ public class PatientLoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(PatientLoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(PatientLoginActivity.this,"Successfull", Toast.LENGTH_LONG ).show();
-                            //verification successful we will start the profile activity
-//                            Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            intent.putExtra("Patient", "Id");
-//                            startActivity(intent);
+                            Toast.makeText(PatientLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("Patient", patientId);
+                            startActivity(intent);
+
 
                         } else {
                             //verification unsuccessful.. display an error message
@@ -161,13 +217,7 @@ public class PatientLoginActivity extends AppCompatActivity {
                                 message = "Invalid code entered...";
                             }
 
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
-                            snackbar.setAction("Dismiss", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                }
-                            });
-                            snackbar.show();
+                           Toast.makeText(PatientLoginActivity.this, message, Toast.LENGTH_LONG).show();
                         }
                     }
                 });

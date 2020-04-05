@@ -1,13 +1,16 @@
 package com.mbp.sushruta_v1;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -16,13 +19,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class ParameterValuesNew extends AppCompatActivity {
 
@@ -62,6 +73,47 @@ public class ParameterValuesNew extends AppCompatActivity {
         datePickerDay = c.get(Calendar.DAY_OF_MONTH);
 
         dateFilter.setText(getDate(datePickerDay, datePickerMonth, datePickerYear));
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_value);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                final Dialog a = new Dialog(ParameterValuesNew.this, R.style.AppCompatAlertDialogStyle);
+                a.setContentView(R.layout.getnamelayout);
+                final EditText text = (EditText) a.findViewById(R.id.getname);
+
+                final Button b1 = (Button) a.findViewById(R.id.button);
+                b1.setText("Update");
+
+                final TextView heading = (TextView) a.findViewById(R.id.textView5);
+                heading.setText("Enter the value");
+
+
+                b1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DateFormat df = new SimpleDateFormat("h:mm:ss a", Locale.getDefault());
+                        String time = df.format(Calendar.getInstance().getTime());
+                        String string = text.getText().toString();
+                        FirebaseDatabase fd = FirebaseDatabase.getInstance();
+                        DatabaseReference addv = fd.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(getDate(datePickerDay, datePickerMonth, datePickerYear));
+                        String key = addv.push().getKey();
+                        Map map = new HashMap();
+                        map.put("time", time);
+                        map.put("value", string);
+                        addv.child(key).setValue(map);
+                        a.dismiss();
+                    }
+                });
+
+                a.show();
+
+            }
+        });
+
         dateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +187,7 @@ public class ParameterValuesNew extends AppCompatActivity {
                         t2v.setTextColor(Color.BLACK);
                         t2v.setGravity(Gravity.CENTER);
                         t2v.setTextSize(18);
-                        tbrow.setDividerPadding(20);
+                        tbrow.setDividerPadding(10);
                         tbrow.addView(t2v);
 
                         tableLayout.addView(tbrow);

@@ -87,8 +87,8 @@ public class Attendance_history extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
 
-                    long count = dataSnapshot.getChildrenCount();
-                    entries.setText(count);
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    entries.setText(Integer.toString(count));
                     tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
                     tbrow0.setPadding(50, 10, 50, 10);

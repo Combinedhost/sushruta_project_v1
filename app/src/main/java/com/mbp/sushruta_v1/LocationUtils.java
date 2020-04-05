@@ -30,7 +30,7 @@ public class LocationUtils {
         );
     }
 
-    public void findDistance(Double latitude, Double longitude){
+    public double findDistance(Double latitude, Double longitude){
         Location startPoint = new Location("locationA");
         startPoint.setLatitude(latitude);
         startPoint.setLongitude(longitude);
@@ -41,9 +41,8 @@ public class LocationUtils {
 
         double distance = startPoint.distanceTo(endPoint);
         Log.i("Distance", String.valueOf(distance));
-        if (distance > 100) {
-            Log.i("Alert the Patient", String.valueOf(distance));
-        }
+
+        return distance;
 
     }
 

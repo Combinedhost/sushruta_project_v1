@@ -92,7 +92,7 @@ public class Create_Patient extends AppCompatActivity {
         Medicine = (EditText) findViewById(R.id.medicineid);
         PhoneNo = (EditText) findViewById(R.id.phone_number);
         quarantineLatitude = (EditText)findViewById(R.id.quarantine_latitude);
-        quarantineLatitude = (EditText)findViewById(R.id.quarantine_longitude);
+        quarantineLongitude = (EditText)findViewById(R.id.quarantine_longitude);
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -309,7 +309,7 @@ public class Create_Patient extends AppCompatActivity {
             return false;
         }
 
-        if (PhoneNo.getText().toString().trim().equals("") || (Integer.parseInt(PhoneNo.getText().toString())) < 10 || (Integer.parseInt(PhoneNo.getText().toString())) > 10) {
+        if (PhoneNo.getText().toString().trim().equals("") || PhoneNo.getText().toString().length() < 10 || PhoneNo.getText().toString().length() > 10) {
             Toast.makeText(Create_Patient.this, "Kindly enter a valid phone number", Toast.LENGTH_LONG).show();
             return false;
         }

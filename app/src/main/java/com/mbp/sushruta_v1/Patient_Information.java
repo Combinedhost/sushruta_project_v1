@@ -1,13 +1,20 @@
 package com.mbp.sushruta_v1;
 
+
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,6 +22,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -32,6 +46,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static com.mbp.sushruta_v1.LoginActivity.LOCATION_PERIODIC_WORK;
 
 public class Patient_Information extends AppCompatActivity {
     FirebaseDatabase fd;
@@ -43,6 +60,8 @@ public class Patient_Information extends AppCompatActivity {
     RelativeLayout documentrl,parameterrl;
     String patient,imageUrl;
     Dialog picdialog;
+    int PERMISSION_ID = 44;
+
     SharedPreferences sharedPref;
 
     private static final String TAG = "Patient_Information";
@@ -50,6 +69,9 @@ public class Patient_Information extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__information);
+
+        checkPermissionsAndTriggerWorker();
+        triggerAttendanceWorker();
 
         documentrl=(RelativeLayout)findViewById(R.id.documents_rl) ;
         parameterrl=(RelativeLayout)findViewById(R.id.parameters_rl);
@@ -349,4 +371,83 @@ public class Patient_Information extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void checkPermissionsAndTriggerWorker() {
+        LocationUtils locationUtils = new LocationUtils(this);
+        if (locationUtils.checkPermissions()) {
+            checkLocations(locationUtils);
+        } else {
+            requestPermissions();
+        }
+    }
+
+    private void checkLocations(LocationUtils locationUtils) {
+        if (locationUtils.isLocationEnabled()) {
+            triggerLocationWorker();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Patient_Information.this);
+            builder.setMessage("Kindly turn on location to continue")
+                    .setCancelable(false)
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                44
+        );
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            checkLocations(new LocationUtils(this));
+        } else {
+            Toast.makeText(getApplicationContext(), "Location permission is mandatory. Kindly grant permssion to continue", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void triggerLocationWorker() {
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
+                .build();
+
+
+        PeriodicWorkRequest locationWork =
+                new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
+                        .setConstraints(constraints).build();
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(LOCATION_PERIODIC_WORK, ExistingPeriodicWorkPolicy.KEEP, locationWork);
+        Log.i("Test", "Location Worker Triggered");
+    }
+
+
+    private void triggerAttendanceWorker() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
+                .build();
+
+        PeriodicWorkRequest.Builder dayWorkBuilder =
+                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
+                .setConstraints(constraints);
+
+        PeriodicWorkRequest dayWork = dayWorkBuilder.build();
+
+        WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
+    }
+
 }
