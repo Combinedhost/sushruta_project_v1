@@ -426,13 +426,11 @@ public class Documents_patients extends AppCompatActivity {
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(username);
             }
 
-
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(getApplicationContext(), "You are Logged Out", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
         }
         return super.onOptionsItemSelected(item);
     }

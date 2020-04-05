@@ -44,8 +44,8 @@ public class ParameterValues extends AppCompatActivity {
         // primary sections of the activity.
 
         Bundle bundle=getIntent().getExtras();
-         param=bundle.getString("param");
-       user=bundle.getString("user");
+        param=bundle.getString("param");
+        user=bundle.getString("user");
         Log.i(getLocalClassName(),param);
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
