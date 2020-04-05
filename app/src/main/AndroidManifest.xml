@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
@@ -20,8 +20,8 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -34,7 +34,8 @@
         </provider>
 
 
-        <receiver android:name=".LocationUpdateBroadcastReceiver"
+        <receiver
+            android:name=".LocationUpdateBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.mbp.sushruta_v1.location_update_pending_intent.action" />
@@ -42,20 +43,25 @@
         </receiver>
 
 
-        <activity android:name=".WelcomeActivity"
+        <activity
+            android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!-- -->
+            <!-- -->
         </activity>
-        <activity android:name=".TestActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+        <activity android:name=".TestActivity"></activity>
         <activity
             android:name=".SplashScreen"
-            android:theme="@android:style/Theme.Black.NoTitleBar"/>
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name=".PatientLoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".LoginActivity"
@@ -123,18 +129,19 @@
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Alert"
+        <activity
+            android:name=".Alert"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
 
-        <activity android:name=".NotificationActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".NotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 
