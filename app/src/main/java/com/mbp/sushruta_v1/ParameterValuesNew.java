@@ -117,7 +117,8 @@ public class ParameterValuesNew extends AppCompatActivity {
         dateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ParameterValuesNew.this, new DatePickerDialog.OnDateSetListener() {
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ParameterValuesNew.this, R.style.AppCompatAlertDialogStyle, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         dateFilter.setText(getDate(dayOfMonth, month, year));
