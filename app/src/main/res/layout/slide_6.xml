@@ -25,7 +25,7 @@
         />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/doctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView8"
@@ -39,10 +39,10 @@ android:layout_alignParentStart="true"
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/patient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button4"
+        android:layout_alignTop="@+id/doctor"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:background="@drawable/sshape"

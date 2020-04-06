@@ -27,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext, doctorBtn, patientBtn;
+    private Button btnSkip, btnNext;
     private PrefManager prefManager;
     SharedPreferences sharedPref;
 
@@ -55,8 +55,6 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-        doctorBtn = (Button) findViewById(R.id.button4);
-        patientBtn = (Button) findViewById(R.id.button5);
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -66,7 +64,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.slide_3,
                 R.layout.slide_4,
                 R.layout.slide_5,
-                R.layout.slide_6
         };
 
         // adding bottom dots
@@ -101,27 +98,6 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        doctorBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("user_type", "doctor");
-                editor.apply();
-                Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        patientBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("user_type", "patient");
-                editor.apply();
-                Intent intent=new Intent(getApplicationContext(), PatientLoginActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void addBottomDots(int currentPage) {
@@ -149,7 +125,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+        startActivity(new Intent(WelcomeActivity.this, LoginTypeSelectionActivity.class));
         finish();
     }
 
