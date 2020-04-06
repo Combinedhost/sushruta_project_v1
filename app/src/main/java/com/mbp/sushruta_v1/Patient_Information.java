@@ -403,7 +403,7 @@ public class Patient_Information extends AppCompatActivity {
         if (locationUtils.isLocationEnabled()) {
             triggerLocationWorker();
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Patient_Information.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(Patient_Information.this, R.style.AppCompatAlertDialogStyle);
             builder.setMessage("Kindly turn on location to continue")
                     .setCancelable(false)
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -446,7 +446,7 @@ public class Patient_Information extends AppCompatActivity {
 
         PeriodicWorkRequest locationWork =
                 new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
-                        .setConstraints(constraints).build();
+                        .build();
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(LOCATION_PERIODIC_WORK, ExistingPeriodicWorkPolicy.KEEP, locationWork);
         Log.i("Test", "Location Worker Triggered");
@@ -460,8 +460,7 @@ public class Patient_Information extends AppCompatActivity {
                 .build();
 
         PeriodicWorkRequest.Builder dayWorkBuilder =
-                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
-                .setConstraints(constraints);
+                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES);
 
         PeriodicWorkRequest dayWork = dayWorkBuilder.build();
 
