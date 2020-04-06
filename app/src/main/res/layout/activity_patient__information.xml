@@ -35,18 +35,19 @@
 
             <TextView
                 android:id="@+id/Patient_name"
-                android:layout_width="235dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Patient_profile"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:hint="Patient Name"
+                android:textColorHint="@color/textColor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:id="@+id/Gender"
-                android:layout_width="235dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@+id/Patient_name"
                 android:layout_alignStart="@+id/Patient_name"
@@ -60,13 +61,14 @@
 
             <TextView
                 android:id="@+id/Age"
-                android:layout_width="235dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@+id/Gender"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="Age"
+                android:textColor="@color/textColor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>
@@ -169,8 +171,10 @@
                                 android:id="@+id/quarentine_latitude"
                                 android:layout_width="103dp"
                                 android:layout_height="27dp"
+                                android:layout_alignStart="@+id/q_location"
                                 android:layout_alignTop="@+id/quarentine_longitude"
                                 android:layout_alignParentBottom="true"
+                                android:layout_marginStart="0dp"
                                 android:layout_marginTop="0dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_toStartOf="@+id/quarentine_longitude"
@@ -185,10 +189,10 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="30dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginEnd="5dp"
                                 android:ems="10"
                                 android:inputType="numberDecimal"
-                                android:layout_alignParentBottom="true"
                                 android:text="Longitude"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
