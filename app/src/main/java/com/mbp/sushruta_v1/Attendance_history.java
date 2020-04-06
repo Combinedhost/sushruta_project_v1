@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class Attendance_history extends AppCompatActivity {
     TextView dateFilter, date, entries;
     SharedPreferences sharedPref;
     String patientId;
+    ImageView noDataFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class Attendance_history extends AppCompatActivity {
 
         entries = (TextView) findViewById(R.id.textView11);
         dateFilter = (TextView) findViewById(R.id.textView7);
+        noDataFound = (ImageView) findViewById(R.id.no_data);
+        noDataFound.setVisibility(View.GONE);
 
         dateFilter.getPaint().setUnderlineText(true);
         tableLayout = (TableLayout) findViewById(R.id.tablelayout);
@@ -119,12 +123,14 @@ public class Attendance_history extends AppCompatActivity {
                         t1v.setTextSize(18);
                         tbrow.addView(t1v);
                         tbrow.setDividerPadding(20);
-
                         tableLayout.addView(tbrow);
-
+                    }
+                    if (i > 0) {
+                        noDataFound.setVisibility(View.GONE);
                     }
                 } else {
                     Log.i("Test", " No values");
+                    noDataFound.setVisibility(View.VISIBLE);
                 }
             }
 

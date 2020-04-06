@@ -25,7 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button btnSkip, btnNext, loginBtn, patientBtn;
     private PrefManager prefManager;
 
     @Override
@@ -50,7 +50,8 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-
+        btnNext = (Button) findViewById(R.id.btn_next);
+        btnNext = (Button) findViewById(R.id.btn_next);
 
         // layouts of all welcome sliders
         // add few more layouts if you want
