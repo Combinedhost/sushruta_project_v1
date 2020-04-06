@@ -1,6 +1,8 @@
 package com.mbp.sushruta_v1;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -25,12 +27,15 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext, loginBtn, patientBtn;
+    private Button btnSkip, btnNext, doctorBtn, patientBtn;
     private PrefManager prefManager;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
@@ -50,8 +55,8 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-        btnNext = (Button) findViewById(R.id.btn_next);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        doctorBtn = (Button) findViewById(R.id.button4);
+        patientBtn = (Button) findViewById(R.id.button5);
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -93,6 +98,28 @@ public class WelcomeActivity extends AppCompatActivity {
                 } else {
                     launchHomeScreen();
                 }
+            }
+        });
+
+        doctorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("user_type", "doctor");
+                editor.apply();
+                Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        patientBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("user_type", "patient");
+                editor.apply();
+                Intent intent=new Intent(getApplicationContext(), PatientLoginActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -195,7 +222,6 @@ public class WelcomeActivity extends AppCompatActivity {
         public boolean isViewFromObject(View view, Object obj) {
             return view == obj;
         }
-
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {

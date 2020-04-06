@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.location.LocationResult;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +18,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
-
 
     static final String ACTION_PROCESS_UPDATES =
             "com.mbp.sushruta_v1.location_update_pending_intent.action";
@@ -55,7 +53,7 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
                             map1.put("location", location.getLatitude() + " " + location.getLongitude());
                             dataRef.child(key).setValue(map1);
                             String doctorName = sharedPref.getString("doctor_name", null);
-                            if( locationUtils.findDistance(location.getLatitude(), location.getLongitude()) > 100 && doctorName != null){
+                            if( locationUtils.findDistance(location.getLatitude(), location.getLongitude()) > 100 && doctorName != null) {
                                 NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
                             };
                         }

@@ -78,8 +78,6 @@ public class ParameterValuesNew extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 final Dialog a = new Dialog(ParameterValuesNew.this, R.style.AppCompatAlertDialogStyle);
                 a.setContentView(R.layout.getnamelayout);
@@ -155,7 +153,6 @@ public class ParameterValuesNew extends AppCompatActivity {
                     tv0.setTextSize(18);
                     tv0.setTypeface(tv0.getTypeface(), Typeface.BOLD);
                     tbrow0.addView(tv0);
-
 
                     TextView tv1 = new TextView(getApplicationContext());
                     tv1.setText("           Value        ");

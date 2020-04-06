@@ -67,7 +67,6 @@ public class PatientLoginActivity extends AppCompatActivity {
         otpCode.setVisibility(View.GONE);
         verifyOtp.setVisibility(View.GONE);
 
-
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
         auth = FirebaseAuth.getInstance();
@@ -85,8 +84,6 @@ public class PatientLoginActivity extends AppCompatActivity {
         sendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 final DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Login").child("Patient").child(phoneNo.getText().toString());
                 Log.i("test", databaseReference.toString());

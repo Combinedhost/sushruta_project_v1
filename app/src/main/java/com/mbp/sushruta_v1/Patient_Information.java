@@ -140,7 +140,6 @@ public class Patient_Information extends AppCompatActivity {
                     String latitude = String.valueOf(ds1.child("Quarentine_Latitude").getValue());
                     String longitude = String.valueOf(ds1.child("Quarentine_Longitude").getValue());
 
-
                     Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
                     Name.setText(name);
                     BloodGroup.setText(bloodGroup);
