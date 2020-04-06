@@ -52,11 +52,11 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity
             android:name=".PatientLoginActivity"
@@ -96,6 +96,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Test" />
+        <activity android:name=".LocationHistory" />
         <activity
             android:name=".Documents_patients"
             android:label=""
@@ -141,31 +142,12 @@
         <activity
             android:name=".NotificationActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".Attendance_history"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
-        <activity
-            android:name=".LocationHistory"
-            android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
 
     </application>
 
