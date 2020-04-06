@@ -108,6 +108,8 @@ public class Patient_Information extends AppCompatActivity {
         quarentineLatitude.setEnabled(false);
         quarentineLongitude.setEnabled(false);
 
+        sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("patient_name", Name.getText().toString());
         editor.apply();
