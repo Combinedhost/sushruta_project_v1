@@ -62,12 +62,12 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
 
         <activity
@@ -87,7 +87,7 @@
         <activity
             android:name=".Patient_Information"
             android:label="Patient Details" />
-        <!-- android:theme="@style/Theme.AppCompat.NoActionBar"/> -->
+
         <activity
             android:name=".Create_Patient"
             android:label="Create new Patient" />
@@ -100,7 +100,11 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Test" />
-        <activity android:name=".LocationHistory" />
+        <activity android:name=".LocationHistory" >
+
+
+        </activity>
+
         <activity
             android:name=".Documents_patients"
             android:label=""
@@ -150,7 +154,10 @@
 
         <activity
             android:name=".NotificationActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+
+        </activity>
 
     </application>
 
