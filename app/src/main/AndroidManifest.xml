@@ -52,11 +52,11 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".PatientLoginActivity"
@@ -89,7 +89,8 @@
             android:label="Create new Patient" />
         <activity
             android:name=".PatientList"
-            android:label="List of Patients" />
+            android:label="List of Patients">
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -112,7 +113,9 @@
         <activity
             android:name=".ParameterValuesNew"
             android:label="Parameter Values"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <activity
             android:name=".ChartActivity"
@@ -150,11 +153,11 @@
         <activity
             android:name=".Attendance_history"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <activity

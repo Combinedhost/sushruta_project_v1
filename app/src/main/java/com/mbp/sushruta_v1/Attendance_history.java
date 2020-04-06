@@ -92,7 +92,7 @@ public class Attendance_history extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
 
                     int count = (int) dataSnapshot.getChildrenCount();
-                    entries.setText(Integer.toString(count));
+                    entries.setText("Total no of entries : " + Integer.toString(count));
                     tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
                     tbrow0.setPadding(50, 10, 50, 10);
