@@ -9,7 +9,7 @@
         <item name="android:windowBackground">@color/popup</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
-        <item name="alertDialogTheme">@color/popup</item>
+        <item name="alertDialogTheme">@color/colorPrimary</item>
         <item name="android:itemBackground">@color/menubackground</item>
 
     </style>
@@ -19,10 +19,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/background</item>
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/textColor</item>
-        <item name="android:background">@color/popup</item>
+
         <item name="android:textColor">@color/textColor</item>
 
     </style>
