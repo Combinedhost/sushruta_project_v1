@@ -18,7 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -205,16 +204,15 @@ public class PatientLoginActivity extends AppCompatActivity {
                             intent.putExtra("Patient", patientId);
                             startActivity(intent);
 
-
                         } else {
                             //verification unsuccessful.. display an error message
-                            String message = "Somthing is wrong, we will fix it soon...";
+                            String message = "Something went wrong, we will fix it soon...";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";
                             }
 
-                           Toast.makeText(PatientLoginActivity.this, message, Toast.LENGTH_LONG).show();
+                            Toast.makeText(PatientLoginActivity.this, message, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
