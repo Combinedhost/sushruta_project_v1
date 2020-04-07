@@ -1,7 +1,16 @@
 package com.mbp.sushruta_v1;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -18,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class NotificationUtils {
 
@@ -26,7 +36,7 @@ public class NotificationUtils {
         final String Legacy_SERVER_KEY = "AIzaSyD2ZLfhwQ7Mna9kwky99m3UGzcOYWlDxYs";
 //        String msg = "Sir, Doctor "+sd+" has registered under you as sub doctor. Click the notification to take action";
 //        String title = "New SubDoctor Registration";
-        String token = "/topics/"+topic;
+        String token = "/topics/" + topic;
 
         JSONObject obj = null;
         JSONObject objData = null;
@@ -73,5 +83,48 @@ public class NotificationUtils {
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsObjRequest.setRetryPolicy(policy);
         requestQueue.add(jsObjRequest);
+    }
+
+
+    public static void sendNotification(Context context, String title, String messageBody, Intent intent) {
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        CharSequence name;
+        String Description;
+
+        String CHANNEL_ID = "Location Notifications";
+        name = "Location Notifications";
+        Description = "Notification request to turn the location";
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            mChannel.setDescription(Description);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mChannel.setShowBadge(false);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(messageBody)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+
+        notificationManager.notify(new Random().nextInt(100) /* ID of notification */, notificationBuilder.build());
+
+
     }
 }

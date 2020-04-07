@@ -14,6 +14,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Random;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
 
@@ -48,7 +50,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (CHANNEL_ID.equals("Approval Notification")) {
             name = "Approval Notification";
             Description = "Notification about the approval of doctors";
-        } else {
+        } else if (CHANNEL_ID.equals("Geofence")){
+            name = "Geofence Notification";
+            Description = "Notification about patients exceeding geofence";
+        }else {
             name = "General Notification";
             Description = "General Notification from the Head";
         }
@@ -80,7 +85,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentIntent(pendingIntent);
 
 
-        notificationManager.notify(100 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(new Random().nextInt(100) /* ID of notification */, notificationBuilder.build());
 
 
 

@@ -2,6 +2,7 @@ package com.mbp.sushruta_v1;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -11,8 +12,11 @@ import androidx.core.app.ActivityCompat;
 
 public class LocationUtils {
     public Context context;
+
+    SharedPreferences sharedPreferences;
     public LocationUtils(Context context){
         this.context = context;
+        sharedPreferences = context.getSharedPreferences("mypref", Context.MODE_PRIVATE);
     }
 
     public boolean checkPermissions() {
@@ -36,7 +40,8 @@ public class LocationUtils {
         startPoint.setLongitude(longitude);
 
         Location endPoint = new Location("locationA");
-        endPoint.setLatitude(11.034435);
+        endPoint.setLatitude(Double.parseDouble(sharedPreferences.getString("quarantine_latitude", null)));
+        endPoint.setLongitude(Double.parseDouble(sharedPreferences.getString("quarantine_longitude", null)));
         endPoint.setLongitude(78.086872);
 
         double distance = startPoint.distanceTo(endPoint);
@@ -46,6 +51,8 @@ public class LocationUtils {
 
     }
 
-
+    public boolean isQuarantineLocationSet(){
+        return (sharedPreferences.getString("quarantine_latitude", null) !=null) && (sharedPreferences.getString("quarantine_longitude", null) != null);
+    }
 
 }

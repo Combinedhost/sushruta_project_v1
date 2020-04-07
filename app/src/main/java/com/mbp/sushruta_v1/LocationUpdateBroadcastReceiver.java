@@ -42,6 +42,7 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
                     if(location.getAccuracy() < 50 ) {
                         SharedPreferences sharedPref = context.getSharedPreferences("mypref", Context.MODE_PRIVATE);
                         String patientId = sharedPref.getString("patient_id", null);
+                        Log.i("LocationUpdateReceiver", patientId);
                         if(patientId != null){
                             FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
                             String dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -53,9 +54,10 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
                             map1.put("location", location.getLatitude() + " " + location.getLongitude());
                             dataRef.child(key).setValue(map1);
                             String doctorName = sharedPref.getString("doctor_name", null);
-                            if( locationUtils.findDistance(location.getLatitude(), location.getLongitude()) > 100 && doctorName != null) {
-                                NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
-                            };
+                            NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
+//                            if( locationUtils.findDistance(location.getLatitude(), location.getLongitude()) > 100 && doctorName != null) {
+//                                NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
+//                            }
                         }
                     }
                 }

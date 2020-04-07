@@ -163,11 +163,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 LoginDetails();
-
-
             }
         });
 
@@ -264,11 +260,13 @@ public class LoginActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                             } else if (position.equals("Doctor")) {
                                                 dialog.dismiss();
+                                                FirebaseMessaging.getInstance().subscribeToTopic(userId);
                                                 Intent intent = new Intent(LoginActivity.this, SubDoctorListActivity.class);
                                                 intent.putExtra("user", userId);
                                                 startActivity(intent);
                                             } else if (position.equals("SubDoctor")) {
                                                 dialog.dismiss();
+                                                FirebaseMessaging.getInstance().subscribeToTopic(userId);
                                                 Intent intent = new Intent(LoginActivity.this, PatientList.class);
                                                 intent.putExtra("user", userId);
                                                 startActivity(intent);

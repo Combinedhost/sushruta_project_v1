@@ -42,6 +42,10 @@
                 <action android:name="com.mbp.sushruta_v1.location_update_pending_intent.action" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".LocationWorkReceiver"
+            android:exported="true">
+        </receiver>
 
         <activity
             android:name=".WelcomeActivity"

@@ -44,7 +44,7 @@ public class PatientLoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
 
-    String patientId;
+    String patientId, doctorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,17 +91,12 @@ public class PatientLoginActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            //Shared Preferences
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("patient_id", dataSnapshot.child("patient_id").getValue().toString());
-                            editor.putString("doctor_name", dataSnapshot.child("doctor_name").getValue().toString());
-                            editor.apply();
-
                             patientId = dataSnapshot.child("patient_id").getValue().toString();
+                            doctorName = dataSnapshot.child("doctor_name").getValue().toString();
                             sendVerificationCode(phoneNo.getText().toString());
                         } else {
                             progressDialog.dismiss();
-                            Toast.makeText(PatientLoginActivity.this, "Phone no is not registered in the databse", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PatientLoginActivity.this, "Phone no is not registered in the database", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -198,6 +193,13 @@ public class PatientLoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Toast.makeText(PatientLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("patient_id", patientId);
+                            editor.putString("doctor_name", doctorName);
+                            editor.putString("Position", "patient");
+                            editor.apply();
+
 
                             Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
