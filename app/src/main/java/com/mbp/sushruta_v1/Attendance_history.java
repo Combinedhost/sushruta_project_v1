@@ -112,7 +112,8 @@ public class Attendance_history extends AppCompatActivity {
                     tbrow0.setGravity(Gravity.CENTER);
 
                     TextView tv1 = new TextView(getApplicationContext());
-                    tv1.setText("           Time        ");
+                    tv1.setText("Attendance Logged Time");
+                    tv1.setGravity(Gravity.CENTER);
                     tv1.setTextColor(Color.BLACK);
                     tv1.setAllCaps(true);
                     tv1.setTextSize(16);

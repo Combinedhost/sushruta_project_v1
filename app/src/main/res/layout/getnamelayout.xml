@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:padding="10dp"
+        android:padding="40dp"
         android:orientation="vertical">
 
         <TextView
@@ -29,7 +29,7 @@
             android:id="@+id/getname"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textAlignment="center"
@@ -39,7 +39,7 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:background="@color/colorPrimary"
             android:text="Continue" />
     </LinearLayout>

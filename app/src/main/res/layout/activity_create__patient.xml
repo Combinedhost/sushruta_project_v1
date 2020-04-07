@@ -33,13 +33,13 @@
                 android:layout_width="235dp"
                 android:layout_height="50dp"
                 android:layout_below="@+id/Patient_profile"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:layout_centerHorizontal="true"
                 android:hint="Patient name"
-                android:textColorHint="#9e9e9e"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textColorHint="#9e9e9e" />
 
         </RelativeLayout>
 
@@ -72,6 +72,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
@@ -79,22 +80,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="10dp"
-                                android:src="@drawable/ageicon"
-                                android:layout_weight="0.8"/>
+                                android:layout_weight="0.8"
+                                android:src="@drawable/ageicon" />
 
                             <EditText
                                 android:id="@+id/age"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
 
+                                android:layout_weight="0.2"
                                 android:hint="Age"
                                 android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#9e9e9e"
-                                android:textSize="18sp"
-                                android:layout_weight="0.2"
-                                />
+                                android:textSize="18sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -114,20 +114,21 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/gender_icon"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.8"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/gender3" />
 
                             <RadioGroup
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
                                 android:layout_weight="0.2"
+                                android:gravity="center"
                                 android:orientation="horizontal">
 
                                 <RadioButton
@@ -175,20 +176,21 @@ android:layout_weight="0.8"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/adhaar"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.8"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/aadhaar_logo" />
 
                             <EditText
                                 android:id="@+id/adhaarnumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.2"
+                                android:layout_weight="0.2"
                                 android:hint="Aadhar number"
                                 android:inputType="number"
                                 android:textAlignment="center"
@@ -213,20 +215,21 @@ android:layout_weight="0.2"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/id"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.8"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/id" />
 
                             <EditText
                                 android:id="@+id/idnumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.2"
+                                android:layout_weight="0.2"
                                 android:hint="Patient Id"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -251,6 +254,7 @@ android:layout_weight="0.2"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
@@ -265,7 +269,7 @@ android:layout_weight="0.2"
                                 android:id="@+id/bloodgroup"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.2"
+                                android:layout_weight="0.2"
                                 android:hint="Blood Group"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -288,6 +292,7 @@ android:layout_weight="0.2"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
@@ -317,7 +322,6 @@ android:layout_weight="0.2"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-
                         android:backgroundTint="#ffffff"
                         app:cardCornerRadius="2dp"
                         app:cardElevation="10dp">
@@ -325,6 +329,7 @@ android:layout_weight="0.2"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
@@ -338,7 +343,7 @@ android:layout_weight="0.2"
                                 android:id="@+id/heightinches"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.2"
+                                android:layout_weight="0.2"
                                 android:hint="Height"
                                 android:inputType="number"
                                 android:textAlignment="center"
@@ -363,6 +368,7 @@ android:layout_weight="0.2"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
@@ -376,7 +382,7 @@ android:layout_weight="0.2"
                                 android:id="@+id/weightinkg"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.2"
+                                android:layout_weight="0.2"
                                 android:hint="Weight"
                                 android:inputType="number"
                                 android:textAlignment="center"
@@ -401,13 +407,14 @@ android:layout_weight="0.2"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/address_icon"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.8"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/home" />
 
                             <EditText
@@ -438,13 +445,14 @@ android:layout_weight="0.8"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.8"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/call_icon" />
 
                             <EditText
@@ -474,6 +482,7 @@ android:layout_weight="0.8"
 
                         <LinearLayout
                             android:layout_width="match_parent"
+                            android:layout_marginStart="10dp"
                             android:layout_height="match_parent"
                             android:weightSum="1">
 
@@ -487,8 +496,8 @@ android:layout_weight="0.8"
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:layout_weight="0.2">
+                                android:layout_weight="0.2"
+                                android:orientation="vertical">
 
                                 <TextView
                                     android:id="@+id/quarantine_text"
@@ -503,14 +512,14 @@ android:layout_weight="0.8"
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="horizontal"
-                                    android:layout_weight="1">
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
 
                                     <EditText
                                         android:id="@+id/quarantine_latitude"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-android:layout_weight="0.5"
+                                        android:layout_weight="0.5"
                                         android:ems="10"
                                         android:hint="Latitude"
                                         android:inputType="numberDecimal"
@@ -522,7 +531,7 @@ android:layout_weight="0.5"
                                         android:id="@+id/quarantine_longitude"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-android:layout_weight="0.5"
+                                        android:layout_weight="0.5"
                                         android:ems="10"
                                         android:hint="Longitude"
                                         android:inputType="numberDecimal"
@@ -549,6 +558,7 @@ android:layout_weight="0.5"
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:weightSum="1">
 
                             <ImageView
@@ -562,7 +572,7 @@ android:layout_weight="0.5"
                                 android:id="@+id/medicineid"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-android:layout_weight="0.2"
+                                android:layout_weight="0.2"
                                 android:hint="Medcine"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
