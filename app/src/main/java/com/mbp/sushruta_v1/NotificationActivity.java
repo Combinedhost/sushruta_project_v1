@@ -3,7 +3,6 @@ package com.mbp.sushruta_v1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -59,7 +58,7 @@ public class NotificationActivity extends AppCompatActivity {
                 map1.put("time", dateFormat);
                 dataRef.child(key).setValue(map1);
 
-//                showMessage("Your Attendance Submitted Successfully");
+                Toast.makeText(getApplicationContext(), "Your attendance has been posted successfully", Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -70,17 +69,4 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
     }
-
-//    public void showMessage(String data) {
-//        Snackbar snackbar = Snackbar
-//                .make(coordinatorLayout, data, Snackbar.LENGTH_LONG)
-//                .setAction("Okay", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        snackbar.dismiss();
-//                    }
-//                });
-//
-//        snackbar.show();
-//    }
 }

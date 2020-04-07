@@ -1,6 +1,5 @@
 package com.mbp.sushruta_v1;
 
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -57,7 +55,7 @@ public class Patient_Information extends AppCompatActivity {
     TextView Name,Gender,Age;
     EditText Address,BloodGroup,Height,Weight,PatientId,AadharNo,InsuranceID,Medicines,PhoneNo, quarentineLatitude, quarentineLongitude;
     TableLayout layout;
-    RelativeLayout documentrl,parameterrl;
+    RelativeLayout documentrl, parameterrl, locationrl, attendancerl, locationhistoryrl;
     String patient,imageUrl;
     Dialog picdialog;
     int PERMISSION_ID = 44;
@@ -75,6 +73,9 @@ public class Patient_Information extends AppCompatActivity {
 
         documentrl=(RelativeLayout)findViewById(R.id.documents_rl) ;
         parameterrl=(RelativeLayout)findViewById(R.id.parameters_rl);
+        attendancerl=(RelativeLayout)findViewById(R.id.attendance_rl);
+        locationrl=(RelativeLayout)findViewById(R.id.location_rl);
+        locationhistoryrl=(RelativeLayout)findViewById(R.id.location_history_rl);
 
         imageView=(ImageView)findViewById(R.id.Patient_profile);
         Name=(TextView) findViewById(R.id.Patient_name);
@@ -189,8 +190,7 @@ public class Patient_Information extends AppCompatActivity {
             });
         }
 
-        catch (Exception e)
-        {
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -208,6 +208,22 @@ public class Patient_Information extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),Documents_patients.class);
                 intent.putExtra("user",patient);
+                startActivity(intent);
+            }
+        });
+
+        attendancerl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),Attendance_history.class);
+                startActivity(intent);
+            }
+        });
+
+        locationhistoryrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),LocationHistory.class);
                 startActivity(intent);
             }
         });
@@ -426,7 +442,6 @@ public class Patient_Information extends AppCompatActivity {
                 .setRequiresStorageNotLow(false)
                 .build();
 
-
         PeriodicWorkRequest locationWork =
                 new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
                         .build();
@@ -449,5 +464,4 @@ public class Patient_Information extends AppCompatActivity {
 
         WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
     }
-
 }
