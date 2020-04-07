@@ -108,7 +108,7 @@ public class LocationHistory extends AppCompatActivity {
 
                     tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
-                    tbrow0.setPadding(20, 10, 20, 10);
+                    tbrow0.setPadding(10, 5, 10, 5);
                     tbrow0.setGravity(Gravity.CENTER);
 
                     TextView tv0 = new TextView(getApplicationContext());
