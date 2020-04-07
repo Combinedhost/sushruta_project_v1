@@ -1,6 +1,5 @@
 package com.mbp.sushruta_v1;
 
-
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -10,6 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -24,16 +27,12 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -57,8 +56,8 @@ public class Patient_Information extends AppCompatActivity {
     TextView Name, Gender, Age;
     EditText Address, BloodGroup, Height, Weight, PatientId, AadharNo, InsuranceID, Medicines, PhoneNo, quarentineLatitude, quarentineLongitude;
     TableLayout layout;
-    RelativeLayout documentrl, parameterrl;
-    String patient, imageUrl;
+    RelativeLayout documentrl, parameterrl, locationrl, attendancerl, locationhistoryrl;
+    String patient,imageUrl;
     Dialog picdialog;
     int PERMISSION_ID = 44;
 
@@ -75,22 +74,25 @@ public class Patient_Information extends AppCompatActivity {
         checkPermissionsAndTriggerWorker();
         triggerAttendanceWorker();
 
-        documentrl = (RelativeLayout) findViewById(R.id.documents_rl);
-        parameterrl = (RelativeLayout) findViewById(R.id.parameters_rl);
+        documentrl=(RelativeLayout)findViewById(R.id.documents_rl) ;
+        parameterrl=(RelativeLayout)findViewById(R.id.parameters_rl);
+        attendancerl=(RelativeLayout)findViewById(R.id.attendance_rl);
+        locationrl=(RelativeLayout)findViewById(R.id.location_rl);
+        locationhistoryrl=(RelativeLayout)findViewById(R.id.location_history_rl);
 
-        imageView = (ImageView) findViewById(R.id.Patient_profile);
-        Name = (TextView) findViewById(R.id.Patient_name);
-        Address = (EditText) findViewById(R.id.addressid);
-        BloodGroup = (EditText) findViewById(R.id.bloodgroup);
-        Gender = (TextView) findViewById(R.id.Gender);
-        Age = (TextView) findViewById(R.id.Age);
-        Medicines = (EditText) findViewById(R.id.medicineid);
-        PatientId = (EditText) findViewById(R.id.idnumber);
-        AadharNo = (EditText) findViewById(R.id.adhaarnumber);
-        Height = (EditText) findViewById(R.id.heightinches);
-        Weight = (EditText) findViewById(R.id.weightinkg);
-        InsuranceID = (EditText) findViewById(R.id.insuranceid);
-        PhoneNo = (EditText) findViewById(R.id.phone_number);
+        imageView=(ImageView)findViewById(R.id.Patient_profile);
+        Name=(TextView) findViewById(R.id.Patient_name);
+        Address=(EditText) findViewById(R.id.addressid);
+        BloodGroup=(EditText) findViewById(R.id.bloodgroup);
+        Gender=(TextView) findViewById(R.id.Gender);
+        Age=(TextView) findViewById(R.id.Age);
+        Medicines=(EditText) findViewById(R.id.medicineid);
+        PatientId=(EditText) findViewById(R.id.idnumber);
+        AadharNo=(EditText) findViewById(R.id.adhaarnumber);
+        Height=(EditText) findViewById(R.id.heightinches);
+        Weight=(EditText) findViewById(R.id.weightinkg);
+        InsuranceID=(EditText) findViewById(R.id.insuranceid);
+        PhoneNo=(EditText)findViewById(R.id.phone_number);
         quarentineLatitude = (EditText) findViewById(R.id.quarentine_latitude);
         quarentineLongitude = (EditText) findViewById(R.id.quarentine_longitude);
 
@@ -140,15 +142,15 @@ public class Patient_Information extends AppCompatActivity {
                     String age = String.valueOf(ds1.child("Age").getValue());
                     imageUrl = String.valueOf(ds1.child("ImageUrl").getValue());
                     String gender = String.valueOf(ds1.child("Gender").getValue());
-                    String bloodGroup = String.valueOf(ds1.child("Blood Group").getValue());
-                    String aadhar_no = String.valueOf(ds1.child("Aadhar_no").getValue());
-                    String height = String.valueOf(ds1.child("Height").getValue());
-                    String weigth = String.valueOf(ds1.child("Weight").getValue());
-                    String insurance = String.valueOf(ds1.child("Insurance_ID").getValue());
-                    String patientId = String.valueOf(ds1.child("PatientId").getValue());
-                    String address = String.valueOf(ds1.child("Address").getValue());
-                    String medicine = String.valueOf(ds1.child("Medicines").getValue());
-                    String Phoneno = String.valueOf(ds1.child("PhoneNo").getValue());
+                    String bloodGroup=String.valueOf(ds1.child("Blood Group").getValue());
+                    String aadhar_no=String.valueOf(ds1.child("Aadhar_no").getValue());
+                    String height=String.valueOf(ds1.child("Height").getValue());
+                    String weigth=String.valueOf(ds1.child("Weight").getValue());
+                    String insurance=String.valueOf(ds1.child("Insurance_ID").getValue());
+                    String patientId=String.valueOf(ds1.child("PatientId").getValue());
+                    String address=String.valueOf(ds1.child("Address").getValue());
+                    String medicine=String.valueOf(ds1.child("Medicines").getValue());
+                    String Phoneno=String.valueOf(ds1.child("PhoneNo").getValue());
                     String latitude = String.valueOf(ds1.child("Quarentine_Latitude").getValue());
                     String longitude = String.valueOf(ds1.child("Quarentine_Longitude").getValue());
 
@@ -215,6 +217,22 @@ public class Patient_Information extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Documents_patients.class);
                 intent.putExtra("user", patient);
+                startActivity(intent);
+            }
+        });
+
+        attendancerl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), Attendance_history.class);
+                startActivity(intent);
+            }
+        });
+
+        locationhistoryrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), LocationHistory.class);
                 startActivity(intent);
             }
         });
@@ -444,7 +462,6 @@ public class Patient_Information extends AppCompatActivity {
                 .setRequiresStorageNotLow(false)
                 .build();
 
-
         PeriodicWorkRequest locationWork =
                 new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
                         .build();
@@ -467,7 +484,7 @@ public class Patient_Information extends AppCompatActivity {
 
         PeriodicWorkRequest dayWork = dayWorkBuilder.build();
 
-//        WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
+        WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
     }
 
 
@@ -480,5 +497,4 @@ public class Patient_Information extends AppCompatActivity {
                 , pendingIntent);
 
     }
-
 }

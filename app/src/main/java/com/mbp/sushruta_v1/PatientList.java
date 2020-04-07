@@ -125,7 +125,6 @@ public class PatientList extends AppCompatActivity {
 
                                 userList.add(Username);
 
-
                                 GetPatientDetails obj = new GetPatientDetails();
                                 String Name = String.valueOf(ds2.child("Name").getValue());
                                 String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
@@ -134,7 +133,6 @@ public class PatientList extends AppCompatActivity {
                                 obj.setName(Name);
                                 obj.setUserName(Username);
                                 obj.setPatientID(PatientID);
-
 
                                 patient_obj_list.add(obj);
 
@@ -148,13 +146,10 @@ public class PatientList extends AppCompatActivity {
                                     Log.i(TAG,"Not Available");
                                 }
 
-
                                 Log.i(TAG, "Value = " + Name + ImageUrl);
                                 recyclerView3.setLayoutManager(mLayoutManager);
                                 obj3 = new PatientRecyclerView(PatientList.this, patient_obj_list, subdoctor,UIDList);
                                 recyclerView3.setAdapter(obj3);
-
-
 
                             }
 
@@ -163,19 +158,13 @@ public class PatientList extends AppCompatActivity {
 
                             }
                         });
-
-
                     }
-
-
                 }
-
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
-
             });
         }
         catch (Exception e){
@@ -201,14 +190,12 @@ public class PatientList extends AppCompatActivity {
 
             dialog.setContentView(R.layout.popup);
 
-
             final ImageView imageView = (ImageView) dialog.findViewById(R.id.view4);
             final TextView name = (TextView) dialog.findViewById(R.id.textView);
             final TextView docid = (TextView) dialog.findViewById(R.id.textView2);
             final TextView spec = (TextView) dialog.findViewById(R.id.textView3);
             final TextView licid =(TextView)dialog.findViewById(R.id.textView6);
             ImageView close = (ImageView) dialog.findViewById(R.id.button);
-
 
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
@@ -221,27 +208,23 @@ public class PatientList extends AppCompatActivity {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                     String Name = String.valueOf(dataSnapshot.child("Name").getValue());
                     String ImageUrl = String.valueOf(dataSnapshot.child("ImageUrl").getValue());
                     String Specialist = String.valueOf(dataSnapshot.child("Specialization").getValue());
                     String DocID=String.valueOf(dataSnapshot.child("DoctorID").getValue());
                     String LicID=String.valueOf(dataSnapshot.child("LicenseID").getValue());
 
-
                     Glide.with(getApplicationContext()).load(ImageUrl).into(imageView);
                     name.setText(Name);
                     docid.setText(DocID);
                     spec.setText(Specialist);
                     licid.setText(LicID);
-
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
-
 
             close.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -24,7 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Attendance_history extends AppCompatActivity {
 
@@ -45,12 +50,20 @@ public class Attendance_history extends AppCompatActivity {
         patientId = sharedPref.getString("patient_id", "");
 
         entries = (TextView) findViewById(R.id.textView11);
-        dateFilter = (TextView) findViewById(R.id.textView7);
+        dateFilter = (TextView) findViewById(R.id.date_filter_at);
         noDataFound = (ImageView) findViewById(R.id.no_data);
         noDataFound.setVisibility(View.GONE);
 
         dateFilter.getPaint().setUnderlineText(true);
         tableLayout = (TableLayout) findViewById(R.id.tablelayout);
+
+        ImageView im = (ImageView) findViewById(R.id.imageView4);
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         final Calendar c = Calendar.getInstance();
         datePickerYear = c.get(Calendar.YEAR);
@@ -61,7 +74,7 @@ public class Attendance_history extends AppCompatActivity {
         dateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(Attendance_history.this, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(Attendance_history.this, R.style.AppCompatAlertDialogStyle, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 dateFilter.setText(getDate(dayOfMonth, month, year));
@@ -92,7 +105,7 @@ public class Attendance_history extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
 
                     int count = (int) dataSnapshot.getChildrenCount();
-                    entries.setText("Total no of entries : " + Integer.toString(count));
+                    entries.setText(Integer.toString(count));
                     tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
                     tbrow0.setPadding(50, 10, 50, 10);
@@ -102,7 +115,7 @@ public class Attendance_history extends AppCompatActivity {
                     tv1.setText("           Time        ");
                     tv1.setTextColor(Color.BLACK);
                     tv1.setAllCaps(true);
-                    tv1.setTextSize(18);
+                    tv1.setTextSize(16);
                     tv1.setTypeface(tv1.getTypeface(), Typeface.BOLD);
                     tbrow0.addView(tv1);
                     tableLayout.addView(tbrow0);
@@ -120,7 +133,7 @@ public class Attendance_history extends AppCompatActivity {
                         t1v.setText(time);
                         t1v.setTextColor(Color.BLACK);
                         t1v.setGravity(Gravity.CENTER);
-                        t1v.setTextSize(18);
+                        t1v.setTextSize(14);
                         tbrow.addView(t1v);
                         tbrow.setDividerPadding(20);
                         tableLayout.addView(tbrow);

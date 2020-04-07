@@ -30,29 +30,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yes"
-        android:buttonTint="@color/textColor"
-        android:textColor="@color/textColor"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
     <Button
         android:id="@+id/post_attendance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Post Attendance"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/colorPrimary"
+        android:text="Post Attendance"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/checkBox"
-        app:layout_constraintStart_toStartOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

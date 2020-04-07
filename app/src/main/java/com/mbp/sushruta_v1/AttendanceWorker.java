@@ -9,12 +9,17 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class AttendanceWorker extends Worker {
     private static final String WORK_RESULT = "work_result";
@@ -26,7 +31,7 @@ public class AttendanceWorker extends Worker {
     public Result doWork() {
 //        Data taskData = getInputData();
 //        String taskDataString = taskData.getString(Alert.MESSAGE_STATUS);
-        showNotification("WorkManager", "Notification for attendance has been Sent");
+        showNotification("Attendance", "Please post your attendance to verify you are in quarantine location");
         Data outputData = new Data.Builder().putString(WORK_RESULT, "Jobs Finished").build();
         return Result.success(outputData);
     }
@@ -34,6 +39,9 @@ public class AttendanceWorker extends Worker {
         NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         String channelId = "task_channel";
         String channelName = "task_name";
+
+        Date currentTime = Calendar.getInstance().getTime();
+        Log.i("Current Time", currentTime.toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new
@@ -50,12 +58,13 @@ public class AttendanceWorker extends Worker {
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
                 .setContentTitle(task)
                 .setContentText(desc)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
-        manager.notify(9, builder.build());
+        manager.notify(1, builder.build());
     }
 }
