@@ -68,9 +68,6 @@ public class Patient_Information extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__information);
 
-        checkPermissionsAndTriggerWorker();
-        triggerAttendanceWorker();
-
         documentrl = (RelativeLayout) findViewById(R.id.documents_rl);
         parameterrl = (RelativeLayout) findViewById(R.id.parameters_rl);
         attendancerl = (RelativeLayout) findViewById(R.id.attendance_rl);
@@ -113,6 +110,10 @@ public class Patient_Information extends AppCompatActivity {
 
         userType = sharedPref.getString("user_type", null);
 
+        if (userType != null && userType.equals("patient")) {
+            checkPermissionsAndTriggerWorker();
+            triggerAttendanceWorker();
+        }
 
         fd = FirebaseDatabase.getInstance();
 
