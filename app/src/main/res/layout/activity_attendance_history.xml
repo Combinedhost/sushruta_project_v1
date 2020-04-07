@@ -44,7 +44,7 @@
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="60dp"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="10dp"
@@ -86,7 +86,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center"
-                    android:text="Date" />
+                    android:text="Date"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/date_filter_at"
@@ -94,7 +96,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center"
-
+                    android:textSize="18sp"
                     android:textAlignment="center" />
 
             </LinearLayout>
@@ -110,16 +112,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
-                    android:text="Total no. of entries"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3"
-                    android:text="-"
-                    android:textAlignment="center" />
+                    android:text="Total Entries"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -128,7 +124,8 @@
                     android:layout_marginTop="0dp"
                     android:layout_weight="0.2"
                     android:gravity="center"
-                    android:text="no"
+                    android:text="-"
+                    android:textSize="18sp"
                     android:textAlignment="center" />
 
             </LinearLayout>
@@ -137,7 +134,7 @@
                 android:id="@+id/tablelayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:divider="@drawable/divider"
                 android:showDividers="middle"
                 tools:layout_editor_absoluteX="35dp"

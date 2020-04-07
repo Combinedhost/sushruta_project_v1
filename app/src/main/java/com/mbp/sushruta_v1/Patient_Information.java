@@ -215,7 +215,7 @@ public class Patient_Information extends AppCompatActivity {
         attendancerl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),Attendance_history.class);
+                Intent intent=new Intent(getApplicationContext(), Attendance_history.class);
                 startActivity(intent);
             }
         });
@@ -223,7 +223,7 @@ public class Patient_Information extends AppCompatActivity {
         locationhistoryrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),LocationHistory.class);
+                Intent intent=new Intent(getApplicationContext(), LocationHistory.class);
                 startActivity(intent);
             }
         });

@@ -48,12 +48,20 @@ public class LocationHistory extends AppCompatActivity {
         patientId = sharedPref.getString("patient_id", "");
 
         entries = (TextView) findViewById(R.id.textView11);
-        dateFilter = (TextView) findViewById(R.id.textView7);
+        dateFilter = (TextView) findViewById(R.id.date_filter_lo);
         noDataFound = (ImageView) findViewById(R.id.no_data);
         noDataFound.setVisibility(View.GONE);
 
         dateFilter.getPaint().setUnderlineText(true);
         tableLayout = (TableLayout) findViewById(R.id.tablelayout);
+
+        ImageView im = (ImageView) findViewById(R.id.imageView4);
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         final Calendar c = Calendar.getInstance();
         datePickerYear = c.get(Calendar.YEAR);
@@ -64,7 +72,7 @@ public class LocationHistory extends AppCompatActivity {
         dateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(LocationHistory.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(LocationHistory.this, R.style.AppCompatAlertDialogStyle, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         dateFilter.setText(getDate(dayOfMonth, month, year));

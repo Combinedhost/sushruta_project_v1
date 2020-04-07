@@ -37,6 +37,7 @@ public class NotificationActivity extends AppCompatActivity {
         Log.i("Preference", sharedPref.toString());
         String patientId = sharedPref.getString("patient_id", "");
         String patientName = sharedPref.getString("patient_name", "");
+        Log.i("Patient Nsme", patientName);
 
         patient = (TextView) findViewById(R.id.textView5);
         patient.setText("Hi " + patientName);
