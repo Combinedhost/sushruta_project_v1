@@ -51,18 +51,24 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".PatientLoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -79,19 +85,21 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Patient_Information"
-            android:label="Patient Details" /> <!-- android:theme="@style/Theme.AppCompat.NoActionBar"/> -->
+            android:label="Patient Details" />
+        <!-- android:theme="@style/Theme.AppCompat.NoActionBar"/> -->
         <activity
             android:name=".Create_Patient"
             android:label="Create new Patient" />
         <activity
             android:name=".PatientList"
-            android:label="List of Patients"/>
+            android:label="List of Patients" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Test" />
+        <activity android:name=".LocationHistory" />
         <activity
             android:name=".Documents_patients"
             android:label=""
@@ -108,7 +116,12 @@
         <activity
             android:name=".ParameterValuesNew"
             android:label="Parameter Values"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" >
+
+
+
+        </activity>
+
         <activity
             android:name=".ChartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -127,42 +140,17 @@
             android:name=".Doctor_Not_Approval_Activity"
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Alert"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <activity
             android:name=".NotificationActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity
-            android:name=".Attendance_history"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity
-            android:name=".LocationHistory"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
     </application>
 
 </manifest>

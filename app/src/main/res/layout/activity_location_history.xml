@@ -58,45 +58,14 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <LinearLayout
-        android:id="@+id/l1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar">
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="Date" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:ems="10"
-            android:inputType="date" />
-    </LinearLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:padding="5dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l1">
+        app:layout_constraintTop_toBottomOf="@+id/appbar">
 
 
         <LinearLayout
@@ -104,12 +73,38 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/l1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Date" />
+
+                <TextView
+                    android:id="@+id/date_filter_lo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+
+                    android:ems="10"
+                    android:gravity="center"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
             <TableLayout
                 android:id="@+id/tablelayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
                 android:divider="@drawable/divider"
                 android:showDividers="middle"
                 tools:layout_editor_absoluteX="35dp"
@@ -120,9 +115,9 @@
 
             <ImageView
                 android:id="@+id/no_data"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
                 android:alpha="0.3"
                 app:srcCompat="@drawable/no_data" />
 
