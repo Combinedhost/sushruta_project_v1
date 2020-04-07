@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ public class Patient_Information extends AppCompatActivity {
     TextView Name, Gender, Age;
     EditText Address, BloodGroup, Height, Weight, PatientId, AadharNo, InsuranceID, Medicines, PhoneNo, quarentineLatitude, quarentineLongitude;
     TableLayout layout;
-    RelativeLayout documentrl, parameterrl, locationrl, attendancerl, locationhistoryrl;
+    LinearLayout attendancerl,documentrl, parameterrl, locationrl, locationhistoryrl;
     String patient, imageUrl;
     Dialog picdialog;
     int PERMISSION_ID = 44;
@@ -68,11 +69,11 @@ public class Patient_Information extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__information);
 
-        documentrl = (RelativeLayout) findViewById(R.id.documents_rl);
-        parameterrl = (RelativeLayout) findViewById(R.id.parameters_rl);
-        attendancerl = (RelativeLayout) findViewById(R.id.attendance_rl);
-        locationrl = (RelativeLayout) findViewById(R.id.location_rl);
-        locationhistoryrl = (RelativeLayout) findViewById(R.id.location_history_rl);
+        documentrl = (LinearLayout) findViewById(R.id.documents_rl);
+        parameterrl = (LinearLayout) findViewById(R.id.parameters_rl);
+        attendancerl = (LinearLayout) findViewById(R.id.attendance_rl);
+        locationrl = (LinearLayout) findViewById(R.id.location_rl);
+        locationhistoryrl = (LinearLayout) findViewById(R.id.location_history_rl);
 
         imageView = (ImageView) findViewById(R.id.Patient_profile);
         Name = (TextView) findViewById(R.id.Patient_name);

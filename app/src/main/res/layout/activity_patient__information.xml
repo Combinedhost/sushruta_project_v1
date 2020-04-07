@@ -92,32 +92,29 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/adhaar"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/aadhaar_logo" />
 
                             <EditText
                                 android:id="@+id/adhaarnumber"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.2"
                                 android:text="@string/_858837467920"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -130,66 +127,69 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/location_rl"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/location_rl">
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/location_tracking"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.8"
                                 android:src="@drawable/location" />
 
-                            <TextView
-                                android:id="@+id/q_location"
-                                android:layout_width="200dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginEnd="30dp"
-                                android:ems="10"
-                                android:inputType="textPersonName"
-                                android:text="Quarantine Location"
-                                android:textAlignment="center"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+                                android:orientation="vertical">
 
-                            <EditText
-                                android:id="@+id/quarentine_latitude"
-                                android:layout_width="103dp"
-                                android:layout_height="27dp"
-                                android:layout_alignStart="@+id/q_location"
-                                android:layout_alignTop="@+id/quarentine_longitude"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="0dp"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_toStartOf="@+id/quarentine_longitude"
-                                android:ems="10"
-                                android:inputType="numberDecimal"
-                                android:text="Latitude"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
+                                <TextView
+                                    android:id="@+id/q_location"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10"
+                                    android:inputType="textPersonName"
+                                    android:text="Quarantine Location"
+                                    android:textAlignment="center"
+                                    android:textColor="#000000"
+                                    android:textSize="18sp" />
 
-                            <EditText
-                                android:id="@+id/quarentine_longitude"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="5dp"
-                                android:ems="10"
-                                android:inputType="numberDecimal"
-                                android:text="Longitude"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
 
-                        </RelativeLayout>
+                                    <EditText
+                                        android:id="@+id/quarentine_latitude"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+android:layout_weight="0.5"
+                                        android:ems="10"
+                                        android:inputType="numberDecimal"
+                                        android:text="Latitude"
+                                        android:textAlignment="center"
+                                        android:textColor="#000000"
+                                        android:textSize="18sp" />
+
+                                    <EditText
+                                        android:id="@+id/quarentine_longitude"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="0.5"
+                                        android:ems="10"
+                                        android:inputType="numberDecimal"
+                                        android:text="Longitude"
+                                        android:textAlignment="center"
+                                        android:textColor="#000000"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -202,34 +202,32 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/attendance_rl"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/attendance_rl">
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/address_tracking"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_marginStart="10dp"
-                                android:src="@drawable/attn" />
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/attn"
+                                android:layout_weight="0.8"/>
 
                             <TextView
                                 android:id="@+id/editText5"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.2"
+android:gravity="center"
                                 android:ems="10"
                                 android:text="Attendance History"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -242,34 +240,32 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/location_history_rl"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/location_history_rl">
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/location_history"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.8"
                                 android:src="@drawable/location" />
 
                             <TextView
                                 android:id="@+id/location"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+android:gravity="center"
                                 android:ems="10"
                                 android:text="Location"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -282,31 +278,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/id"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/id" />
 
                             <EditText
                                 android:id="@+id/idnumber"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
                                 android:text="@string/_5555544"
+                                android:gravity="center"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -319,32 +314,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/blood"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/blood" />
 
                             <EditText
                                 android:id="@+id/bloodgroup"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.2"
+                                android:gravity="center"
                                 android:text="@string/o_ve"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -357,32 +350,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/insurance_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.8"
                                 android:src="@drawable/insurance" />
 
                             <EditText
                                 android:id="@+id/insuranceid"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
                                 android:text="AB12345"
+                                android:gravity="center"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -395,34 +386,32 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/phone_rl"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/phone_rl">
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/phone_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/call_icon" />
 
                             <EditText
                                 android:id="@+id/phone_number"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
-                                android:enabled="false"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+                                android:layout_gravity="center"
                                 android:text="Phone Number"
+                                android:enabled="false"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -435,32 +424,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/height_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/height_icon" />
 
                             <EditText
                                 android:id="@+id/heightinches"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+android:gravity="center"
                                 android:text="@string/_5_8"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -473,32 +460,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/weight_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/weight_icon" />
 
                             <EditText
                                 android:id="@+id/weightinkg"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
                                 android:text="@string/_63"
+                                android:gravity="center"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -511,32 +496,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/medicine"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/medicine_icon" />
 
                             <EditText
                                 android:id="@+id/medicineid"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+android:layout_weight="0.2"
+                                android:gravity="center"
                                 android:text="@string/ciprofloxacin_azithromycin_and_ceftriaxone"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -549,34 +532,30 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/address_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/address" />
 
                             <EditText
                                 android:id="@+id/addressid"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+                                android:gravity="center"
                                 android:text="@string/_134_sengunthar_nagar_erode_638004"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -589,34 +568,32 @@
                         android:backgroundTint="#ffffff"
                         app:cardElevation="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:id="@+id/parameters_rl"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/param_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/parameters" />
 
                             <EditText
                                 android:id="@+id/parameters"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+                                android:gravity="center"
                                 android:enabled="false"
                                 android:text="Parameters"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -629,34 +606,32 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="10dp">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:id="@+id/documents_rl"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:weightSum="1">
 
                             <ImageView
                                 android:id="@+id/documents_icon"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.8"
                                 android:src="@drawable/docs_icon" />
 
                             <EditText
                                 android:id="@+id/documents"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
                                 android:enabled="false"
+                                android:gravity="center"
                                 android:text="Documents"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
