@@ -128,9 +128,9 @@ public class Patient_Information extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot ds1) {
 
-
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("patient_name", ds1.child("Name").getValue().toString());
+                    editor.putString("patient_id", ds1.child("PatientId").getValue().toString());
                     editor.putString("patient_phone_no", ds1.child("PhoneNo").getValue().toString());
                     editor.putString("quarantine_latitude", ds1.child("Quarentine_Latitude").getValue().toString());
                     editor.putString("quarantine_longitude", ds1.child("Quarentine_Longitude").getValue().toString());
