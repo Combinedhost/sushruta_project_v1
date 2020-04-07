@@ -264,7 +264,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="60dp"
                                 android:ems="10"
-                                android:text="Location"
+                                android:text="Location History"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />

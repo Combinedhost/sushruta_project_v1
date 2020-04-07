@@ -170,7 +170,6 @@ public class ParameterValuesNew extends AppCompatActivity {
                         String pred = String.valueOf(dataSnapshot1.child("value").getValue());
                         String com = time + pred;
 
-
                         TableRow tbrow = new TableRow(getApplicationContext());
                         tbrow.setGravity(Gravity.CENTER);
                         tbrow.setPadding(50, 10, 50, 10);

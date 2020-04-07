@@ -47,6 +47,8 @@ public class LocationHistory extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
         patientId = sharedPref.getString("patient_id", "");
 
+        Log.i("Patient Id", patientId);
+
         entries = (TextView) findViewById(R.id.textView11);
         dateFilter = (TextView) findViewById(R.id.date_filter_lo);
         noDataFound = (ImageView) findViewById(R.id.no_data);
@@ -106,15 +108,23 @@ public class LocationHistory extends AppCompatActivity {
 
                     tableLayout.removeAllViews();
                     TableRow tbrow0 = new TableRow(getApplicationContext());
-                    tbrow0.setPadding(50, 10, 50, 10);
+                    tbrow0.setPadding(20, 10, 20, 10);
                     tbrow0.setGravity(Gravity.CENTER);
+
+                    TextView tv0 = new TextView(getApplicationContext());
+                    tv0.setText("           Time             ");
+                    tv0.setAllCaps(true);
+                    tv0.setTextColor(Color.BLACK);
+                    tv0.setTextSize(16);
+                    tv0.setTypeface(tv0.getTypeface(), Typeface.BOLD);
+                    tbrow0.addView(tv0);
 
                     TextView tv1 = new TextView(getApplicationContext());
                     tv1.setText("           Location        ");
                     tv1.setTextColor(Color.BLACK);
                     tv1.setAllCaps(true);
-                    tv1.setTextSize(18);
-                    tv1.setTypeface(tv1.getTypeface(), Typeface.BOLD);
+                    tv1.setTextSize(16);
+                    tv1.setTypeface(tv0.getTypeface(), Typeface.BOLD);
                     tbrow0.addView(tv1);
                     tableLayout.addView(tbrow0);
 
@@ -122,17 +132,27 @@ public class LocationHistory extends AppCompatActivity {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         i = i + 1;
                         String time = String.valueOf(dataSnapshot1.child("time").getValue());
-                        String com = time;
+                        String location = String.valueOf(dataSnapshot1.child("location").getValue());
+                        Log.i("Time", time);
 
                         TableRow tbrow = new TableRow(getApplicationContext());
                         tbrow.setGravity(Gravity.CENTER);
-                        tbrow.setPadding(50, 10, 50, 10);
+                        tbrow.setPadding(20, 10, 20, 10);
+
                         TextView t1v = new TextView(getApplicationContext());
                         t1v.setText(time);
                         t1v.setTextColor(Color.BLACK);
                         t1v.setGravity(Gravity.CENTER);
-                        t1v.setTextSize(18);
+                        t1v.setTextSize(14);
                         tbrow.addView(t1v);
+
+                        TextView t2v = new TextView(getApplicationContext());
+                        t2v.setText(location);
+                        t2v.setTextColor(Color.BLACK);
+                        t2v.setGravity(Gravity.CENTER);
+                        t2v.setTextSize(14);
+                        tbrow.setDividerPadding(10);
+                        tbrow.addView(t2v);
                         tbrow.setDividerPadding(20);
                         tableLayout.addView(tbrow);
                     }
