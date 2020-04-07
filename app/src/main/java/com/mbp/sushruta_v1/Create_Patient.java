@@ -91,8 +91,8 @@ public class Create_Patient extends AppCompatActivity {
         InsuranceID = (EditText) findViewById(R.id.insuranceid);
         Medicine = (EditText) findViewById(R.id.medicineid);
         PhoneNo = (EditText) findViewById(R.id.phone_number);
-        quarantineLatitude = (EditText)findViewById(R.id.quarantine_latitude);
-        quarantineLongitude = (EditText)findViewById(R.id.quarantine_longitude);
+        quarantineLatitude = (EditText) findViewById(R.id.quarantine_latitude);
+        quarantineLongitude = (EditText) findViewById(R.id.quarantine_longitude);
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -270,7 +270,7 @@ public class Create_Patient extends AppCompatActivity {
             return false;
         }
 
-        if (AadharNo.getText().toString().trim().equals("") || AadharNo.getText().toString().length() < 12 ||  AadharNo.getText().toString().length() > 12) {
+        if (AadharNo.getText().toString().trim().equals("") || AadharNo.getText().toString().length() < 12 || AadharNo.getText().toString().length() > 12) {
             Toast.makeText(Create_Patient.this, "Kindly enter a valid aadhar no", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -334,6 +334,7 @@ public class Create_Patient extends AppCompatActivity {
 
                 final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
                 progressDialog.setTitle("Registering Patient");
+                progressDialog.setMessage("Please wait...");
                 progressDialog.show();
 
                 StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
@@ -391,8 +392,8 @@ public class Create_Patient extends AppCompatActivity {
 
 
                                         Map<String, String> loginMap = new HashMap<String, String>();
-                                        map.put("doctor_name", PhoneNo.getText().toString());
-                                        map.put("patient_id", PatientId.getText().toString());
+                                        loginMap.put("doctor_name", PhoneNo.getText().toString());
+                                        loginMap.put("patient_id", PatientId.getText().toString());
                                         loginRef.setValue(loginMap);
 
 
@@ -417,10 +418,6 @@ public class Create_Patient extends AppCompatActivity {
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                        .getTotalByteCount());
-//        progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                                progressDialog.setMessage("Uploading");
                             }
                         });
             } else {

@@ -263,6 +263,7 @@ public class Documents_patients extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
+            progressDialog.setMessage("Please wait");
 
             StorageReference ref = storageReference.child("images/"+file);
             ref.putFile(filePath)
@@ -315,7 +316,6 @@ public class Documents_patients extends AppCompatActivity {
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
         }
