@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".LoginTypeSelectionActivity"></activity>
+        <activity android:name=".LoginTypeSelectionActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -44,13 +44,14 @@
         </receiver>
         <receiver
             android:name=".LocationWorkReceiver"
-            android:exported="true">
-        </receiver>
+            android:exported="true"/>
+        <receiver
+            android:name=".AttendanceWorkReceiver"
+            android:exported="true"/>
 
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".TestActivity" />
 
@@ -66,13 +67,11 @@
 
         <activity
             android:name=".PatientLoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".RegisterActivity"

@@ -93,10 +93,6 @@ public class ChartActivity extends AppCompatActivity {
 
                     String time = String.valueOf(dataSnapshot1.child("time").getValue());
                     String val = String.valueOf(dataSnapshot1.child("value").getValue());
-//                        value.add(new BarEntry(Float.parseFloat(val),i));
-
-
-
                     try
                     {
                         Date date = df.parse(time);

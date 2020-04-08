@@ -2,6 +2,7 @@ package com.mbp.sushruta_v1;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -128,6 +129,18 @@ public class ParameterValuesNew extends AppCompatActivity {
                 }, datePickerYear, datePickerMonth, datePickerDay);
                 datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
                 datePickerDialog.show();
+            }
+        });
+
+        ImageView chart = (ImageView)findViewById(R.id.chart);
+        chart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ParameterValuesNew.this, ChartActivity.class);
+                intent.putExtra("date", dateFilter.getText().toString());
+                intent.putExtra("user", user);
+                intent.putExtra("param", param);
+                startActivity(intent);
             }
         });
 

@@ -476,17 +476,24 @@ public class Patient_Information extends AppCompatActivity {
 
 
     private void triggerAttendanceWorker() {
-        Constraints constraints = new Constraints.Builder()
-                .setRequiresBatteryNotLow(false)
-                .setRequiresStorageNotLow(false)
-                .build();
+//        Constraints constraints = new Constraints.Builder()
+//                .setRequiresBatteryNotLow(false)
+//                .setRequiresStorageNotLow(false)
+//                .build();
+//
+//        PeriodicWorkRequest.Builder dayWorkBuilder =
+//                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 30, TimeUnit.MINUTES, 2, TimeUnit.MINUTES);
+//
+//        PeriodicWorkRequest dayWork = dayWorkBuilder.build();
+//
+//        WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
 
-        PeriodicWorkRequest.Builder dayWorkBuilder =
-                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 30, TimeUnit.MINUTES, 2, TimeUnit.MINUTES);
-
-        PeriodicWorkRequest dayWork = dayWorkBuilder.build();
-
-        WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
+        Intent intent = new Intent(this, AttendanceWorkReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this.getApplicationContext(), 280191, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 15
+                , pendingIntent);
     }
 
 
@@ -495,8 +502,7 @@ public class Patient_Information extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 280192, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 30
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 15
                 , pendingIntent);
-
     }
 }

@@ -38,7 +38,8 @@
                 android:gravity="center"
                 android:hint="Patient Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColorHint="@color/textColor" />
+                android:textColorHint="#9e9e9e"
+                />
 
             <TextView
                 android:id="@+id/Gender"
@@ -51,7 +52,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="0dp"
                 android:gravity="center"
-                android:text="Gender"
+                android:hint="Gender"
+                android:textColorHint="#9e9e9e"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
@@ -62,7 +64,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Age"
+                android:hint="Age"
+                android:textColorHint="#9e9e9e"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/textColor" />
 
@@ -110,7 +113,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:text="@string/_858837467920"
+                                android:hint="@string/_858837467920"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -173,7 +177,8 @@
                                         android:layout_weight="0.5"
                                         android:ems="10"
                                         android:inputType="numberDecimal"
-                                        android:text="Latitude"
+                                        android:hint="Latitude"
+                                        android:textColorHint="#9e9e9e"
                                         android:textAlignment="center"
                                         android:textColor="#000000"
                                         android:textSize="18sp" />
@@ -185,7 +190,8 @@
                                         android:layout_weight="0.5"
                                         android:ems="10"
                                         android:inputType="numberDecimal"
-                                        android:text="Longitude"
+                                        android:hint="Longitude"
+                                        android:textColorHint="#9e9e9e"
                                         android:textAlignment="center"
                                         android:textColor="#000000"
                                         android:textSize="18sp" />
@@ -305,7 +311,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="@string/_5555544"
+                                android:hint="Patient Id"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -342,7 +349,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="@string/o_ve"
+                                android:hint="Blood group"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -379,7 +387,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="AB12345"
+                                android:hint="Insurance Id"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -418,7 +427,8 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="0.2"
                                 android:enabled="false"
-                                android:text="Phone Number"
+                                android:hint="Phone Number"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -455,7 +465,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="@string/_5_8"
+                                android:hint="Height"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -492,7 +503,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="@string/_63"
+                                android:text="Weight"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -529,7 +541,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="@string/ciprofloxacin_azithromycin_and_ceftriaxone"
+                                android:text="Medicine"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -566,7 +579,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="@string/_134_sengunthar_nagar_erode_638004"
+                                android:text="Address"
+                                android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -598,7 +612,7 @@
                                 android:layout_weight="0.8"
                                 android:src="@drawable/parameters" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/parameters"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -636,7 +650,7 @@
                                 android:layout_weight="0.8"
                                 android:src="@drawable/docs_icon" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/documents"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
