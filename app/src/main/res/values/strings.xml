@@ -1,7 +1,8 @@
 <resources>
+
+    <string name="phone_number">தொலைபேசி எண்</string>
+
     <string name="app_name">Sushruta_V1</string>
-
-
     <string name="title_activity_patient_list">PatientList</string>
     <string name="ciprofloxacin_azithromycin_ceftriaxone">Ciprofloxacin, Azithromycin, Ceftriaxone</string>
     <string name="ciprofloxacin_azithromycin_and_ceftriaxone">Ciprofloxacin, Azithromycin and Ceftriaxone</string>
@@ -33,22 +34,16 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="finish">Go on...</string>
-
     <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
-
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
-
     <string name="register"> <u>Register here</u></string>
-
     <string-array name="doc_list">
         <item>List of Approved Doctors</item>
         <item>List of Not Approved Doctors</item>
-
-
     </string-array>
     <string name="title_activity_patient_login">PatientLoginActivity</string>
     <string name="image">Image</string>
