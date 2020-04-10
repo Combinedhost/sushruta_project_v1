@@ -2,6 +2,7 @@ package com.mbp.sushruta_v1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -20,13 +21,28 @@ public class LanguageSwitchingActivity extends AppCompatActivity {
 
         loadLocale();
 
-        Button tamil = (Button)findViewById(R.id.tamil);
+        Button english = (Button)findViewById(R.id.lang_english);
+        Button tamil = (Button)findViewById(R.id.lang_tamil);
+
+        english.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLocale("en");
+//                loadLocale();
+                Toast.makeText(getApplicationContext(), "You have chosen English language", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), PatientLoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tamil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLocale("ta_IN");
-                Toast.makeText(getApplicationContext(), "Language Switched", Toast.LENGTH_LONG).show();
+                setLocale("ta");
+//                loadLocale();
+                Toast.makeText(getApplicationContext(), "You have chosen Tamil language", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), PatientLoginActivity.class);
+                startActivity(intent);
             }
         });
     }

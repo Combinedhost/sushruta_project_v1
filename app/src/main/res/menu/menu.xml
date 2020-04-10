@@ -2,10 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/profile"
-        android:title="Profile" />
+        android:title="@string/profile" />
+
+<!--    <item-->
+<!--        android:id="@+id/language"-->
+<!--        android:title="@string/language" />-->
 
     <item
         android:id="@+id/logout"
-        android:title="LogOut" />
+        android:title="@string/logout" />
 
 </menu>

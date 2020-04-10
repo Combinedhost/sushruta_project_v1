@@ -1,7 +1,4 @@
 <resources>
-
-    <string name="phone_number">தொலைபேசி எண்</string>
-
     <string name="app_name">Sushruta_V1</string>
     <string name="title_activity_patient_list">PatientList</string>
     <string name="ciprofloxacin_azithromycin_ceftriaxone">Ciprofloxacin, Azithromycin, Ceftriaxone</string>
@@ -10,7 +7,6 @@
     <string name="phone_number">Phone Number</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="name">Name</string>
-
     <string name="doctor_id">Doctor ID</string>
     <string name="age">Age</string>
     <string name="male">Male</string>
@@ -49,4 +45,39 @@
     </string-array>
     <string name="title_activity_patient_login">PatientLoginActivity</string>
     <string name="image">Image</string>
+    <string name="login">Login</string>
+    <string name="send_otp">SEND OTP</string>
+    <string name="otp">OTP</string>
+    <string name="login_btn">LOGIN</string>
+    <string name="patient_id">Patient ID</string>
+    <string name="address">Address</string>
+    <string name="blood_group">Blood Group</string>
+    <string name="insurance_id">Insurance ID</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="quarantine_location">Quarantine Location</string>
+    <string name="medicine">Medicine</string>
+    <string name="create">Create</string>
+    <string name="profile">Profile</string>
+    <string name="parameters">Parameters</string>
+    <string name="documents">Documents</string>
+    <string name="location">Location</string>
+    <string name="date">Date</string>
+    <string name="name_of_the_parameter">Name of the Parameters</string>
+    <string name="enter_the_value">Enter the Value</string>
+    <string name="log_out">Logout</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="details">Details</string>
+    <string name="is_out_of_range">Is out of range</string>
+    <string name="language">Language</string>
+    <string name="logout">LogOut</string>
+    <string name="approved_doctors">Approved Doctors</string>
+    <string name="continue_as">Continue as</string>
+    <string name="doctor">Doctor</string>
+    <string name="or">or</string>
+    <string name="patient">Patient</string>
+    <string name="english">English</string>
+    <string name="choose_your_language">Choose Your Language</string>
+
 </resources>

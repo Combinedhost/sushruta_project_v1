@@ -19,7 +19,7 @@
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Continue as"
+        android:text="@string/continue_as"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sshape"
             android:padding="10dp"
-            android:text="Doctor"
+            android:text="@string/doctor"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="or"
+            android:text="@string/or"
             android:textAlignment="center" />
 
         <Button
@@ -54,9 +54,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sshape"
             android:padding="10dp"
-            android:text="Patient"
+            android:text="@string/patient"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
+
     </LinearLayout>
 
 </RelativeLayout>
