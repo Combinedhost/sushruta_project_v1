@@ -136,7 +136,6 @@ public class Patient_Information extends AppCompatActivity {
                     editor.putString("quarantine_longitude", ds1.child("Quarentine_Longitude").getValue().toString());
                     editor.apply();
 
-
                     String name = String.valueOf(ds1.child("Name").getValue());
                     String age = String.valueOf(ds1.child("Age").getValue());
                     imageUrl = String.valueOf(ds1.child("ImageUrl").getValue());
@@ -255,7 +254,6 @@ public class Patient_Information extends AppCompatActivity {
                     menu.findItem(R.id.profile).setVisible(false);
             }
         }
-
 
         return true;
     }
