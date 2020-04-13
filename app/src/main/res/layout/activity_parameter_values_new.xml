@@ -100,7 +100,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center"
-                    android:text="Date"
+                    android:text="@string/date_parameter"
                     android:textSize="18sp" />
 
                 <TextView

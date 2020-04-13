@@ -36,7 +36,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:hint="Patient name"
+                android:hint="@string/patient_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#000000"
                 android:textColorHint="#9e9e9e" />
@@ -89,7 +89,7 @@
                                 android:layout_height="match_parent"
 
                                 android:layout_weight="0.2"
-                                android:hint="Age"
+                                android:hint="@string/age"
                                 android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -137,7 +137,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#000000"
-                                    android:text="Male"
+                                    android:text="@string/male"
                                     android:textColor="#000000" />
 
                                 <RadioButton
@@ -146,7 +146,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#000000"
-                                    android:text="Female"
+                                    android:text="@string/female"
                                     android:textColor="#000000" />
 
                                 <RadioButton
@@ -156,7 +156,7 @@
 
                                     android:layout_weight="1"
                                     android:buttonTint="#000000"
-                                    android:text="Other"
+                                    android:text="@string/other"
                                     android:textColor="#000000" />
                             </RadioGroup>
 
@@ -191,7 +191,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Aadhar number"
+                                android:hint="@string/aadhar_number"
                                 android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -230,7 +230,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Patient Id"
+                                android:hint="@string/patient_id"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#9e9e9e"
@@ -270,7 +270,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Blood Group"
+                                android:hint="@string/blood_group"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#9e9e9e"
@@ -308,7 +308,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
 
-                                android:hint="Insurance ID"
+                                android:hint="@string/insurance_id"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#9e9e9e"
@@ -344,7 +344,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Height"
+                                android:hint="@string/height_in_cm"
                                 android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -383,7 +383,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Weight"
+                                android:hint="@string/weight_in_kgs"
                                 android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -422,7 +422,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Address"
+                                android:hint="@string/address"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#9e9e9e"
@@ -460,7 +460,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Phone Number"
+                                android:hint="@string/phone_number"
                                 android:inputType="number"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -503,7 +503,7 @@
                                     android:id="@+id/quarantine_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="Quarantine Location"
+                                    android:hint="@string/quarantine_location"
                                     android:textAlignment="center"
                                     android:textColor="#000000"
                                     android:textColorHint="#000000"
@@ -521,7 +521,7 @@
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.5"
                                         android:ems="10"
-                                        android:hint="Latitude"
+                                        android:hint="@string/latitude"
                                         android:inputType="numberDecimal"
                                         android:textAlignment="center"
                                         android:textColor="#000000"
@@ -533,7 +533,7 @@
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.5"
                                         android:ems="10"
-                                        android:hint="Longitude"
+                                        android:hint="@string/longitude"
                                         android:inputType="numberDecimal"
                                         android:textAlignment="center"
                                         android:textColor="#000000"
@@ -573,7 +573,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
-                                android:hint="Medcine"
+                                android:hint="@string/medcine"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textColorHint="#9e9e9e"

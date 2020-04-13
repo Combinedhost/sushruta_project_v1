@@ -37,7 +37,7 @@ android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
 android:backgroundTint="@color/textColor"
-                        android:hint="Name"
+                        android:hint="@string/name"
                         android:textColor="@color/textColor"
                         android:textColorHint="@color/textColor" />
 
@@ -48,7 +48,7 @@ android:backgroundTint="@color/textColor"
                         android:layout_below="@+id/Name"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
-                        android:hint="Age"
+                        android:hint="@string/age"
                         android:backgroundTint="@color/textColor"
                         android:textColor="@color/textColor"
                         android:textColorHint="@color/textColor" />
@@ -61,7 +61,7 @@ android:backgroundTint="@color/textColor"
                         android:layout_below="@+id/Age"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
-                        android:hint="Doctor ID"
+                        android:hint="@string/doctor_id"
                         android:textColor="@color/textColor"
                         android:textColorHint="@color/textColor"
                         android:backgroundTint="@color/textColor"/>
@@ -83,7 +83,7 @@ android:weightSum="3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Male"
+                            android:text="@string/male"
                             android:backgroundTint="@color/textColor"
                             android:textColor="@color/textColor" />
 
@@ -92,7 +92,7 @@ android:weightSum="3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Female"
+                            android:text="@string/female"
                             android:backgroundTint="@color/textColor"
                             android:textColor="@color/textColor" />
 
@@ -101,7 +101,7 @@ android:weightSum="3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Other"
+                            android:text="@string/other"
                             android:backgroundTint="@color/textColor"
                             android:textColor="@color/textColor" />
                     </RadioGroup>
@@ -128,7 +128,7 @@ android:backgroundTint="@color/textColor"
                         android:layout_below="@+id/gender"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
-                        android:hint="Specialisation"
+                        android:hint="@string/specialisation"
                         android:textColor="@color/textColor"
                         android:textColorHint="@color/textColor" />
 
@@ -148,7 +148,7 @@ android:backgroundTint="@color/textColor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Doctor"
+                            android:text="@string/doctor"
 android:textColorHint="@color/textColor"
                             android:textColor="@color/textColor" />
 
@@ -157,7 +157,7 @@ android:textColorHint="@color/textColor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Sub-Doctor"
+                            android:text="@string/sub_doctor"
                             android:textColorHint="@color/textColor"
                             android:textColor="@color/textColor" />
                     </RadioGroup>
@@ -180,7 +180,7 @@ android:layout_centerHorizontal="true"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Select the Doctor"
+                            android:text="@string/select_the_doctor"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/textColor" />
 
@@ -205,7 +205,7 @@ android:layout_centerHorizontal="true"
                         android:layout_below="@+id/rl"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
-                        android:hint="Phone no"
+                        android:hint="@string/mobile_number"
                  android:backgroundTint="@color/textColor"
                         android:textColorHint="@color/textColor"
                         android:inputType="phone" />
@@ -218,7 +218,7 @@ android:layout_centerHorizontal="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
 
-                        android:hint="LicenseId"
+                        android:hint="@string/license_id"
                         android:ems="10"
                       android:backgroundTint="@color/textColor"
                         android:textColorHint="@color/textColor"
@@ -236,7 +236,7 @@ android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="30dp"
                         android:background="@drawable/b"
-                        android:text="Submit" />
+                        android:text="@string/submit" />
 
                 </RelativeLayout>
             </RelativeLayout>
