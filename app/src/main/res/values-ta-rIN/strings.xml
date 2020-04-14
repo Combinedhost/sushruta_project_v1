@@ -46,7 +46,7 @@
     <string name="o_ve">O+ve</string>
     <string name="edit_patient_information">Edit Patient Information</string>
     <string name="edit_patients_information">Edit Patients Information</string>
-    <string name="medicines">Medicines</string>
+    <string name="medicines">மருந்துகள்</string>
     <string name="edit_information">Edit Information</string>
     <string name="title_activity_documents_patients">Documents_patients</string>
     <string name="title_activity_parameters_patients">ParametersList</string>
@@ -65,17 +65,25 @@
     <string name="play_again">Play Again</string>
     <string name="register"><u>Register here</u></string>
     <string name="title_activity_patient_login">PatientLoginActivity</string>
-    <string name="patient_name">Patient Name</string>
+    <string name="patient_name">நோயாளியின் பெயர்</string>
     <string name="details">Details</string>
     <string name="is_out_of_range">Is out of range</string>
 
     <string name="language">Language</string>
-    <string name="logout">LogOut</string>
+    <string name="logout">வெளியேறு</string>
     <string name="approved_doctors">Approved Doctors</string>
     <string name="continue_as">Continue as</string>
     <string name="doctor">Doctor</string>
     <string name="or">or</string>
-    <string name="patient">Patient</string>
+    <string name="patient">நோயாளி</string>
     <string name="english">English</string>
     <string name="choose_your_language">Choose Your Language</string>
+    <string name="gender">பாலினம்</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+
+    <string name="latitude">அட்சரேகை</string>
+    <string name="longitude">தீர்க்கரேகை</string>
+    <string name="attendance_history">வருகை வரலாறு</string>
+    <string name="location_history">இருப்பிட வரலாறு</string>
 </resources>

@@ -36,10 +36,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:hint="Patient Name"
+                android:hint="@string/patient_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColorHint="#9e9e9e"
-                />
+                android:textColorHint="#9e9e9e" />
 
             <TextView
                 android:id="@+id/Gender"
@@ -52,7 +51,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="0dp"
                 android:gravity="center"
-                android:hint="Gender"
+                android:hint="@string/gender"
                 android:textColorHint="#9e9e9e"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -64,7 +63,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:hint="Age"
+                android:hint="@string/age"
                 android:textColorHint="#9e9e9e"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/textColor" />
@@ -159,7 +158,7 @@
                                     android:layout_height="wrap_content"
                                     android:ems="10"
                                     android:inputType="textPersonName"
-                                    android:text="Quarantine Location"
+                                    android:text="@string/quarantine_location"
                                     android:textAlignment="center"
                                     android:textColor="#000000"
                                     android:textSize="18sp" />
@@ -177,7 +176,7 @@
                                         android:layout_weight="0.5"
                                         android:ems="10"
                                         android:inputType="numberDecimal"
-                                        android:hint="Latitude"
+                                        android:hint="@string/latitude"
                                         android:textColorHint="#9e9e9e"
                                         android:textAlignment="center"
                                         android:textColor="#000000"
@@ -190,7 +189,7 @@
                                         android:layout_weight="0.5"
                                         android:ems="10"
                                         android:inputType="numberDecimal"
-                                        android:hint="Longitude"
+                                        android:hint="@string/longitude"
                                         android:textColorHint="#9e9e9e"
                                         android:textAlignment="center"
                                         android:textColor="#000000"
@@ -233,7 +232,7 @@
                                 android:layout_weight="0.2"
                                 android:ems="10"
                                 android:gravity="center"
-                                android:text="Attendance History"
+                                android:text="@string/attendance_history"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -273,7 +272,7 @@
                                 android:layout_weight="0.2"
                                 android:ems="10"
                                 android:gravity="center"
-                                android:text="Location History"
+                                android:text="@string/location_history"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -311,7 +310,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:hint="Patient Id"
+                                android:hint="@string/patient_id"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -349,7 +348,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:hint="Blood group"
+                                android:hint="@string/blood_group"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -387,7 +386,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:hint="Insurance Id"
+                                android:hint="@string/insurance_id"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -427,7 +426,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="0.2"
                                 android:enabled="false"
-                                android:hint="Phone Number"
+                                android:hint="@string/phone_number"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -465,7 +464,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:hint="Height"
+                                android:hint="@string/height"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -503,7 +502,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Weight"
+                                android:text="@string/weight"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -541,7 +540,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Medicine"
+                                android:text="@string/medicine"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -579,7 +578,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Address"
+                                android:text="@string/address"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -618,7 +617,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Parameters"
+                                android:text="@string/parameters"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
@@ -656,12 +655,10 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Documents"
+                                android:text="@string/documents"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
-
-
 
                         </LinearLayout>
 

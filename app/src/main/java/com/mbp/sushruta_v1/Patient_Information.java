@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -44,6 +45,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -122,6 +124,7 @@ public class Patient_Information extends AppCompatActivity {
         try {
             patient = b1.getString("Patient");
 
+            listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
             listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
 
             listref.addValueEventListener(new ValueEventListener() {
@@ -399,12 +402,21 @@ public class Patient_Information extends AppCompatActivity {
                 }
                 if (userType.equals("patient")) {
                     Intent i = new Intent(Patient_Information.this, PatientLoginActivity.class);
+
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
                 }
             }
 
+        }
+        if (id == R.id.message) {
+            String text = "Hi ";
+            String phno = "9994874831";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ phno +"&text="+ text));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -443,7 +455,6 @@ public class Patient_Information extends AppCompatActivity {
         );
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -472,7 +483,6 @@ public class Patient_Information extends AppCompatActivity {
         Log.i("Test", "Location Worker Triggered");
     }
 
-
     private void triggerAttendanceWorker() {
 //        Constraints constraints = new Constraints.Builder()
 //                .setRequiresBatteryNotLow(false)
@@ -493,7 +503,6 @@ public class Patient_Information extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 15
                 , pendingIntent);
     }
-
 
     public void startLocationAlarm() {
         Intent intent = new Intent(this, LocationWorkReceiver.class);

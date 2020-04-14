@@ -113,7 +113,6 @@ public class PatientList extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot ds2) {
 
-
                                 String Username = String.valueOf(ds2.getKey());
                                 if (userList.contains(Username)) {
 
@@ -128,11 +127,13 @@ public class PatientList extends AppCompatActivity {
                                 GetPatientDetails obj = new GetPatientDetails();
                                 String Name = String.valueOf(ds2.child("Name").getValue());
                                 String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
-                                String PatientID=String.valueOf(ds2.child("PatientId").getValue());
+                                String PatientID = String.valueOf(ds2.child("PatientId").getValue());
+                                String PhoneNumber = String.valueOf(ds2.child("PhoneNo").getValue());
                                 obj.setImageUrl(ImageUrl);
                                 obj.setName(Name);
                                 obj.setUserName(Username);
                                 obj.setPatientID(PatientID);
+                                obj.setPhoneNumber(PhoneNumber );
 
                                 patient_obj_list.add(obj);
 

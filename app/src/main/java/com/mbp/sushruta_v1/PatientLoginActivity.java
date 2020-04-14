@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PatientLoginActivity extends AppCompatActivity {
@@ -50,6 +52,9 @@ public class PatientLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_login);
+
+        loadLocale();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -200,7 +205,6 @@ public class PatientLoginActivity extends AppCompatActivity {
                             editor.putString("Position", "patient");
                             editor.apply();
 
-
                             Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("Patient", patientId);
@@ -218,6 +222,24 @@ public class PatientLoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void loadLocale() {
+        SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
+        String language = pref.getString("language", "");
+        Log.i("Lang", language);
+        setLocale(language);
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("mypref", MODE_PRIVATE).edit();
+        editor.putString("language", lang);
+        editor.apply();
     }
 
 }

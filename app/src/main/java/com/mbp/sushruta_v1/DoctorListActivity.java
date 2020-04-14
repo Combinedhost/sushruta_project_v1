@@ -31,8 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +56,7 @@ public class DoctorListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_list);
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(this);
 
@@ -66,15 +65,11 @@ public class DoctorListActivity extends AppCompatActivity {
         mTopToolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(mTopToolbar);
 
-
-
         MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.doctorspinner);
         spinner.setItems("List of Approved Doctors","List of Not Approved Doctors");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-
-
                 if(item.equals("List of Not Approved Doctors")){
                                 Intent intent=new Intent(DoctorListActivity.this,Doctor_Not_Approval_Activity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
@@ -83,7 +78,6 @@ public class DoctorListActivity extends AppCompatActivity {
 //                Snackbar.make(view, "Displaying " + item, Snackbar.LENGTH_LONG).show();
             }
         });
-
 
         fd = FirebaseDatabase.getInstance();
         listref = fd.getReference("sushruta").child("DoctorActivity").child("Head");
@@ -97,8 +91,6 @@ public class DoctorListActivity extends AppCompatActivity {
                 for (DataSnapshot ds1 : ds.getChildren()) {
 
                     String Username = String.valueOf(ds1.getValue());
-
-
 
                     dataref=fd.getReference("sushruta").child("Details").child("Doctor").child(Username);
 
@@ -122,7 +114,6 @@ public class DoctorListActivity extends AppCompatActivity {
                             String PhoneNo =String.valueOf(ds2.child("PhoneNo").getValue());
                             String License=String.valueOf(ds2.child("LicenseID").getValue());
 
-
                             obj.setAge(Age);
                             obj.setUsername(Username);
                             obj.setDesignation(Designation);
@@ -135,14 +126,7 @@ public class DoctorListActivity extends AppCompatActivity {
                             obj.setPhoneNo(PhoneNo);
                             obj.setLicense(License);
 
-
-
-
-
-
                             Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
-
-
 
                             String approval=String.valueOf(ds2.child("Approval").getValue());
 
@@ -177,8 +161,6 @@ public class DoctorListActivity extends AppCompatActivity {
                                 no_results.setText("");
                             }
 
-
-
                             recyclerView.setLayoutManager(mLayoutManager);
 
                             obj1 = new DoctorRecyclerView(getApplicationContext(), doctor_obj_list,DoctorListActivity.this);
@@ -191,27 +173,14 @@ public class DoctorListActivity extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
-
-
-
-
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
-
         });
-
-
-
-
-
     }
 
     @Override
@@ -233,14 +202,12 @@ public class DoctorListActivity extends AppCompatActivity {
 
             dialog.setContentView(R.layout.popup);
 
-
             final ImageView imageView = (ImageView) dialog.findViewById(R.id.view4);
             final TextView name = (TextView) dialog.findViewById(R.id.textView);
             final TextView docid = (TextView) dialog.findViewById(R.id.textView2);
             final TextView spec = (TextView) dialog.findViewById(R.id.textView3);
             final TextView licid =(TextView)dialog.findViewById(R.id.textView6);
             ImageView close = (ImageView) dialog.findViewById(R.id.button);
-
 
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
@@ -260,7 +227,6 @@ public class DoctorListActivity extends AppCompatActivity {
                     String DocID=String.valueOf(dataSnapshot.child("DoctorID").getValue());
                     String LicID=String.valueOf(dataSnapshot.child("LicenseID").getValue());
 
-
                     Glide.with(getApplicationContext()).load(ImageUrl).into(imageView);
                     name.setText(Name);
                     docid.setText(DocID);
@@ -274,7 +240,6 @@ public class DoctorListActivity extends AppCompatActivity {
                 }
             });
 
-
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -286,13 +251,10 @@ public class DoctorListActivity extends AppCompatActivity {
 //                infodialog.getWindow().setColorMode(Color.TRANSPARENT);
             dialog.getWindow().setGravity(Gravity.CENTER);
             dialog.show();
-
         }
         if(id==R.id.logout)
         {
-
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
-
             String username=sharedPref.getString("Username","");
             if(username!=null){
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(username);
@@ -302,10 +264,7 @@ public class DoctorListActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

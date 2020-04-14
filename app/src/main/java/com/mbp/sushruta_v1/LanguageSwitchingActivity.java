@@ -53,13 +53,13 @@ public class LanguageSwitchingActivity extends AppCompatActivity {
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("Language", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("mypref", MODE_PRIVATE).edit();
         editor.putString("language", lang);
         editor.apply();
     }
 
     public void loadLocale() {
-        SharedPreferences pref = getSharedPreferences("Language", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
         String language = pref.getString("language", "");
         setLocale(language);
     }
