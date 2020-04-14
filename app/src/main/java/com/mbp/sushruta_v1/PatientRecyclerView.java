@@ -118,7 +118,6 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
                     if(action.equals("Message")) {
 
                         try {
-
                             String text = "Hi " + name;
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ phno +"&text="+ text));

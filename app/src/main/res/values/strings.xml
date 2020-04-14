@@ -108,5 +108,7 @@
     <string name="dr_abdulkalam">Dr.AbdulKalam</string>
     <string name="message">Message</string>
     <string name="disapprove">Disapprove</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
 
 </resources>

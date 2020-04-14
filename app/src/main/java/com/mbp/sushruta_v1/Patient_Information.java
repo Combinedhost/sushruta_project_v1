@@ -61,7 +61,7 @@ public class Patient_Information extends AppCompatActivity {
     Dialog picdialog;
     int PERMISSION_ID = 44;
 
-    String userType;
+    String userType, doctorPhoneNumber;
     SharedPreferences sharedPref;
 
     private static final String TAG = "Patient_Information";
@@ -112,6 +112,7 @@ public class Patient_Information extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
         userType = sharedPref.getString("user_type", null);
+        doctorPhoneNumber = sharedPref.getString("doctor_phone_number", null);
 
         if (userType != null && userType.equals("patient")) {
             checkPermissionsAndTriggerWorker();
@@ -412,9 +413,8 @@ public class Patient_Information extends AppCompatActivity {
         }
         if (id == R.id.message) {
             String text = "Hi ";
-            String phno = "9994874831";
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ phno +"&text="+ text));
+            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ doctorPhoneNumber +"&text="+ text));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
