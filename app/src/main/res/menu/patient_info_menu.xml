@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/save"
         android:icon="@drawable/ic_save"
-        android:title="Save"
+        android:title="@string/save"
         app:showAsAction="always" />
+
     <item
         android:id="@+id/edit"
         android:icon="@drawable/ic_edit"
-        android:title="Edit"
+        android:title="@string/edit"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/profile"
-        android:title="Profile"
+        android:title="@string/profile" />
 
-        />
+    <item
+        android:id="@+id/message"
+        android:title="@string/message" />
 
     <item
         android:id="@+id/logout"
-        android:title="LogOut" />
-
-
-
-
+        android:title="@string/logout" />
 
 </menu>

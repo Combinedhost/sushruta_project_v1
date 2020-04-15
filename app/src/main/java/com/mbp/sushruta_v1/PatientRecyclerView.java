@@ -1,12 +1,18 @@
 package com.mbp.sushruta_v1;
 
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -35,7 +41,6 @@ public class PatientRecyclerView extends RecyclerView.Adapter<PatientRecyclerVie
     String subdoctor;
     List<String> UIDList;
 
-
     public PatientRecyclerView(Context c, List <GetPatientDetails>obj_list, String subdoctor,List<String> UIDList){
     this.obj_list = new ArrayList<GetPatientDetails>();
     this.obj_list=obj_list;
@@ -44,7 +49,6 @@ public class PatientRecyclerView extends RecyclerView.Adapter<PatientRecyclerVie
     this.subdoctor=subdoctor;
 }
 
-
 @NonNull
 @Override
 public PatientRecyclerView.recyclerholder3 onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -52,8 +56,6 @@ public PatientRecyclerView.recyclerholder3 onCreateViewHolder(@NonNull ViewGroup
     View view=inflater.inflate(R.layout.recycler_layout_doctor,viewGroup,false);
     return new recyclerholder3(view);
 }
-
-
 
 @Override
 public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 viewHolder, int i) {
@@ -85,9 +87,6 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
 
             PopupMenu rightpopup = new PopupMenu(wrapper, viewHolder.rl, Gravity.RIGHT);
 
-
-//                rightpopup=new PopupMenu(ct,viewHolder.rl,Gravity.RIGHT);
-
             rightpopup.getMenuInflater().inflate(R.menu.right_click_patient,rightpopup.getMenu());
 
             SharedPreferences sharedPref = ct.getSharedPreferences("mypref", Context.MODE_PRIVATE);
@@ -97,10 +96,9 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
             Menu popupMenu = rightpopup.getMenu();
 
             if (position.equals("SubDoctor")) {
-
                 popupMenu.findItem(R.id.delete).setVisible(true);
             }
-            else{
+            else {
                 popupMenu.findItem(R.id.delete).setVisible(false);
             }
 
@@ -108,29 +106,27 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
 
-
-
                     int pos=viewHolder.getAdapterPosition();
                     final GetPatientDetails objj=obj_list.get(pos);
-                    String user=objj.getPatientID();
+                    String user = objj.getPatientID();
+                    String phno = objj.getPhoneNumber();
+                    String name = objj.getName();
+                    Log.i("Patient Information", phno);
 
                     String action=String.valueOf(item.getTitle());
 
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     Log.i("Test",action);
-                    if(action.equals("Message")){
+                    if(action.equals("Message")) {
 
-
-                        try{
-                            String text = "Message from sushruta app";
-//                            String toNumber = objj.getPhoneNo();
-                            String toNumber="";
+                        try {
+                            String text = "Hi " + name;
                             Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+                            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ phno +"&text="+ text));
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             ct.startActivity(intent);
                         }
-                        catch (Exception e){
+                        catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -187,7 +183,7 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
         }
     });
 
-
+}
 
 }
 

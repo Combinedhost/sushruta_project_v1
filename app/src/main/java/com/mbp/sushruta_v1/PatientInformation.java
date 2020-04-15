@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -45,6 +46,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +66,7 @@ public class PatientInformation extends AppCompatActivity {
     public static int LOCATION_FREQUENCY = 15;
     public static int ATTENDANCE_FREQUENCY = 15;
 
-    String userType;
+    String userType, doctorPhoneNumber;
     SharedPreferences sharedPref;
 
     private static final String TAG = "PatientInformation";
@@ -127,6 +129,7 @@ public class PatientInformation extends AppCompatActivity {
             }
         });
         userType = sharedPref.getString("user_type", null);
+        doctorPhoneNumber = sharedPref.getString("doctor_phone_number", null);
 
         if (userType != null && userType.equals("patient")) {
             checkPermissionsAndTriggerWorker();
@@ -140,6 +143,7 @@ public class PatientInformation extends AppCompatActivity {
             patient = b1.getString("Patient");
 
             listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
+            listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
 
             listref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -152,7 +156,6 @@ public class PatientInformation extends AppCompatActivity {
                     editor.putString("quarantine_latitude", ds1.child("Quarentine_Latitude").getValue().toString());
                     editor.putString("quarantine_longitude", ds1.child("Quarentine_Longitude").getValue().toString());
                     editor.apply();
-
 
                     String name = String.valueOf(ds1.child("Name").getValue());
                     String age = String.valueOf(ds1.child("Age").getValue());
@@ -272,7 +275,6 @@ public class PatientInformation extends AppCompatActivity {
                 menu.findItem(R.id.profile).setVisible(false);
             }
         }
-
 
         return true;
     }
@@ -427,6 +429,13 @@ public class PatientInformation extends AppCompatActivity {
             }
 
         }
+        if (id == R.id.message) {
+            String text = "Hi ";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ doctorPhoneNumber +"&text="+ text));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -464,7 +473,6 @@ public class PatientInformation extends AppCompatActivity {
         );
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -501,36 +509,11 @@ public class PatientInformation extends AppCompatActivity {
     }
 
     private void triggerLocationWorker() {
-
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(false)
-                .setRequiresStorageNotLow(false)
-                .build();
-
-        PeriodicWorkRequest locationWork =
-                new PeriodicWorkRequest.Builder(LocationWorker.class, 2, TimeUnit.MINUTES, 2, TimeUnit.MINUTES)
-                        .build();
-
-//        WorkManager.getInstance(this).enqueueUniquePeriodicWork(LOCATION_PERIODIC_WORK, ExistingPeriodicWorkPolicy.KEEP, locationWork);
-
         startLocationAlarm();
-        Log.i("Test", "Location Worker Triggered");
     }
 
 
     private void triggerAttendanceWorker() {
-//        Constraints constraints = new Constraints.Builder()
-//                .setRequiresBatteryNotLow(false)
-//                .setRequiresStorageNotLow(false)
-//                .build();
-//
-//        PeriodicWorkRequest.Builder dayWorkBuilder =
-//                new PeriodicWorkRequest.Builder(AttendanceWorker.class, 30, TimeUnit.MINUTES, 2, TimeUnit.MINUTES);
-//
-//        PeriodicWorkRequest dayWork = dayWorkBuilder.build();
-//
-//        WorkManager.getInstance(PatientInformation.this).enqueue(dayWork);
 
         Intent intent = new Intent(this, AttendanceWorkReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(

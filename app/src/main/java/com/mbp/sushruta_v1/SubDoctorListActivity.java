@@ -51,7 +51,6 @@ public class SubDoctorListActivity extends AppCompatActivity {
     private static final String TAG = "SubDoctor";
     List< String> userList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,128 +73,112 @@ public class SubDoctorListActivity extends AppCompatActivity {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-
                 if(item.equals("List of Not Approved SubDoctors")){
                     Intent intent=new Intent(SubDoctorListActivity.this,Not_Approval_Activity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("user",doctor);
                     startActivity(intent);
                 }
-//                Snackbar.make(view, "Displaying " + item, Snackbar.LENGTH_LONG).show();
             }
         });
-        try{
 
+        try {
+            listref = fd.getReference("sushruta").child("SubDoctorActivity").child(doctor);
+            listref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot ds) {
 
+                    sub_doctor_obj_list = new ArrayList<GetDoctorDetails>();
+                    userList=new ArrayList<>();
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        GetDoctorDetails obj = new GetDoctorDetails();
+                        String Username = String.valueOf(ds1.getValue());
 
+                        dataref=fd.getReference("sushruta").child("Details").child("Doctor").child(Username);
 
+                        dataref.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot ds2) {
 
-        listref = fd.getReference("sushruta").child("SubDoctorActivity").child(doctor);
-        listref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
+                                String Username = String.valueOf(ds2.getKey());
 
-                //doctorDetailsMap=new HashMap<String, GetDoctorDetails>();
-                sub_doctor_obj_list = new ArrayList<GetDoctorDetails>();
-                userList=new ArrayList<>();
-                for (DataSnapshot ds1 : ds.getChildren()) {
-                    GetDoctorDetails obj = new GetDoctorDetails();
-                    String Username = String.valueOf(ds1.getValue());
+                                GetDoctorDetails obj = new GetDoctorDetails();
+                                String Name = String.valueOf(ds2.child("Name").getValue());
 
-                    dataref=fd.getReference("sushruta").child("Details").child("Doctor").child(Username);
+                                String Age = String.valueOf(ds2.child("Age").getValue());
+                                String Designation = String.valueOf(ds2.child("Designation").getValue());
+                                String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
+                                String Qualification = String.valueOf(ds2.child("Qualification").getValue());
+                                String Gender = String.valueOf(ds2.child("Gender").getValue());
+                                String Specialization=String.valueOf(ds2.child("Specialization").getValue());
+                                String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
+                                String PhoneNo=String.valueOf(ds2.child("Phoneno").getValue());
+                                String License=String.valueOf(ds2.child("LicenseID").getValue());
+                                obj.setAge(Age);
+                                obj.setUsername(Username);
+                                obj.setDesignation(Designation);
+                                obj.setGender(Gender);
+                                obj.setImageUrl(ImageUrl);
+                                obj.setName(Name);
+                                obj.setQualification(Qualification);
+                                obj.setDoctorID(DoctorId);
+                                obj.setSpecialization(Specialization);
+                                obj.setPhoneNo(PhoneNo);
+                                obj.setLicense(License);
 
-                    dataref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot ds2) {
+                                String approval=String.valueOf(ds2.child("Approval").getValue());
+                                if(approval.equals("Approved")){
+                                    sub_doctor_obj_list.add(obj);
+                                    if(userList.contains(Username)){
 
-                            String Username = String.valueOf(ds2.getKey());
-
-
-                            GetDoctorDetails obj = new GetDoctorDetails();
-                            String Name = String.valueOf(ds2.child("Name").getValue());
-
-                            String Age = String.valueOf(ds2.child("Age").getValue());
-                            String Designation = String.valueOf(ds2.child("Designation").getValue());
-                            String ImageUrl = String.valueOf(ds2.child("ImageUrl").getValue());
-                            String Qualification = String.valueOf(ds2.child("Qualification").getValue());
-                            String Gender = String.valueOf(ds2.child("Gender").getValue());
-                            String Specialization=String.valueOf(ds2.child("Specialization").getValue());
-                            String DoctorId=String.valueOf(ds2.child("DoctorID").getValue());
-                            String PhoneNo=String.valueOf(ds2.child("Phoneno").getValue());
-                            String License=String.valueOf(ds2.child("LicenseID").getValue());
-                            obj.setAge(Age);
-                            obj.setUsername(Username);
-                            obj.setDesignation(Designation);
-                            obj.setGender(Gender);
-                            obj.setImageUrl(ImageUrl);
-                            obj.setName(Name);
-                            obj.setQualification(Qualification);
-                            obj.setDoctorID(DoctorId);
-                            obj.setSpecialization(Specialization);
-                            obj.setPhoneNo(PhoneNo);
-                            obj.setLicense(License);
-
-                            String approval=String.valueOf(ds2.child("Approval").getValue());
-                            if(approval.equals("Approved")){
-                                sub_doctor_obj_list.add(obj);
-                                if(userList.contains(Username)){
-
-                                    int pos=userList.indexOf(Username);
-                                    Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
-                                    sub_doctor_obj_list.remove(pos);
-                                    userList.remove(pos);
+                                        int pos=userList.indexOf(Username);
+                                        Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
+                                        sub_doctor_obj_list.remove(pos);
+                                        userList.remove(pos);
+                                    }
+                                    userList.add(Username);
                                 }
-                                userList.add(Username);
-                            }
-                            if(approval.equals("Not Approved")){
+                                if(approval.equals("Not Approved")){
 
-                                if(userList.contains(Username)){
+                                    if(userList.contains(Username)){
 
-                                    int pos=userList.indexOf(Username);
-                                    Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
-                                    sub_doctor_obj_list.remove(pos);
-                                    userList.remove(pos);
+                                        int pos=userList.indexOf(Username);
+                                        Log.i(getLocalClassName(),"Updated  " +userList.get(pos));
+                                        sub_doctor_obj_list.remove(pos);
+                                        userList.remove(pos);
+                                    }
+
                                 }
 
+                                Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
+
+                                recyclerView2.setLayoutManager(mLayoutManager);
+                                obj2 = new SubDoctorRecyclerView(SubDoctorListActivity.this, sub_doctor_obj_list,SubDoctorListActivity.this);
+                                recyclerView2.setAdapter(obj2);
+
+                                if(userList.size()==0){
+                                    no_results.setText("Not Available");
+                                }
+                                else
+                                {
+                                    no_results.setText("");
+                                }
                             }
 
-                            Log.i(TAG, "Value = " + Name + "  " + Age + " " + Gender + " " + Designation + " " + ImageUrl + " " + Qualification);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            recyclerView2.setLayoutManager(mLayoutManager);
-                            obj2 = new SubDoctorRecyclerView(SubDoctorListActivity.this, sub_doctor_obj_list,SubDoctorListActivity.this);
-                            recyclerView2.setAdapter(obj2);
-
-                            if(userList.size()==0){
-                                no_results.setText("Not Available");
                             }
-                            else
-                            {
-                                no_results.setText("");
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
+                        });
+                    }
                 }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
 
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
-            }
-
-        });
-
-
-
+            });
 
         }catch (Exception e){
             e.printStackTrace();
@@ -222,14 +205,12 @@ public class SubDoctorListActivity extends AppCompatActivity {
 
             dialog.setContentView(R.layout.popup);
 
-
             final ImageView imageView = (ImageView) dialog.findViewById(R.id.view4);
             final TextView name = (TextView) dialog.findViewById(R.id.textView);
             final TextView docid = (TextView) dialog.findViewById(R.id.textView2);
             final TextView spec = (TextView) dialog.findViewById(R.id.textView3);
             final TextView licid =(TextView)dialog.findViewById(R.id.textView6);
             ImageView close = (ImageView) dialog.findViewById(R.id.button);
-
 
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
@@ -249,7 +230,6 @@ public class SubDoctorListActivity extends AppCompatActivity {
                     String DocID=String.valueOf(dataSnapshot.child("DoctorID").getValue());
                     String LicID=String.valueOf(dataSnapshot.child("LicenseID").getValue());
 
-
                     Glide.with(getApplicationContext()).load(ImageUrl).into(imageView);
                     name.setText(Name);
                     docid.setText(DocID);
@@ -262,7 +242,6 @@ public class SubDoctorListActivity extends AppCompatActivity {
 
                 }
             });
-
 
             close.setOnClickListener(new View.OnClickListener() {
                 @Override

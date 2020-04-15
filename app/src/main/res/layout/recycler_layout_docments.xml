@@ -49,7 +49,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="1dp"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:textAlignment="center"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="14sp" />

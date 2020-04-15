@@ -67,7 +67,8 @@ android:layout_alignParentEnd="true"
 
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="PARAMETERS"
+            android:text="@string/parameters"
+            android:textAllCaps="true"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />

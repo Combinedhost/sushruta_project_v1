@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PatientLoginActivity extends AppCompatActivity {
@@ -50,6 +52,11 @@ public class PatientLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_login);
+
+        sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
+        loadLocale();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -85,14 +92,40 @@ public class PatientLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 final DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Login").child("Patient").child(phoneNo.getText().toString());
-                Log.i("test", databaseReference.toString());
+
                 progressDialog.show();
+
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             patientId = dataSnapshot.child("patient_id").getValue().toString();
                             doctorName = dataSnapshot.child("doctor_name").getValue().toString();
+
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Details").child("Doctor").child(doctorName);
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        String doctorPhoneNumber = dataSnapshot.child("PhoneNo").getValue().toString();
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        editor.putString("doctor_phone_number", doctorPhoneNumber);
+                                        editor.apply();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("doctor_name", doctorName);
+                            editor.apply();
+
                             sendVerificationCode(phoneNo.getText().toString());
                         } else {
                             progressDialog.dismiss();
@@ -218,6 +251,24 @@ public class PatientLoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void loadLocale() {
+        SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
+        String language = pref.getString("language", "");
+        Log.i("Lang", language);
+        setLocale(language);
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("mypref", MODE_PRIVATE).edit();
+        editor.putString("language", lang);
+        editor.apply();
     }
 
 }

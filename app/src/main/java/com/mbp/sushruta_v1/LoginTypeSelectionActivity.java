@@ -50,7 +50,7 @@ public class LoginTypeSelectionActivity extends AppCompatActivity {
         finish();
     }
     public void startPatientLoginActivity(){
-        Intent intent = new Intent(getApplicationContext(), PatientLoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LanguageSwitchingActivity.class);
         startActivity(intent);
         finish();
     }

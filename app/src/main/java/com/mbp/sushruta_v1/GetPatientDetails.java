@@ -2,8 +2,27 @@ package com.mbp.sushruta_v1;
 
 public class GetPatientDetails {
 
-    public String Name,Age,BloodGroup,Gender,PatientID,Address,Insurance_ID,Height,Weight,Aadhar_no,ImageUrl,UserName;
+    public String Name;
+    public String Age;
+    public String BloodGroup;
+    public String Gender;
+    public String PatientID;
+    public String Address;
+    public String Insurance_ID;
+    public String Height;
+    public String Weight;
+    public String Aadhar_no;
+    public String ImageUrl;
+    public String UserName;
+    public String PhoneNumber;
 
+    public void setPhoneNumber(String PhoneNumber){
+        this.PhoneNumber = PhoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
 
     public void setName(String Name){
        this.Name=Name;
@@ -12,9 +31,11 @@ public class GetPatientDetails {
     public void setAge(String Age){
         this.Age=Age;
     }
+
     public void setImageUrl(String ImageUrl){
         this.ImageUrl=ImageUrl;
     }
+
     public void setGender(String Gender){
        this.Gender=Gender;
     }
@@ -27,12 +48,7 @@ public class GetPatientDetails {
         this.PatientID=PatientId;
     }
 
-
-
-    public void setAddress(String Address){
-       this.Address=Address;
-
-    }
+    public void setAddress(String Address){ this.Address=Address; }
 
     public void setInsurance_ID(String Insurance_ID){
         this.Insurance_ID=Insurance_ID;
