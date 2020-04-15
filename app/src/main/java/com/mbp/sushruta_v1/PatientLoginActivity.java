@@ -76,8 +76,7 @@ public class PatientLoginActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
         auth = FirebaseAuth.getInstance();
-
-        Log.i("Current User", sharedPref.getString("patient_id", null));
+        
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
 
