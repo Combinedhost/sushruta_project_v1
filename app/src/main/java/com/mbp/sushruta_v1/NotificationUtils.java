@@ -27,7 +27,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class NotificationUtils {
 
@@ -119,7 +118,5 @@ public class NotificationUtils {
                 .setContentIntent(pendingIntent);
 
         notificationManager.notify(10 /* ID of notification */, notificationBuilder.build());
-
-
     }
 }
