@@ -52,4 +52,6 @@
     </string-array>
     <string name="title_activity_patient_login">PatientLoginActivity</string>
     <string name="image">Image</string>
+    <string name="title_activity_select_location">Map</string>
+    <string name="selfie_mandatory">Selfie is mandatory this time</string>
 </resources>

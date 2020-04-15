@@ -86,12 +86,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         notificationManager.notify(new Random().nextInt(100) /* ID of notification */, notificationBuilder.build());
-
-
-
-
     }
-
-
-
     }

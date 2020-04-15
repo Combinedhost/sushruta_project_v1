@@ -1,5 +1,6 @@
 package com.mbp.sushruta_v1;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import java.util.UUID;
 
 public class Create_Patient extends AppCompatActivity {
 
+    private static final int SELECT_LOCATION_PERMISSION_ID = 11;
     FirebaseDatabase fd4;
     DatabaseReference ref4;
     ImageView imageView;
@@ -58,6 +60,7 @@ public class Create_Patient extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     Dialog camdialog;
+    Button selectLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +94,21 @@ public class Create_Patient extends AppCompatActivity {
         InsuranceID = (EditText) findViewById(R.id.insuranceid);
         Medicine = (EditText) findViewById(R.id.medicineid);
         PhoneNo = (EditText) findViewById(R.id.phone_number);
-        quarantineLatitude = (EditText) findViewById(R.id.quarantine_latitude);
-        quarantineLongitude = (EditText) findViewById(R.id.quarantine_longitude);
+        quarantineLatitude = (EditText) findViewById(R.id.quarentine_latitude);
+        quarantineLongitude = (EditText) findViewById(R.id.quarentine_longitude);
+        selectLocation = (Button) findViewById(R.id.select_location);
+
+        selectLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Create_Patient.this, SelectLocationActivity.class);
+                intent.putExtra("quarantine_latitude", quarantineLatitude.getText().toString());
+                intent.putExtra("quarantine_longitude", quarantineLongitude.getText().toString());
+                startActivityForResult(intent, SELECT_LOCATION_PERMISSION_ID);
+            }
+        });
+
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -241,6 +257,18 @@ public class Create_Patient extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        if (requestCode == SELECT_LOCATION_PERMISSION_ID && resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle.getString("latitude", null) != null) {
+                quarantineLatitude.setText(bundle.getString("latitude"));
+            }
+            if (bundle.getString("longitude", null) != null) {
+                quarantineLongitude.setText(bundle.getString("longitude"));
+            }
+
+            Toast.makeText(Create_Patient.this, "Location selected", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -427,4 +455,5 @@ public class Create_Patient extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }

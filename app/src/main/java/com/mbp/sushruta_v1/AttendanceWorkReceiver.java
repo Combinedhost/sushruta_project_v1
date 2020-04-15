@@ -72,6 +72,6 @@ public class AttendanceWorkReceiver extends BroadcastReceiver {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
-        manager.notify(new Random().nextInt(100), builder.build());
+        manager.notify(20, builder.build());
     }
 }

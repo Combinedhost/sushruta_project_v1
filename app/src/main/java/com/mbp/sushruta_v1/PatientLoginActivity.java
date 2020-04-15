@@ -70,14 +70,14 @@ public class PatientLoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        Log.i("Current User", sharedPref.getString("patient_id", null));
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
 
-            Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
+            Intent intent = new Intent(getApplicationContext(), PatientInformation.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra("Patient", sharedPref.getString("patient_id", null));
             startActivity(intent);
-
         }
 
         sendOtp.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +201,7 @@ public class PatientLoginActivity extends AppCompatActivity {
                             editor.apply();
 
 
-                            Intent intent = new Intent(getApplicationContext(), Patient_Information.class);
+                            Intent intent = new Intent(getApplicationContext(), PatientInformation.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra("Patient", patientId);
                             startActivity(intent);

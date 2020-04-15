@@ -1,11 +1,15 @@
 package com.mbp.sushruta_v1;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
@@ -54,5 +58,5 @@ public class LocationUtils {
     public boolean isQuarantineLocationSet(){
         return (sharedPreferences.getString("quarantine_latitude", null) !=null) && (sharedPreferences.getString("quarantine_longitude", null) != null);
     }
-
 }
+

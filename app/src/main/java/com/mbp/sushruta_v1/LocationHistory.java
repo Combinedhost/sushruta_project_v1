@@ -104,15 +104,16 @@ public class LocationHistory extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i("test", dataSnapshot.toString());
-                if (dataSnapshot.exists()) {
+                tableLayout.removeAllViews();
 
-                    tableLayout.removeAllViews();
+                if (dataSnapshot.exists()) {
                     TableRow tbrow0 = new TableRow(getApplicationContext());
                     tbrow0.setPadding(10, 5, 10, 5);
                     tbrow0.setGravity(Gravity.CENTER);
 
                     TextView tv0 = new TextView(getApplicationContext());
-                    tv0.setText("           Time             ");
+                    tv0.setText("Time");
+                    tv0.setGravity(Gravity.CENTER);
                     tv0.setAllCaps(true);
                     tv0.setTextColor(Color.BLACK);
                     tv0.setTextSize(16);
@@ -120,7 +121,8 @@ public class LocationHistory extends AppCompatActivity {
                     tbrow0.addView(tv0);
 
                     TextView tv1 = new TextView(getApplicationContext());
-                    tv1.setText("           Location        ");
+                    tv1.setText("Location");
+                    tv1.setGravity(Gravity.CENTER);
                     tv1.setTextColor(Color.BLACK);
                     tv1.setAllCaps(true);
                     tv1.setTextSize(16);

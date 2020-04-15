@@ -54,10 +54,9 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
                             map1.put("location", location.getLatitude() + " " + location.getLongitude());
                             dataRef.child(key).setValue(map1);
                             String doctorName = sharedPref.getString("doctor_name", null);
-                            NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
-//                            if( locationUtils.findDistance(location.getLatitude(), location.getLongitude()) > 100 && doctorName != null) {
-//                                NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
-//                            }
+                            if( locationUtils.findDistance(location.getLatitude(), location.getLongitude()) > 100 && doctorName != null) {
+                                NotificationUtils.sendFCMPush(context, doctorName,"Quarentine Circle exceeded ","Sir, Patient Id "+ patientId +" has gone out of his quarentine location. Click the notification to take action","Patient", "Geofence");
+                            }
                         }
                     }
                 }

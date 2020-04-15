@@ -1,6 +1,7 @@
 package com.mbp.sushruta_v1;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +33,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,22 +48,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class Patient_Information extends AppCompatActivity {
+public class PatientInformation extends AppCompatActivity {
     FirebaseDatabase fd;
     DatabaseReference dataref, listref;
     ImageView imageView;
     TextView Name, Gender, Age;
     EditText Address, BloodGroup, Height, Weight, PatientId, AadharNo, InsuranceID, Medicines, PhoneNo, quarentineLatitude, quarentineLongitude;
     TableLayout layout;
-    LinearLayout attendancerl,documentrl, parameterrl, locationrl, locationhistoryrl;
+    LinearLayout attendancerl, documentrl, parameterrl, locationrl, locationhistoryrl;
     String patient, imageUrl;
     Dialog picdialog;
+    Button selectLocation;
     int PERMISSION_ID = 44;
+    int SELECT_LOCATION_PERMISSION_ID = 55;
+    public static int LOCATION_FREQUENCY = 15;
+    public static int ATTENDANCE_FREQUENCY = 15;
 
     String userType;
     SharedPreferences sharedPref;
 
-    private static final String TAG = "Patient_Information";
+    private static final String TAG = "PatientInformation";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,7 @@ public class Patient_Information extends AppCompatActivity {
         PhoneNo = (EditText) findViewById(R.id.phone_number);
         quarentineLatitude = (EditText) findViewById(R.id.quarentine_latitude);
         quarentineLongitude = (EditText) findViewById(R.id.quarentine_longitude);
+        selectLocation = (Button) findViewById(R.id.select_location);
 
         Name.setEnabled(false);
         Name.setScrollY(40);
@@ -106,9 +112,20 @@ public class Patient_Information extends AppCompatActivity {
         PhoneNo.setEnabled(false);
         quarentineLatitude.setEnabled(false);
         quarentineLongitude.setEnabled(false);
-
+        selectLocation.setVisibility(View.GONE);
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
+
+        selectLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(PatientInformation.this, SelectLocationActivity.class);
+                intent.putExtra("quarantine_latitude", quarentineLatitude.getText().toString());
+                intent.putExtra("quarantine_longitude", quarentineLongitude.getText().toString());
+                startActivityForResult(intent, SELECT_LOCATION_PERMISSION_ID);
+            }
+        });
         userType = sharedPref.getString("user_type", null);
 
         if (userType != null && userType.equals("patient")) {
@@ -173,7 +190,7 @@ public class Patient_Information extends AppCompatActivity {
                         public void onClick(View v) {
 
                             ImageView close_button, zoom_image;
-                            picdialog = new Dialog(Patient_Information.this, R.style.AppCompatAlertDialogStyle);
+                            picdialog = new Dialog(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
                             picdialog.setContentView(R.layout.popup_image);
                             zoom_image = (ImageView) picdialog.findViewById(R.id.image);
                             close_button = (ImageView) picdialog.findViewById(R.id.delete);
@@ -252,7 +269,7 @@ public class Patient_Information extends AppCompatActivity {
             menu.findItem(R.id.save).setVisible(false);
             menu.findItem(R.id.edit).setVisible(false);
             if (position.equals("patient")) {
-                    menu.findItem(R.id.profile).setVisible(false);
+                menu.findItem(R.id.profile).setVisible(false);
             }
         }
 
@@ -306,6 +323,7 @@ public class Patient_Information extends AppCompatActivity {
             PhoneNo.setEnabled(false);
             quarentineLatitude.setEnabled(false);
             quarentineLongitude.setEnabled(false);
+            selectLocation.setVisibility(View.GONE);
         }
 
         if (id == R.id.edit) {
@@ -323,10 +341,11 @@ public class Patient_Information extends AppCompatActivity {
             PhoneNo.setEnabled(true);
             quarentineLatitude.setEnabled(true);
             quarentineLongitude.setEnabled(true);
+            selectLocation.setVisibility(View.VISIBLE);
         }
 
         if (id == R.id.profile) {
-            final Dialog dialog = new Dialog(Patient_Information.this);
+            final Dialog dialog = new Dialog(PatientInformation.this);
 
             dialog.setContentView(R.layout.popup);
 
@@ -394,13 +413,13 @@ public class Patient_Information extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You are Logged Out", Toast.LENGTH_LONG).show();
             if (userType != null) {
                 if (userType.equals("doctor")) {
-                    Intent i = new Intent(Patient_Information.this, LoginActivity.class);
+                    Intent i = new Intent(PatientInformation.this, LoginActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
                 }
                 if (userType.equals("patient")) {
-                    Intent i = new Intent(Patient_Information.this, PatientLoginActivity.class);
+                    Intent i = new Intent(PatientInformation.this, PatientLoginActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
@@ -424,7 +443,7 @@ public class Patient_Information extends AppCompatActivity {
         if (locationUtils.isLocationEnabled()) {
             triggerLocationWorker();
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Patient_Information.this, R.style.AppCompatAlertDialogStyle);
+            AlertDialog.Builder builder = new AlertDialog.Builder(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
             builder.setMessage("Kindly turn on location to continue")
                     .setCancelable(false)
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -452,7 +471,32 @@ public class Patient_Information extends AppCompatActivity {
         if (requestCode == PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             checkLocations(new LocationUtils(this));
         } else {
-            Toast.makeText(getApplicationContext(), "Location permission is mandatory. Kindly grant permssion to continue", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
+            builder.setMessage("Location permission is mandatory. Kindly grant permission to continue")
+                    .setCancelable(false)
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            requestPermissions();
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SELECT_LOCATION_PERMISSION_ID && resultCode == Activity.RESULT_OK) {
+            Log.i(TAG, "REcieved");
+            Bundle bundle = data.getExtras();
+            if (bundle.getString("latitude", null) != null) {
+                quarentineLatitude.setText(bundle.getString("latitude"));
+            }
+            if (bundle.getString("longitude", null) != null) {
+                quarentineLongitude.setText(bundle.getString("longitude"));
+            }
+
+            Toast.makeText(PatientInformation.this, "Location selected", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -486,23 +530,22 @@ public class Patient_Information extends AppCompatActivity {
 //
 //        PeriodicWorkRequest dayWork = dayWorkBuilder.build();
 //
-//        WorkManager.getInstance(Patient_Information.this).enqueue(dayWork);
+//        WorkManager.getInstance(PatientInformation.this).enqueue(dayWork);
 
         Intent intent = new Intent(this, AttendanceWorkReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 280191, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 15
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 5
                 , pendingIntent);
     }
-
 
     public void startLocationAlarm() {
         Intent intent = new Intent(this, LocationWorkReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 280192, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 15
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 5
                 , pendingIntent);
     }
 }

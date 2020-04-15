@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5f5f5"
-    tools:context=".Patient_Information">
+    tools:context=".PatientInformation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -163,38 +163,50 @@
                                     android:textAlignment="center"
                                     android:textColor="#000000"
                                     android:textSize="18sp" />
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1"
                                     android:orientation="horizontal">
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
 
-                                    <EditText
-                                        android:id="@+id/quarentine_latitude"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_weight="0.5"
-                                        android:ems="10"
-                                        android:inputType="numberDecimal"
-                                        android:hint="Latitude"
-                                        android:textColorHint="#9e9e9e"
-                                        android:textAlignment="center"
-                                        android:textColor="#000000"
-                                        android:textSize="18sp" />
+                                        <EditText
+                                            android:id="@+id/quarentine_latitude"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:hint="Latitude"
+                                            android:inputType="numberDecimal"
+                                            android:textAlignment="center"
+                                            android:textColor="#000000"
+                                            android:textColorHint="#9e9e9e"
+                                            android:textSize="16sp" />
 
-                                    <EditText
-                                        android:id="@+id/quarentine_longitude"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_weight="0.5"
-                                        android:ems="10"
-                                        android:inputType="numberDecimal"
-                                        android:hint="Longitude"
-                                        android:textColorHint="#9e9e9e"
-                                        android:textAlignment="center"
-                                        android:textColor="#000000"
-                                        android:textSize="18sp" />
+                                        <EditText
+                                            android:id="@+id/quarentine_longitude"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:inputType="numberDecimal"
+                                            android:hint="Longitude"
+                                            android:textColorHint="#9e9e9e"
+                                            android:textAlignment="center"
+                                            android:textColor="#000000"
+                                            android:textSize="16sp" />
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+                                        <Button
+                                            android:id="@+id/select_location"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:text="Change"/>
+                                    </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -503,7 +515,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Weight"
+                                android:hint="Weight"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -541,7 +553,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Medicine"
+                                android:hint="Medicine"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
@@ -579,7 +591,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.2"
                                 android:gravity="center"
-                                android:text="Address"
+                                android:hint="Address"
                                 android:textColorHint="#9e9e9e"
                                 android:textAlignment="center"
                                 android:textColor="#000000"

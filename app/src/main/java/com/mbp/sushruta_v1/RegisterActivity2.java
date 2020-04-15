@@ -242,8 +242,6 @@ public class RegisterActivity2 extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Choose a image"),PICK_IMAGE_REQUEST);
-
-
             }
         });
 

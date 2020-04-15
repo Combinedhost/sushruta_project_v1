@@ -34,8 +34,6 @@ public class NotificationUtils {
     public static void sendFCMPush(Context context, String topic, String title, String msg, String Activity, String channelId) {
 
         final String Legacy_SERVER_KEY = "AIzaSyD2ZLfhwQ7Mna9kwky99m3UGzcOYWlDxYs";
-//        String msg = "Sir, Doctor "+sd+" has registered under you as sub doctor. Click the notification to take action";
-//        String title = "New SubDoctor Registration";
         String token = "/topics/" + topic;
 
         JSONObject obj = null;
@@ -45,19 +43,16 @@ public class NotificationUtils {
         try {
             obj = new JSONObject();
             objData = new JSONObject();
-
             objData.put("body", msg);
             objData.put("title", title);
             objData.put("android_channel_id", channelId);
             obj.put("to", token);
             obj.put("notification", objData);
-
-            Log.e("PASS:>", obj.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, "https://android.googleapis.com/gcm/send", obj,
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, "https://fcm.googleapis.com/fcm/send", obj,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -67,7 +62,7 @@ public class NotificationUtils {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Errors--", error + "");
+                        Log.e("Errors--", error.getMessage() + "");
                     }
                 }) {
             @Override
@@ -123,8 +118,7 @@ public class NotificationUtils {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-
-        notificationManager.notify(new Random().nextInt(100) /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(10 /* ID of notification */, notificationBuilder.build());
 
 
     }
