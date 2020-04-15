@@ -185,7 +185,6 @@ public void onBindViewHolder(@NonNull final PatientRecyclerView.recyclerholder3 
 
 }
 
-}
 
 @Override
 public int getItemCount() {

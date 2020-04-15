@@ -64,7 +64,7 @@ public class PatientInformation extends AppCompatActivity {
     int PERMISSION_ID = 44;
     int SELECT_LOCATION_PERMISSION_ID = 55;
     public static int LOCATION_FREQUENCY = 15;
-    public static int ATTENDANCE_FREQUENCY = 15;
+    public static int ATTENDANCE_FREQUENCY = 30;
 
     String userType, doctorPhoneNumber;
     SharedPreferences sharedPref;
@@ -519,7 +519,7 @@ public class PatientInformation extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 280191, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 5
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * ATTENDANCE_FREQUENCY
                 , pendingIntent);
     }
 
@@ -528,7 +528,7 @@ public class PatientInformation extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 280192, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * 5
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * LOCATION_FREQUENCY
                 , pendingIntent);
     }
 }
