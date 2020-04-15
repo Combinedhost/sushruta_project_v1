@@ -204,7 +204,9 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
-                                            android:text="Change"/>
+                                            android:text="Change"
+                                            android:backgroundTint="@color/bg_screen3"
+                                            android:textColor="#FFFFFF"/>
                                     </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>

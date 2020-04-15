@@ -20,32 +20,37 @@
         android:layout_height="match_parent"/>
 <!--        android:layout_below="@id/place_autocomplete_fragment" />-->
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+android:layout_centerHorizontal="true"
+        android:weightSum="1"
+        android:gravity="center"
+        android:padding="10dp">
 
         <Button
             android:id="@+id/select_location"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp"
-            android:clickable="true"
+         android:layout_weight="0.6"
             android:background="@drawable/b"
-            android:text="Select Location" />
+            android:clickable="true"
+
+            android:text="Select Location"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/select_location"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp"
+            android:layout_weight="0.6"
             android:layout_marginStart="10dp"
-            android:clickable="true"
             android:background="@drawable/b"
-            android:text="Cancel" />
-    </RelativeLayout>
+            android:clickable="true"
+            android:text="Cancel"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
 </RelativeLayout>

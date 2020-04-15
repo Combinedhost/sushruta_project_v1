@@ -50,7 +50,8 @@
             android:id="@+id/take_selfie_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/quantum_googred400"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
             android:text="@string/selfie_mandatory"
             android:layout_gravity="center_horizontal">
 

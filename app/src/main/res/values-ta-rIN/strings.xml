@@ -106,4 +106,6 @@
     <string name="textview">TextView</string>
     <string name="dr_abdulkalam">Dr.AbdulKalam</string>
     <string name="disapprove">மறுக்க</string>
+    <string name="save">சேமி</string>
+    <string name="edit">தொகு</string>
 </resources>
