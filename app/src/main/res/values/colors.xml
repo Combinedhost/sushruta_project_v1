@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#40c4ff</color>
     <color name="colorPrimaryDark">#03a9f4</color>
     <color name="colorAccent">#af87ceeb</color>
@@ -8,9 +8,11 @@
     <color name="popup">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="loading">#2E86C1</color>
+    <color name="blue">#039be5</color>
     <color name="lightgrey">#EEEEEE</color>
     <!--<color name="menubackground">#5BB6C4</color>-->
     <color name="menubackground">#FFFFFF</color>
+    <color name="design_snackbar_background_color" tools:override="true">@color/blue</color>
 
 
     <!-- Screens background color-->
