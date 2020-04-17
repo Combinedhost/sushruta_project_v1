@@ -28,10 +28,10 @@ public class LocationWorkReceiver extends BroadcastReceiver {
                 if(locationUtils.isQuarantineLocationSet())
                     requestNewLocationData(context);
             } else {
-                NotificationUtils.sendNotification(context, "Location Request", "Location  is not turned on, Kindly turn on te location", permissionIntent);
+                NotificationUtils.sendNotification(context, context.getString(R.string.location_request), context.getString(R.string.turn_on_location), permissionIntent);
             }
         } else {
-            NotificationUtils.sendNotification(context, "Location Request", "Location permissions are not granted. Kindly grant permissions now", permissionIntent);
+            NotificationUtils.sendNotification(context, context.getString(R.string.location_request), context.getString(R.string.location_permission), permissionIntent);
         }
 
     }

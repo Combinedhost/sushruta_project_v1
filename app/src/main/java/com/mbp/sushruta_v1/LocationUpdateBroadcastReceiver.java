@@ -33,12 +33,12 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
             if (ACTION_PROCESS_UPDATES.equals(action)) {
                 Intent permissionIntent = new Intent(context, PatientLoginActivity.class);
                 if (!utilityClass.isNetworkAvailable()) {
-                    NotificationUtils.sendNotification(context, "Location Request", "Kindly turn on internet to post your current location.", permissionIntent);
+                    NotificationUtils.sendNotification(context, context.getString(R.string.location_request), context.getString(R.string.turn_on_internet_for_location), permissionIntent);
                     return;
                 }
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user == null) {
-                    NotificationUtils.sendNotification(context, "Location Request", "Active session not available. Kindly login again.", permissionIntent);
+                    NotificationUtils.sendNotification(context, context.getString(R.string.location_request), context.getString(R.string.session_expired), permissionIntent);
                     return;
                 }
 
