@@ -138,7 +138,7 @@
     <string name="upload_selfie">Upload a selfie image to complete attendance</string>
     <string name="total_entries">Total Entries</string>
     <string name="attendance">Attendance</string>
-    <string name="post_attendance">Please post your attendance to verify you are in quarantine location</string>
+    <string name="post_attendance_quarantine">Please post your attendance to verify you are in quarantine location</string>
     <string name="location_request">Location Request</string>
     <string name="turn_on_internet_for_location">Kindly turn on internet to post your current location</string>
     <string name="session_expired">Active session not available. Kindly login again</string>
