@@ -36,7 +36,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,13 +52,14 @@ public class NotificationActivity extends AppCompatActivity {
     Uri filePath;
     ProgressDialog progressDialog;
     SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss aa", Locale.getDefault());
-    public static long SELFIE_FREQUENCY_IN_MINUTES = 2 * 10;
+    public static long SELFIE_FREQUENCY_IN_MINUTES = 2 * 60;
     private Boolean takeSelfie = false;
     FirebaseDatabase dataBase;
     DatabaseReference databaseRef;
     String patientId;
     SharedPreferences sharedPref;
     UtilityClass utilityClass;
+    public static String LAST_UPDATE_MILLIS = "last_attendance_millis";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +86,8 @@ public class NotificationActivity extends AppCompatActivity {
 
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-        String lastUpdateValue = sharedPref.getString("last_attendance_time", null);
-        if (lastUpdateValue != null) {
+        Long lastUpdateValue = sharedPref.getLong(LAST_UPDATE_MILLIS, 0);
+        if (lastUpdateValue != 0) {
             if (findDifferenceInMinutesWithCurrentTime(lastUpdateValue) > SELFIE_FREQUENCY_IN_MINUTES) {
                 takeSelfie = true;
                 takeSelfieMessage.setVisibility(View.VISIBLE);
@@ -134,11 +134,10 @@ public class NotificationActivity extends AppCompatActivity {
         databaseRef.child(key).setValue(map1);
 
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("last_attendance_time", date);
-        Log.i("Last Time", date);
+        editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
         editor.apply();
 
-        Toast.makeText(getApplicationContext(), "Your attendance has been posted successfully", Toast.LENGTH_SHORT).show();
+        utilityClass.showMessage(findViewById(android.R.id.content), "Your attendance has been posted successfully");
         progressDialog.dismiss();
         button.setEnabled(false);
         new Handler().postDelayed(new Runnable() {
@@ -156,12 +155,10 @@ public class NotificationActivity extends AppCompatActivity {
         Map<String, String> map1 = new HashMap<String, String>();
         map1.put("time", date);
         databaseRef.child(key).setValue(map1);
+        utilityClass.showMessage(findViewById(android.R.id.content), "Your attendance has been posted successfully");
 
-        Toast.makeText(getApplicationContext(), "Your attendance has been posted successfully", Toast.LENGTH_SHORT).show();
-
-        Log.i("Last Time", date);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("last_attendance_time", date);
+        editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
         editor.apply();
 
         button.setEnabled(false);
@@ -174,18 +171,11 @@ public class NotificationActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    public long findDifferenceInMinutesWithCurrentTime(String date) {
-        Date d1, d2;
+    public long findDifferenceInMinutesWithCurrentTime(Long lastUpdateMillis) {
+        Date d2;
         d2 = new Date();
-        try {
-            d1 = dateFormat.parse(date);
-            long difference = d2.getTime() - d1.getTime();
-
-            return difference / (60 * 1000);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return 0;
-        }
+        long difference = d2.getTime() - lastUpdateMillis;
+        return (difference / (60 * 1000));
     }
 
     public void startSelfieIntent() {
@@ -194,7 +184,6 @@ public class NotificationActivity extends AppCompatActivity {
             rootPath.mkdirs();
         }
         String file = rootPath + "/" + UUID.randomUUID().toString() + ".jpg";
-        Log.i("Test", file);
         File newfile = new File(file);
         try {
             newfile.createNewFile();
@@ -202,7 +191,6 @@ public class NotificationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //     Uri outputFileUri = Uri.fromFile(newfile);
         Uri outputFileUri = FileProvider.getUriForFile(NotificationActivity.this, "com.mbp.sushruta_v1.fileprovider", newfile);
         filePath = outputFileUri;
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -223,7 +211,7 @@ public class NotificationActivity extends AppCompatActivity {
                     startSelfieIntent();
 
                 } else {
-                    Toast.makeText(NotificationActivity.this, "Kindly grant permission to create bill.", Toast.LENGTH_LONG).show();
+                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly grant permission to use storage.");
                 }
 
             }
@@ -249,7 +237,6 @@ public class NotificationActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
             try {
-                Log.i("FilePath", filePath.toString());
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
                 selfieImage.setImageBitmap(bitmap);
             } catch (Exception e) {
@@ -298,11 +285,11 @@ public class NotificationActivity extends AppCompatActivity {
                         });
             } else {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Upload a selfie image to complete attendance", Toast.LENGTH_SHORT).show();
+                utilityClass.showMessage(findViewById(android.R.id.content), "Upload a selfie image to complete attendance");
             }
         } catch (Exception e) {
             progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Some error occurred. Kindly try after some time.", Toast.LENGTH_SHORT).show();
+            utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly try after some time.");
             e.printStackTrace();
         }
     }

@@ -8,6 +8,8 @@ import android.location.Location;
 import android.util.Log;
 
 import com.google.android.gms.location.LocationResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,9 +31,14 @@ public class LocationUpdateBroadcastReceiver extends BroadcastReceiver {
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_PROCESS_UPDATES.equals(action)) {
+                Intent permissionIntent = new Intent(context, PatientLoginActivity.class);
                 if (!utilityClass.isNetworkAvailable()) {
-                    Intent permissionIntent = new Intent(context, PatientLoginActivity.class);
                     NotificationUtils.sendNotification(context, "Location Request", "Kindly turn on internet to post your current location.", permissionIntent);
+                    return;
+                }
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    NotificationUtils.sendNotification(context, "Location Request", "Active session not available. Kindly login again.", permissionIntent);
                     return;
                 }
 
