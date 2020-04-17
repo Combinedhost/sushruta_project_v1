@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -74,6 +75,7 @@ public class UtilityClass {
 
     public void showMessage(View view, String data) {
         final Snackbar snackbar = Snackbar.make(view, data, Snackbar.LENGTH_SHORT);
+        snackbar.setTextColor(ContextCompat.getColor(context,R.color.popup));
         snackbar.show();
     }
 }

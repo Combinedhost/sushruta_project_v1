@@ -2,6 +2,7 @@ package com.mbp.sushruta_v1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -200,6 +201,8 @@ public class LocationHistory extends AppCompatActivity {
 
     public void showMessage(String data, Boolean refreshData) {
         final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setTextColor(ContextCompat.getColor(this,R.color.popup));
+
         snackbar.setAction(getString(R.string.refresh), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
