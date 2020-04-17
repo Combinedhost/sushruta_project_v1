@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,15 +26,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
 
 public class SelectLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -171,7 +163,7 @@ public class SelectLocationActivity extends FragmentActivity implements OnMapRea
         }
 //        mMap.setMinZoomPreference(11);
 
-        LocationUtils locationUtils = new LocationUtils(SelectLocationActivity.this);
+        UtilityClass locationUtils = new UtilityClass(SelectLocationActivity.this);
         if (locationUtils.checkPermissions()) {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -201,7 +193,7 @@ public class SelectLocationActivity extends FragmentActivity implements OnMapRea
     }
 
     private Boolean checkLocationPermissions() {
-        LocationUtils locationUtils = new LocationUtils(SelectLocationActivity.this);
+        UtilityClass locationUtils = new UtilityClass(SelectLocationActivity.this);
         if (locationUtils.checkPermissions()) {
             if (locationUtils.isLocationEnabled()) {
                 return true;
@@ -224,7 +216,7 @@ public class SelectLocationActivity extends FragmentActivity implements OnMapRea
         }
     }
 
-    private void checkLocations(LocationUtils locationUtils) {
+    private void checkLocations(UtilityClass locationUtils) {
         if (!locationUtils.isLocationEnabled()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(SelectLocationActivity.this, R.style.AppCompatAlertDialogStyle);
             builder.setMessage("Kindly turn on location to continue")
@@ -251,7 +243,7 @@ public class SelectLocationActivity extends FragmentActivity implements OnMapRea
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == ENABLE_LOCATION_PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            checkLocations(new LocationUtils(this));
+            checkLocations(new UtilityClass(this));
         } else if (requestCode == REQUEST_LOCATION_PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);

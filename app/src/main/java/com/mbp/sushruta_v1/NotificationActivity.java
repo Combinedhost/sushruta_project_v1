@@ -53,12 +53,13 @@ public class NotificationActivity extends AppCompatActivity {
     Uri filePath;
     ProgressDialog progressDialog;
     SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss aa", Locale.getDefault());
-    public static int SELFIE_FREQUENCY_IN_MINUTES = 3 * 60;
+    public static long SELFIE_FREQUENCY_IN_MINUTES = 2 * 10;
     private Boolean takeSelfie = false;
     FirebaseDatabase dataBase;
     DatabaseReference databaseRef;
     String patientId;
     SharedPreferences sharedPref;
+    UtilityClass utilityClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +67,10 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
 
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
-        Log.i("Preference", sharedPref.toString());
         patientId = sharedPref.getString("patient_id", "");
         String patientName = sharedPref.getString("patient_name", "");
 
+        utilityClass = new UtilityClass(NotificationActivity.this);
         progressDialog = new ProgressDialog(NotificationActivity.this, R.style.AppCompatAlertDialogStyle);
         progressDialog.setTitle("Submitting Attendance");
         progressDialog.setMessage("Please wait...");
@@ -86,13 +87,13 @@ public class NotificationActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         String lastUpdateValue = sharedPref.getString("last_attendance_time", null);
-        if (!(lastUpdateValue == null)) {
+        if (lastUpdateValue != null) {
             if (findDifferenceInMinutesWithCurrentTime(lastUpdateValue) > SELFIE_FREQUENCY_IN_MINUTES) {
                 takeSelfie = true;
                 takeSelfieMessage.setVisibility(View.VISIBLE);
             }
-            Log.i("test", String.valueOf(findDifferenceInMinutesWithCurrentTime(lastUpdateValue)));
-        }else{
+            Log.i("Time difference", String.valueOf(findDifferenceInMinutesWithCurrentTime(lastUpdateValue)));
+        } else {
             takeSelfie = true;
             takeSelfieMessage.setVisibility(View.VISIBLE);
         }
@@ -111,6 +112,10 @@ public class NotificationActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!utilityClass.isNetworkAvailable()) {
+                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                    return;
+                }
                 if (takeSelfie) {
                     uploadImage();
                 } else {
@@ -130,6 +135,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("last_attendance_time", date);
+        Log.i("Last Time", date);
         editor.apply();
 
         Toast.makeText(getApplicationContext(), "Your attendance has been posted successfully", Toast.LENGTH_SHORT).show();
@@ -153,6 +159,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "Your attendance has been posted successfully", Toast.LENGTH_SHORT).show();
 
+        Log.i("Last Time", date);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("last_attendance_time", date);
         editor.apply();
@@ -167,17 +174,14 @@ public class NotificationActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    public int findDifferenceInMinutesWithCurrentTime(String date) {
+    public long findDifferenceInMinutesWithCurrentTime(String date) {
         Date d1, d2;
         d2 = new Date();
         try {
             d1 = dateFormat.parse(date);
             long difference = d2.getTime() - d1.getTime();
-            int days = (int) (difference / (1000 * 60 * 60 * 24));
-            int hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));
-            int mins = (int) (difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours))
-                    / (1000 * 60);
-            return mins;
+
+            return difference / (60 * 1000);
         } catch (ParseException e) {
             e.printStackTrace();
             return 0;

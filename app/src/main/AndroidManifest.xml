@@ -23,7 +23,7 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Sushruta"
+        android:label="Sushruta Telemedicine"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -78,7 +78,6 @@
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TestActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Black.NoTitleBar">
@@ -122,22 +121,16 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Test" />
         <activity
             android:name=".Documents_patients"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Webview" />
         <activity
             android:name=".ParametersList"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ParameterValues"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ParameterValuesNew"
             android:label="Parameter Values"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -157,9 +150,6 @@
         <activity
             android:name=".Doctor_Not_Approval_Activity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Alert"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NotificationActivity"

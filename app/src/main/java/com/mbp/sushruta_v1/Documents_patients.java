@@ -12,14 +12,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -33,9 +25,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,20 +62,21 @@ public class Documents_patients extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
     String user;
-    List<String> imageList,UIDList,NameList,MimeList;
-    String filename,mimetype;
+    List<String> imageList, UIDList, NameList, MimeList;
+    String filename, mimetype;
     Recyclerview_images recyclerviewImages;
     GridLayoutManager gridLayoutManager;
     RecyclerView recyclerView;
-    FirebaseDatabase putfirebaseDatabase,getfirebaseDatabase;
-    DatabaseReference putdatabaseReference,getdatabaseReference,moddatabaseReference;
+    FirebaseDatabase putfirebaseDatabase, getfirebaseDatabase;
+    DatabaseReference putdatabaseReference, getdatabaseReference, moddatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documents_patients);
 
 
-        ImageView back=(ImageView) findViewById(R.id.back);
+        ImageView back = (ImageView) findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,39 +88,38 @@ public class Documents_patients extends AppCompatActivity {
         Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(mTopToolbar);
 
-        storage=FirebaseStorage.getInstance();
-        storageReference=storage.getReference();
-        Bundle bundle=getIntent().getExtras();
-        user=bundle.getString("user");
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        Bundle bundle = getIntent().getExtras();
+        user = bundle.getString("user");
 
 
-        getfirebaseDatabase=FirebaseDatabase.getInstance();
-        getdatabaseReference=getfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
+        getfirebaseDatabase = FirebaseDatabase.getInstance();
+        getdatabaseReference = getfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
 
 
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
 
-        recyclerView=(RecyclerView)findViewById(R.id.recyclerview);
-
-        gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
+        gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
 
         recyclerView.setLayoutManager(gridLayoutManager);
 
         getdatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                imageList=new ArrayList<>();
-                UIDList=new ArrayList<>();
-                NameList=new ArrayList<>();
-                MimeList=new ArrayList<>();
-                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
-                    Log.i(getLocalClassName(),"key = "+dataSnapshot1.getKey());
+                imageList = new ArrayList<>();
+                UIDList = new ArrayList<>();
+                NameList = new ArrayList<>();
+                MimeList = new ArrayList<>();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Log.i(getLocalClassName(), "key = " + dataSnapshot1.getKey());
                     UIDList.add(String.valueOf(dataSnapshot1.getKey()));
-                    String img=String.valueOf(dataSnapshot1.child("ImageURL").getValue());
-                    String name=String.valueOf(dataSnapshot1.child("Name").getValue());
-                    String mime=String.valueOf(dataSnapshot1.child("Mime").getValue());
+                    String img = String.valueOf(dataSnapshot1.child("ImageURL").getValue());
+                    String name = String.valueOf(dataSnapshot1.child("Name").getValue());
+                    String mime = String.valueOf(dataSnapshot1.child("Mime").getValue());
                     //Log.i(TAG,"Images "+String.valueOf(dataSnapshot1.child("ImageURL").getValue()));
 
-                    if(!img.isEmpty() && !img.equals("null")){
+                    if (!img.isEmpty() && !img.equals("null")) {
                         imageList.add(String.valueOf(dataSnapshot1.child("ImageURL").getValue()));
                         NameList.add(name);
                         MimeList.add(mime);
@@ -126,12 +127,8 @@ public class Documents_patients extends AppCompatActivity {
                     }
                 }
 
-
-                Log.i(getLocalClassName(),"List size "+imageList.size());
-
-                Recyclerview_images recyclerview_images=new Recyclerview_images(Documents_patients.this,imageList,NameList,UIDList,MimeList,user);
+                Recyclerview_images recyclerview_images = new Recyclerview_images(Documents_patients.this, imageList, NameList, UIDList, MimeList, user);
                 recyclerView.setAdapter(recyclerview_images);
-
 
 
             }
@@ -143,28 +140,24 @@ public class Documents_patients extends AppCompatActivity {
         });
 
 
+        FloatingActionButton Add_file_fab = (FloatingActionButton) findViewById(R.id.add_file_fab);
+
+        Add_file_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("*/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select the File"), PICK_FILE);
+            }
+        });
 
 
-        FloatingActionButton Add_file_fab=(FloatingActionButton)findViewById(R.id.add_file_fab);
-
-      Add_file_fab.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              Intent intent=new Intent();
-              intent.setType("*/*");
-              intent.setAction(Intent.ACTION_GET_CONTENT);
-              startActivityForResult(Intent.createChooser(intent,"Select the File"),PICK_FILE);
-          }
-      });
-
-
-        SharedPreferences sharedPref = this.getSharedPreferences("mypref",Context.MODE_PRIVATE);
-        String position = sharedPref.getString("Position","SubDoctor");
-        if(position.equals("SubDoctor")){
+        SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+        String position = sharedPref.getString("Position", "SubDoctor");
+        if (position.equals("SubDoctor")) {
             Add_file_fab.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             Add_file_fab.setVisibility(View.INVISIBLE);
         }
 
@@ -180,35 +173,34 @@ public class Documents_patients extends AppCompatActivity {
         }
 
 
-
     }
 
     @Override
-    protected void onActivityResult(int requestode,int resultCode,Intent data){
-        super.onActivityResult(requestode,resultCode,data);
-        if(requestode==PICK_FILE && resultCode==RESULT_OK&&data!=null&&data.getData()!=null){
-            filePath=data.getData();
-            filename=getFileName(filePath);
+    protected void onActivityResult(int requestode, int resultCode, Intent data) {
+        super.onActivityResult(requestode, resultCode, data);
+        if (requestode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            filename = getFileName(filePath);
 
 
-            Log.i(getLocalClassName(),"Minetype = "+mimetype);
+            Log.i(getLocalClassName(), "Minetype = " + mimetype);
 
-            final Dialog dialog=new Dialog(this,R.style.AppCompatAlertDialogStyle);
+            final Dialog dialog = new Dialog(this, R.style.AppCompatAlertDialogStyle);
 
             dialog.setContentView(R.layout.getnamelayout);
 
-            final EditText name=(EditText)dialog.findViewById(R.id.getname);
+            final EditText name = (EditText) dialog.findViewById(R.id.getname);
             name.setText(filename);
 
-            Button button=(Button)dialog.findViewById(R.id.button);
+            Button button = (Button) dialog.findViewById(R.id.button);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i(getLocalClassName(),name.getText().toString());
+                    Log.i(getLocalClassName(), name.getText().toString());
                     dialog.dismiss();
-                    filename=name.getText().toString();
-                    filename=user+filename;
+                    filename = name.getText().toString();
+                    filename = user + filename;
                     uploadImage(filename);
                 }
             });
@@ -257,15 +249,14 @@ public class Documents_patients extends AppCompatActivity {
 
     private void uploadImage(final String file) {
 
-        if(filePath != null)
-        {
+        if (filePath != null) {
             map = new HashMap<String, String>();
-            final ProgressDialog progressDialog = new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
+            final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
             progressDialog.setMessage("Please wait");
 
-            StorageReference ref = storageReference.child("images/"+file);
+            StorageReference ref = storageReference.child("images/" + file);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -276,30 +267,24 @@ public class Documents_patients extends AppCompatActivity {
                             //Log.i(TAG, "onSuccess: "+String.valueOf(taskSnapshot.getMetadata().getName()));
 
 
-
-
-
                             taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Log.i(getLocalClassName(), "onSuccess: "+String.valueOf(uri));
-                                    mimetype=getMimeType(filePath);
-                                    map.put("ImageURL",String.valueOf(uri));
-                                    map.put("Name",file);
-                                    map.put("Mime",mimetype);
+                                    Log.i(getLocalClassName(), "onSuccess: " + String.valueOf(uri));
+                                    mimetype = getMimeType(filePath);
+                                    map.put("ImageURL", String.valueOf(uri));
+                                    map.put("Name", file);
+                                    map.put("Mime", mimetype);
 
 
-                                    putfirebaseDatabase=FirebaseDatabase.getInstance();
-                                    putdatabaseReference=putfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
-                                    String key=putdatabaseReference.push().getKey();
+                                    putfirebaseDatabase = FirebaseDatabase.getInstance();
+                                    putdatabaseReference = putfirebaseDatabase.getReference("sushruta").child("Details").child("Documents").child(user);
+                                    String key = putdatabaseReference.push().getKey();
                                     putdatabaseReference.child(key).setValue(map);
-
 
 
                                 }
                             });
-
-
 
 
                         }
@@ -308,13 +293,13 @@ public class Documents_patients extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                     .getTotalByteCount());
                         }
                     });
@@ -347,7 +332,7 @@ public class Documents_patients extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -356,9 +341,8 @@ public class Documents_patients extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if(id==R.id.profile)
-        {
-            final Dialog dialog=new Dialog(Documents_patients.this);
+        if (id == R.id.profile) {
+            final Dialog dialog = new Dialog(Documents_patients.this);
 
             dialog.setContentView(R.layout.popup);
 
@@ -367,18 +351,14 @@ public class Documents_patients extends AppCompatActivity {
             final TextView name = (TextView) dialog.findViewById(R.id.textView);
             final TextView docid = (TextView) dialog.findViewById(R.id.textView2);
             final TextView spec = (TextView) dialog.findViewById(R.id.textView3);
-            final TextView licid =(TextView)dialog.findViewById(R.id.textView6);
+            final TextView licid = (TextView) dialog.findViewById(R.id.textView6);
             ImageView close = (ImageView) dialog.findViewById(R.id.button);
 
 
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
-            String username=sharedPref.getString("Username","");
-            Log.i("test",username);
-
+            String username = sharedPref.getString("Username", "");
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("sushruta").child("Details").child("Doctor").child(username);
-            Log.i("test",username);
-
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -386,8 +366,8 @@ public class Documents_patients extends AppCompatActivity {
                     String Name = String.valueOf(dataSnapshot.child("Name").getValue());
                     String ImageUrl = String.valueOf(dataSnapshot.child("ImageUrl").getValue());
                     String Specialist = String.valueOf(dataSnapshot.child("Specialization").getValue());
-                    String DocID=String.valueOf(dataSnapshot.child("DoctorID").getValue());
-                    String LicID=String.valueOf(dataSnapshot.child("LicenseID").getValue());
+                    String DocID = String.valueOf(dataSnapshot.child("DoctorID").getValue());
+                    String LicID = String.valueOf(dataSnapshot.child("LicenseID").getValue());
 
 
                     Glide.with(getApplicationContext()).load(ImageUrl).into(imageView);
@@ -397,6 +377,7 @@ public class Documents_patients extends AppCompatActivity {
                     licid.setText(LicID);
 
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -417,12 +398,11 @@ public class Documents_patients extends AppCompatActivity {
             dialog.show();
 
         }
-        if(id==R.id.logout)
-        {
+        if (id == R.id.logout) {
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
-            String username=sharedPref.getString("Username","");
-            if(username!=null){
+            String username = sharedPref.getString("Username", "");
+            if (username != null) {
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(username);
             }
 

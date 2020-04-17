@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,11 +32,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,9 +45,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class PatientInformation extends AppCompatActivity {
     FirebaseDatabase fd;
@@ -68,14 +65,21 @@ public class PatientInformation extends AppCompatActivity {
 
     String userType, doctorPhoneNumber;
     SharedPreferences sharedPref;
-
+    ProgressDialog progressDialog;
+    UtilityClass utilityClass;
     private static final String TAG = "PatientInformation";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__information);
+        progressDialog = new ProgressDialog(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
+        progressDialog.setTitle("Loading Data...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.setCancelable(false);
 
+
+        utilityClass = new UtilityClass(PatientInformation.this);
         documentrl = (LinearLayout) findViewById(R.id.documents_rl);
         parameterrl = (LinearLayout) findViewById(R.id.parameters_rl);
         attendancerl = (LinearLayout) findViewById(R.id.attendance_rl);
@@ -136,19 +140,65 @@ public class PatientInformation extends AppCompatActivity {
             triggerAttendanceWorker();
         }
 
+
+        parameterrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ParametersList.class);
+                intent.putExtra("user", patient);
+                startActivity(intent);
+            }
+        });
+
+        documentrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Documents_patients.class);
+                intent.putExtra("user", patient);
+                startActivity(intent);
+            }
+        });
+
+        attendancerl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Attendance_history.class);
+                startActivity(intent);
+            }
+        });
+
+        locationhistoryrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LocationHistory.class);
+                startActivity(intent);
+            }
+        });
+
+
         fd = FirebaseDatabase.getInstance();
 
         Bundle b1 = getIntent().getExtras();
+        patient = b1.getString("Patient");
+
+        listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
+
+        loadData();
+    }
+
+    public void loadData() {
+
         try {
-            patient = b1.getString("Patient");
+            if (!utilityClass.isNetworkAvailable()) {
+                showMessage("Kindly connect to a network to access the service", true);
+                return;
+            }
 
-            listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
-            listref = fd.getReference("sushruta").child("Details").child("Patient").child(patient);
+            progressDialog.show();
 
-            listref.addValueEventListener(new ValueEventListener() {
+            listref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot ds1) {
-
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("patient_name", ds1.child("Name").getValue().toString());
                     editor.putString("patient_id", ds1.child("PatientId").getValue().toString());
@@ -210,51 +260,21 @@ public class PatientInformation extends AppCompatActivity {
                             });
                         }
                     });
-
+                    progressDialog.dismiss();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    progressDialog.dismiss();
+                    utilityClass.showMessage(findViewById(android.R.id.content), "Some error occured. Try again later");
                     Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
             });
         } catch (Exception e) {
+            progressDialog.dismiss();
+            utilityClass.showMessage(findViewById(android.R.id.content), "Some error occured. Try again later");
             e.printStackTrace();
         }
-
-        parameterrl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ParametersList.class);
-                intent.putExtra("user", patient);
-                startActivity(intent);
-            }
-        });
-
-        documentrl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Documents_patients.class);
-                intent.putExtra("user", patient);
-                startActivity(intent);
-            }
-        });
-
-        attendancerl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Attendance_history.class);
-                startActivity(intent);
-            }
-        });
-
-        locationhistoryrl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LocationHistory.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -262,20 +282,15 @@ public class PatientInformation extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.patient_info_menu, menu);
         SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
-
         String position = sharedPref.getString("Position", "SubDoctor");
-
         Log.d(getLocalClassName() + " position", position);
-
         if (!position.equals("SubDoctor")) {
-
             menu.findItem(R.id.save).setVisible(false);
             menu.findItem(R.id.edit).setVisible(false);
             if (position.equals("patient")) {
                 menu.findItem(R.id.profile).setVisible(false);
             }
         }
-
         return true;
     }
 
@@ -289,10 +304,14 @@ public class PatientInformation extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.save) {
 
-            Toast.makeText(getApplicationContext(), "Data saved successfully", Toast.LENGTH_SHORT).show();
+            if (!utilityClass.isNetworkAvailable()) {
+                utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                return super.onOptionsItemSelected(item);
+            }
+            utilityClass.showMessage(findViewById(android.R.id.content),"Data saved successfully");
+
             FirebaseDatabase fd4 = FirebaseDatabase.getInstance();
             DatabaseReference dataref = fd4.getReference("sushruta").child("Details").child("Patient").child(PatientId.getText().toString());
-
             Map<String, String> map = new HashMap<String, String>();
             map.put("Name", Name.getText().toString());
             map.put("Aadhar_no", AadharNo.getText().toString());
@@ -329,7 +348,7 @@ public class PatientInformation extends AppCompatActivity {
         }
 
         if (id == R.id.edit) {
-            Toast.makeText(getApplicationContext(), "Edit Mode On", Toast.LENGTH_SHORT).show();
+            utilityClass.showMessage(findViewById(android.R.id.content), "Edit Mode On");
             Name.setEnabled(true);
             BloodGroup.setEnabled(true);
             Gender.setEnabled(true);
@@ -361,12 +380,8 @@ public class PatientInformation extends AppCompatActivity {
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
             String username = sharedPref.getString("Username", "");
-            Log.i("test", username);
-
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("sushruta").child("Details").child("Doctor").child(username);
-            Log.i("test", username);
-
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -427,12 +442,12 @@ public class PatientInformation extends AppCompatActivity {
                     finish();
                 }
             }
-
         }
+
         if (id == R.id.message) {
             String text = "Hi ";
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91"+ doctorPhoneNumber +"&text="+ text));
+            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91" + doctorPhoneNumber + "&text=" + text));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
@@ -440,7 +455,7 @@ public class PatientInformation extends AppCompatActivity {
     }
 
     private void checkPermissionsAndTriggerWorker() {
-        LocationUtils locationUtils = new LocationUtils(this);
+        UtilityClass locationUtils = new UtilityClass(this);
         if (locationUtils.checkPermissions()) {
             checkLocations(locationUtils);
         } else {
@@ -448,7 +463,7 @@ public class PatientInformation extends AppCompatActivity {
         }
     }
 
-    private void checkLocations(LocationUtils locationUtils) {
+    private void checkLocations(UtilityClass locationUtils) {
         if (locationUtils.isLocationEnabled()) {
             triggerLocationWorker();
         } else {
@@ -477,7 +492,7 @@ public class PatientInformation extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            checkLocations(new LocationUtils(this));
+            checkLocations(new UtilityClass(this));
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
             builder.setMessage("Location permission is mandatory. Kindly grant permission to continue")
@@ -523,6 +538,20 @@ public class PatientInformation extends AppCompatActivity {
                 , pendingIntent);
     }
 
+    public void showMessage(String data, Boolean refreshData) {
+        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Refresh", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData();
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+
+
     public void startLocationAlarm() {
         Intent intent = new Intent(this, LocationWorkReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -531,4 +560,6 @@ public class PatientInformation extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * LOCATION_FREQUENCY
                 , pendingIntent);
     }
+
+
 }

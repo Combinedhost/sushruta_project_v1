@@ -19,6 +19,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,16 +39,17 @@ public class LocationHistory extends AppCompatActivity {
     SharedPreferences sharedPref;
     String patientId;
     ImageView noDataFound;
+    UtilityClass utilityClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_history);
+
+        utilityClass = new UtilityClass(LocationHistory.this);
         SharedPreferences sharedPref;
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
         patientId = sharedPref.getString("patient_id", "");
-
-        Log.i("Patient Id", patientId);
 
         entries = (TextView) findViewById(R.id.textView11);
         dateFilter = (TextView) findViewById(R.id.date_filter_lo);
@@ -97,6 +99,12 @@ public class LocationHistory extends AppCompatActivity {
     }
 
     public void loadValues(String currentDate){
+
+        if (!utilityClass.isNetworkAvailable()) {
+            showMessage("Kindly connect to a network to access the service", true);
+            return;
+        }
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Details").child("Location").child(patientId).child(currentDate);
         Log.i("test", databaseReference.toString());
@@ -135,7 +143,6 @@ public class LocationHistory extends AppCompatActivity {
                         i = i + 1;
                         String time = String.valueOf(dataSnapshot1.child("time").getValue());
                         String location = String.valueOf(dataSnapshot1.child("location").getValue());
-                        Log.i("Time", time);
 
                         TableRow tbrow = new TableRow(getApplicationContext());
                         tbrow.setGravity(Gravity.CENTER);
@@ -162,15 +169,26 @@ public class LocationHistory extends AppCompatActivity {
                         noDataFound.setVisibility(View.GONE);
                     }
                 } else {
-                    Log.i("Test", " No values");
                     noDataFound.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly try after some time.");
             }
         });
+    }
+
+    public void showMessage(String data, Boolean refreshData) {
+        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Refresh", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadValues(dateFilter.getText().toString());
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 }

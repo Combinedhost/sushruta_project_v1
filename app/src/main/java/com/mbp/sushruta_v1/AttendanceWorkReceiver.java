@@ -34,7 +34,7 @@ public class AttendanceWorkReceiver extends BroadcastReceiver {
         Calendar rightNow = Calendar.getInstance();
         int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY); // return the hour in 24 hrs format (ranging from 0-23)
         Log.i("Current hour ", String.valueOf(currentHourIn24Format));
-        if(currentHourIn24Format >= 8 && currentHourIn24Format < 20){
+        if(currentHourIn24Format >= 7 && currentHourIn24Format < 20){
             showNotification("Attendance", "Please post your attendance to verify you are in quarantine location");
         }
 

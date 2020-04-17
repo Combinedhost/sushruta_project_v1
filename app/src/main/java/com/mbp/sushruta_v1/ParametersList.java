@@ -52,6 +52,7 @@ public class ParametersList extends AppCompatActivity {
     Button b1;
     TextView heading;
     String user;
+    UtilityClass utilityClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,7 @@ public class ParametersList extends AppCompatActivity {
         Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(mTopToolbar);
 
+        utilityClass = new UtilityClass(ParametersList.this);
         firebaseDatabase=FirebaseDatabase.getInstance();
         param_list=new ArrayList<String>();
 
@@ -91,11 +93,6 @@ public class ParametersList extends AppCompatActivity {
                 // Set the text color of TextView (ListView Item)
                 tv.setTextColor(Color.BLACK);
                 tv.setTextSize(18);
-//                            tv.setGravity(Gravity.CENTER);
-//                            if(position==0){
-//                                tv.setTypeface(null, Typeface.BOLD);
-//                            }
-//                             Generate ListView Item using TextView
                 return view;
             }
         };
@@ -117,9 +114,7 @@ public class ParametersList extends AppCompatActivity {
 
                     String cm=dataSnapshot1.getKey();
                     param_list.add(cm);
-                    Log.i(getLocalClassName(),cm);
                     arrayAdapter.notifyDataSetChanged();
-
                 }
             }
 
@@ -133,7 +128,7 @@ public class ParametersList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getApplicationContext(),ParameterValuesNew.class);
+                Intent intent=new Intent(getApplicationContext(), ParameterValues.class);
                 intent.putExtra("param",String.valueOf(listView.getItemAtPosition(position)));
                 intent.putExtra("user",user);
                 startActivity(intent);

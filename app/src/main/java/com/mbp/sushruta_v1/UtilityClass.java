@@ -9,16 +9,21 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 
-public class LocationUtils {
+import com.google.android.material.snackbar.Snackbar;
+
+public class UtilityClass {
     public Context context;
 
     SharedPreferences sharedPreferences;
-    public LocationUtils(Context context){
+    public UtilityClass(Context context){
         this.context = context;
         sharedPreferences = context.getSharedPreferences("mypref", Context.MODE_PRIVATE);
     }
@@ -57,6 +62,19 @@ public class LocationUtils {
 
     public boolean isQuarantineLocationSet(){
         return (sharedPreferences.getString("quarantine_latitude", null) !=null) && (sharedPreferences.getString("quarantine_longitude", null) != null);
+    }
+
+    public boolean isNetworkAvailable() {
+
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void showMessage(View view, String data) {
+        final Snackbar snackbar = Snackbar.make(view, data, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 }
 

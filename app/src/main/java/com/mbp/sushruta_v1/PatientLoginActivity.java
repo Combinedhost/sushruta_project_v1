@@ -45,7 +45,7 @@ public class PatientLoginActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
-
+    UtilityClass utilityClass;
     String patientId, doctorName;
 
     @Override
@@ -54,7 +54,7 @@ public class PatientLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_login);
 
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
-
+        utilityClass = new UtilityClass(getApplicationContext());
         loadLocale();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -76,7 +76,7 @@ public class PatientLoginActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
         auth = FirebaseAuth.getInstance();
-        
+
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
 
@@ -89,12 +89,18 @@ public class PatientLoginActivity extends AppCompatActivity {
         sendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!utilityClass.isNetworkAvailable()) {
+                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                    return;
+                }
+
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 final DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Login").child("Patient").child(phoneNo.getText().toString());
 
                 progressDialog.show();
 
-                databaseReference.addValueEventListener(new ValueEventListener() {
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -117,7 +123,7 @@ public class PatientLoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                    utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly again later.");
                                 }
                             });
 
@@ -128,13 +134,14 @@ public class PatientLoginActivity extends AppCompatActivity {
                             sendVerificationCode(phoneNo.getText().toString());
                         } else {
                             progressDialog.dismiss();
-                            Toast.makeText(PatientLoginActivity.this, "Phone no is not registered in the database", Toast.LENGTH_LONG).show();
+                            utilityClass.showMessage(findViewById(android.R.id.content), "Phone no is not registered in the database");
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         progressDialog.dismiss();
+                        utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly again later.");
                     }
                 });
 
@@ -144,12 +151,16 @@ public class PatientLoginActivity extends AppCompatActivity {
         verifyOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!utilityClass.isNetworkAvailable()) {
+                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                    return;
+                }
                 verifyVerificationCode(otpCode.getText().toString());
             }
         });
 
     }
-
 
     //the method is sending verification code
     //the country id is concatenated
@@ -161,7 +172,6 @@ public class PatientLoginActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
-        Log.i("Phone no ", mobile);
     }
 
 
@@ -172,19 +182,8 @@ public class PatientLoginActivity extends AppCompatActivity {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-
             //Getting the code sent by SMS
             String code = phoneAuthCredential.getSmsCode();
-
-            //sometime the code is not detected automatically
-            //in this case the code will be null
-            //so user has to manually enter the code
-            if (code != null) {
-                Log.i("PatientLoginActivity", code);
-//                editTextCode.setText(code);
-                //verifying the code
-//                verifyVerificationCode(code);
-            }
         }
 
         @Override
@@ -200,9 +199,6 @@ public class PatientLoginActivity extends AppCompatActivity {
             otpCode.setVisibility(View.VISIBLE);
             verifyOtp.setVisibility(View.VISIBLE);
             sendOtp.setVisibility(View.GONE);
-
-            Log.i("PatientLoginActivity", "code sent -  " + s);
-            //storing the verification id that is sent to the user
             verificationId = s;
         }
     };
@@ -210,10 +206,7 @@ public class PatientLoginActivity extends AppCompatActivity {
 
     private void verifyVerificationCode(String code) {
         progressDialog.show();
-        //creating the credential
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-
-        //signing the user
         signInWithPhoneAuthCredential(credential);
     }
 
@@ -240,13 +233,14 @@ public class PatientLoginActivity extends AppCompatActivity {
 
                         } else {
                             //verification unsuccessful.. display an error message
-                            String message = "Something went wrong, we will fix it soon...";
+                            String message = "Something went wrong. Kindl try again later";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered...";
+                                message = "Invalid code entered";
                             }
 
-                            Toast.makeText(PatientLoginActivity.this, message, Toast.LENGTH_LONG).show();
+                            utilityClass.showMessage(findViewById(android.R.id.content), message);
+
                         }
                     }
                 });
@@ -255,7 +249,6 @@ public class PatientLoginActivity extends AppCompatActivity {
     public void loadLocale() {
         SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
         String language = pref.getString("language", "");
-        Log.i("Lang", language);
         setLocale(language);
     }
 

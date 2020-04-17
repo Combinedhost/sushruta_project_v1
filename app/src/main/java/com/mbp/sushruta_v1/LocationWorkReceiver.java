@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.work.Worker;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -17,10 +15,10 @@ public class LocationWorkReceiver extends BroadcastReceiver {
 
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
-    LocationUtils locationUtils;
+    UtilityClass locationUtils;
     @Override
     public void onReceive(Context context, Intent intent) {
-        locationUtils = new LocationUtils(context);
+        locationUtils = new UtilityClass(context);
 
         Log.d("Location Alarm", "refreshing data....");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
