@@ -133,9 +133,11 @@ public class NotificationActivity extends AppCompatActivity {
         map1.put("selfie_url", selfieUrl);
         databaseRef.child(key).setValue(map1);
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
-        editor.apply();
+        if(takeSelfie){
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
+            editor.apply();
+        }
 
         utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.attendance_success));
         progressDialog.dismiss();
@@ -157,10 +159,11 @@ public class NotificationActivity extends AppCompatActivity {
         databaseRef.child(key).setValue(map1);
         utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.attendance_success));
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
-        editor.apply();
-
+        if(takeSelfie) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
+            editor.apply();
+        }
         button.setEnabled(false);
         progressDialog.dismiss();
         new Handler().postDelayed(new Runnable() {
