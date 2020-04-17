@@ -80,7 +80,7 @@ public class NotificationActivity extends AppCompatActivity {
         takeSelfieMessage.setVisibility(View.GONE);
         selfieImage = (ImageView) findViewById(R.id.patient_selfie);
         patient = (TextView) findViewById(R.id.textView5);
-        patient.setText(getString(R.string.hi) + patientName);
+        patient.setText(getString(R.string.hi) + " "+ patientName);
 
         button = (Button) findViewById(R.id.post_attendance);
 

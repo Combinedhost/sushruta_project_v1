@@ -87,7 +87,6 @@
     <string name="date_location">தேதி</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="hi">Hi</string>
     <string name="post_attendance">வருகை சமர்ப்பிக்கவும்</string>
     <string name="date_parameter">தேதி</string>
     <string name="gender">பாலினம்</string>
@@ -109,7 +108,7 @@
     <string name="edit">தொகு</string>
 
 
-
+    <string name="hi">Hi</string>
     <string name="please_post_your_attendance_to_know_whether_you_are_in_quarantine_area">Please post your attendance to know whether you are in quarantine area</string>
     <string name="title_activity_select_location">Map</string>
     <string name="selfie_mandatory">Selfie is mandatory this time</string>
