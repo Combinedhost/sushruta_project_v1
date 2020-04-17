@@ -112,5 +112,6 @@
     <string name="edit">Edit</string>
     <string name="title_activity_select_location">Map</string>
     <string name="selfie_mandatory">Selfie is mandatory this time</string>
+    <string name="login_success">Login successfull</string>
 
 </resources>

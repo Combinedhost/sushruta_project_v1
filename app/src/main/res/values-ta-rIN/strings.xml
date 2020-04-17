@@ -108,4 +108,10 @@
     <string name="disapprove">மறுக்க</string>
     <string name="save">சேமி</string>
     <string name="edit">தொகு</string>
+
+
+
+    <string name="title_activity_select_location">Map</string>
+    <string name="selfie_mandatory">Selfie is mandatory this time</string>
+    <string name="login_success">Login sucessfull in tamil</string>
 </resources>

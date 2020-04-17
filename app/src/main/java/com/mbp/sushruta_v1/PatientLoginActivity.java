@@ -217,7 +217,7 @@ public class PatientLoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(PatientLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PatientLoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
 
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("patient_id", patientId);
