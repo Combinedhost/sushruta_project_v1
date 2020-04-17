@@ -158,7 +158,7 @@
             android:name=".LocationHistory"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Attendance_history"
+            android:name=".AttendanceHistory"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

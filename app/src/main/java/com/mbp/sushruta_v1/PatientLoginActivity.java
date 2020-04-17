@@ -61,7 +61,8 @@ public class PatientLoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         progressDialog = new ProgressDialog(PatientLoginActivity.this, R.style.AppCompatAlertDialogStyle);
-        progressDialog.setMessage("Please wait..");
+        progressDialog.setTitle(getString(R.string.loading_data));
+        progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.setCancelable(false);
 
         otpCode = (EditText) findViewById(R.id.otp);
@@ -91,7 +92,7 @@ public class PatientLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!utilityClass.isNetworkAvailable()) {
-                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.no_internet));
                     return;
                 }
 
@@ -123,7 +124,7 @@ public class PatientLoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly again later.");
+                                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
                                 }
                             });
 
@@ -134,14 +135,14 @@ public class PatientLoginActivity extends AppCompatActivity {
                             sendVerificationCode(phoneNo.getText().toString());
                         } else {
                             progressDialog.dismiss();
-                            utilityClass.showMessage(findViewById(android.R.id.content), "Phone no is not registered in the database");
+                            utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.not_registered));
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         progressDialog.dismiss();
-                        utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly again later.");
+                        utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
                     }
                 });
 
@@ -153,7 +154,7 @@ public class PatientLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!utilityClass.isNetworkAvailable()) {
-                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.no_internet));
                     return;
                 }
                 verifyVerificationCode(otpCode.getText().toString());
@@ -233,10 +234,10 @@ public class PatientLoginActivity extends AppCompatActivity {
 
                         } else {
                             //verification unsuccessful.. display an error message
-                            String message = "Something went wrong. Kindl try again later";
+                            String message = getString(R.string.some_error_occurred);
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered";
+                                message = getString(R.string.invalid_code);
                             }
 
                             utilityClass.showMessage(findViewById(android.R.id.content), message);

@@ -1,13 +1,14 @@
 package com.mbp.sushruta_v1;
 
 import android.graphics.Color;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,17 +27,22 @@ import java.util.Date;
 import java.util.List;
 
 public class ChartActivity extends AppCompatActivity {
-    String user,param,date;
-    List<Date> x_axis=new ArrayList<Date>();
-    List<String> y_axis=new ArrayList<String>();
+    String user, param, date;
+    List<Date> x_axis = new ArrayList<Date>();
+    List<String> y_axis = new ArrayList<String>();
+    GraphView graph;
+    DatabaseReference databaseReference;
+    DateFormat df;
+    UtilityClass utilityClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        ImageView back=(ImageView) findViewById(R.id.back);
+        utilityClass = new UtilityClass(getApplicationContext());
 
+        ImageView back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,87 +50,78 @@ public class ChartActivity extends AppCompatActivity {
             }
         });
 
-        Bundle bundle=getIntent().getExtras();
-        user=bundle.getString("user");
-        param=bundle.getString("param");
-        date=bundle.getString("date");
+        Bundle bundle = getIntent().getExtras();
+        user = bundle.getString("user");
+        param = bundle.getString("param");
+        date = bundle.getString("date");
 
-        Log.i("Test",user+"  "+param+"  "+date);
+        df = new SimpleDateFormat("h:mm:ss a");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
 
-        final DateFormat df = new SimpleDateFormat("h:mm:ss a");
-        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference=firebaseDatabase.getReference("sushruta").child("Details").child("Parameters").child(user).child(param).child(date);
-
-        final GraphView graph = (GraphView) findViewById(R.id.graph);
+        graph = (GraphView) findViewById(R.id.graph);
 
 
         GridLabelRenderer gridLabel = graph.getGridLabelRenderer();
         gridLabel.setHorizontalAxisTitle("Time");
         gridLabel.setVerticalAxisTitle(param);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        populateChart(param);
+    }
+
+    public void populateChart(final String param) {
+        if (!utilityClass.isNetworkAvailable()) {
+            showMessage(getString(R.string.no_internet), true);
+            return;
+        }
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 graph.removeAllSeries();
                 x_axis.clear();
-                LineGraphSeries<DataPoint> series1=new LineGraphSeries<>();
+                LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>();
 
                 series1.setThickness(10);
                 series1.setDataPointsRadius(50);
                 graph.addSeries(series1);
-                graph.setTitle("Line Chart");
+                graph.setTitle(param);
                 graph.setClickable(true);
                 graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
                 graph.getGridLabelRenderer().setGridColor(Color.BLACK);
-
                 graph.setBackgroundColor(Color.WHITE);
-
                 graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLACK);
                 graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
-
-
                 graph.getViewport().setScrollable(true);
                 graph.getViewport().setScalable(true);
 
-                Log.i("Test",String.valueOf(dataSnapshot.getValue()));
-                int i=0;
+                int i = 0;
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
                     String time = String.valueOf(dataSnapshot1.child("time").getValue());
                     String val = String.valueOf(dataSnapshot1.child("value").getValue());
-                    try
-                    {
+                    try {
                         Date date = df.parse(time);
-                        Log.i("Test", date.toString());
-
                         series1.appendData(new DataPoint(date, Double.parseDouble(val)), true, 20);
                         x_axis.add(date);
-                        i=i+1;
-
-                    }
-                    catch (Exception e)
-                    {
+                        i = i + 1;
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 }
 
-                graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+                graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                     @Override
-                    public  String formatLabel(double value,boolean isValueX){
-                        if(isValueX){
-                            return df.format(new Date((long)value));
-                        }
-                        else{
-                            return super.formatLabel(value,isValueX);
+                    public String formatLabel(double value, boolean isValueX) {
+                        if (isValueX) {
+                            return df.format(new Date((long) value));
+                        } else {
+                            return super.formatLabel(value, isValueX);
                         }
                     }
                 });
 
-                if(x_axis.size()>0) {
-//                graph.getGridLabelRenderer().setHumanRounding(false);
+                if (x_axis.size() > 0) {
                     graph.getViewport().setMinX(x_axis.get(0).getTime());
                     graph.getViewport().setMaxX(x_axis.get(x_axis.size() - 1).getTime());
                     graph.getViewport().setXAxisBoundsManual(true);
@@ -132,16 +129,24 @@ public class ChartActivity extends AppCompatActivity {
             }
 
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
             }
         });
-
-
-
-
     }
+
+    public void showMessage(String data, Boolean refreshData) {
+        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(getString(R.string.refresh), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                populateChart(param);
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
 
 }

@@ -88,7 +88,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="hi">Hi</string>
-    <string name="please_post_your_attendance_to_know_whether_you_are_in_quarantine_area">Please post your attendance to know whether you are in quarantine area</string>
     <string name="post_attendance">வருகை சமர்ப்பிக்கவும்</string>
     <string name="date_parameter">தேதி</string>
     <string name="gender">பாலினம்</string>
@@ -111,7 +110,32 @@
 
 
 
+    <string name="please_post_your_attendance_to_know_whether_you_are_in_quarantine_area">Please post your attendance to know whether you are in quarantine area</string>
     <string name="title_activity_select_location">Map</string>
     <string name="selfie_mandatory">Selfie is mandatory this time</string>
     <string name="login_success">Login sucessfull in tamil</string>
+    <string name="no_internet">Kindly connect to a network to access the service</string>
+    <string name="some_error_occurred">Some error occurred. Kindly try again later</string>
+    <string name="not_registered">Phone no is not registered in the database</string>
+    <string name="invalid_code">Invalid code entered</string>
+    <string name="data_saved">Data saved successfully</string>
+    <string name="edit_mode_on">Edit Mode On</string>
+    <string name="logged_out">You are Logged Out</string>
+    <string name="okay">Okay</string>
+    <string name="location_selected">Location selected</string>
+    <string name="turn_on_location">Kindly turn on location to continue</string>
+    <string name="location_permission">Location permission is mandatory. Kindly grant permission to continue</string>
+    <string name="refresh">Refresh</string>
+    <string name="name_of_parameter">Name of the Parameter</string>
+    <string name="loading_data">Loading Data...</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="time">Time</string>
+    <string name="value">Value</string>
+    <string name="update">Update</string>
+    <string name="submitting_attendance">Submitting Attendance</string>
+    <string name="attendance_success">Your attendance has been posted successfully</string>
+    <string name="storage_permission">Kindly grant permission to use storage</string>
+    <string name="upload_selfie">Upload a selfie image to complete attendance</string>
+    <string name="total_entries">Total Entries</string>
+
 </resources>

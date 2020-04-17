@@ -74,8 +74,8 @@ public class PatientInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__information);
         progressDialog = new ProgressDialog(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
-        progressDialog.setTitle("Loading Data...");
-        progressDialog.setMessage("Please wait");
+        progressDialog.setTitle(getString(R.string.loading_data));
+        progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.setCancelable(false);
 
 
@@ -162,7 +162,7 @@ public class PatientInformation extends AppCompatActivity {
         attendancerl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Attendance_history.class);
+                Intent intent = new Intent(getApplicationContext(), AttendanceHistory.class);
                 startActivity(intent);
             }
         });
@@ -190,7 +190,7 @@ public class PatientInformation extends AppCompatActivity {
 
         try {
             if (!utilityClass.isNetworkAvailable()) {
-                showMessage("Kindly connect to a network to access the service", true);
+                showMessage(getString(R.string.no_internet), true);
                 return;
             }
 
@@ -266,14 +266,12 @@ public class PatientInformation extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     progressDialog.dismiss();
-                    utilityClass.showMessage(findViewById(android.R.id.content), "Some error occured. Try again later");
-                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
                 }
             });
         } catch (Exception e) {
             progressDialog.dismiss();
-            utilityClass.showMessage(findViewById(android.R.id.content), "Some error occured. Try again later");
-            e.printStackTrace();
+            utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
         }
     }
 
@@ -291,6 +289,9 @@ public class PatientInformation extends AppCompatActivity {
                 menu.findItem(R.id.profile).setVisible(false);
             }
         }
+        if(!position.equals("patient")){
+            menu.findItem(R.id.message).setVisible(false);
+        }
         return true;
     }
 
@@ -305,10 +306,9 @@ public class PatientInformation extends AppCompatActivity {
         if (id == R.id.save) {
 
             if (!utilityClass.isNetworkAvailable()) {
-                utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.no_internet));
                 return super.onOptionsItemSelected(item);
             }
-            utilityClass.showMessage(findViewById(android.R.id.content),"Data saved successfully");
 
             FirebaseDatabase fd4 = FirebaseDatabase.getInstance();
             DatabaseReference dataref = fd4.getReference("sushruta").child("Details").child("Patient").child(PatientId.getText().toString());
@@ -345,10 +345,11 @@ public class PatientInformation extends AppCompatActivity {
             quarentineLatitude.setEnabled(false);
             quarentineLongitude.setEnabled(false);
             selectLocation.setVisibility(View.GONE);
+            utilityClass.showMessage(findViewById(android.R.id.content),getString(R.string.data_saved));
         }
 
         if (id == R.id.edit) {
-            utilityClass.showMessage(findViewById(android.R.id.content), "Edit Mode On");
+            utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.edit_mode_on));
             Name.setEnabled(true);
             BloodGroup.setEnabled(true);
             Gender.setEnabled(true);
@@ -401,7 +402,7 @@ public class PatientInformation extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
                 }
             });
 
@@ -427,7 +428,7 @@ public class PatientInformation extends AppCompatActivity {
             }
 
             FirebaseAuth.getInstance().signOut();
-            Toast.makeText(getApplicationContext(), "You are Logged Out", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.log_out), Toast.LENGTH_LONG).show();
             if (userType != null) {
                 if (userType.equals("doctor")) {
                     Intent i = new Intent(PatientInformation.this, LoginActivity.class);
@@ -468,7 +469,7 @@ public class PatientInformation extends AppCompatActivity {
             triggerLocationWorker();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
-            builder.setMessage("Kindly turn on location to continue")
+            builder.setMessage(getString(R.string.turn_on_location))
                     .setCancelable(false)
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -495,9 +496,9 @@ public class PatientInformation extends AppCompatActivity {
             checkLocations(new UtilityClass(this));
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
-            builder.setMessage("Location permission is mandatory. Kindly grant permission to continue")
+            builder.setMessage(getString(R.string.location_permission))
                     .setCancelable(false)
-                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.okay), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             requestPermissions();
                         }
@@ -510,7 +511,6 @@ public class PatientInformation extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_LOCATION_PERMISSION_ID && resultCode == Activity.RESULT_OK) {
-            Log.i(TAG, "REcieved");
             Bundle bundle = data.getExtras();
             if (bundle.getString("latitude", null) != null) {
                 quarentineLatitude.setText(bundle.getString("latitude"));
@@ -518,8 +518,7 @@ public class PatientInformation extends AppCompatActivity {
             if (bundle.getString("longitude", null) != null) {
                 quarentineLongitude.setText(bundle.getString("longitude"));
             }
-
-            Toast.makeText(PatientInformation.this, "Location selected", Toast.LENGTH_LONG).show();
+            Toast.makeText(PatientInformation.this, getString(R.string.location_selected), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -540,7 +539,7 @@ public class PatientInformation extends AppCompatActivity {
 
     public void showMessage(String data, Boolean refreshData) {
         final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("Refresh", new View.OnClickListener() {
+        snackbar.setAction(getString(R.string.refresh), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadData();
@@ -560,6 +559,4 @@ public class PatientInformation extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 1000 * 60 * LOCATION_FREQUENCY
                 , pendingIntent);
     }
-
-
 }

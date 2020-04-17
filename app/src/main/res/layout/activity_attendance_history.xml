@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Attendance_history">
-
+    tools:context=".AttendanceHistory">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -70,9 +69,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:orientation="vertical">
+            android:paddingEnd="20dp">
 
             <LinearLayout
                 android:id="@+id/l1"
@@ -98,16 +97,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center"
-                    android:textSize="18sp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.0"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1.0"
                 android:orientation="horizontal">
 
                 <TextView
@@ -115,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
-                    android:text="Total Entries"
+                    android:text="@string/total_entries"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -128,8 +127,8 @@
                     android:layout_weight="0.2"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="18sp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

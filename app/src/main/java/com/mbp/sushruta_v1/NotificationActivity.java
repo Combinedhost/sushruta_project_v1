@@ -72,15 +72,15 @@ public class NotificationActivity extends AppCompatActivity {
 
         utilityClass = new UtilityClass(NotificationActivity.this);
         progressDialog = new ProgressDialog(NotificationActivity.this, R.style.AppCompatAlertDialogStyle);
-        progressDialog.setTitle("Submitting Attendance");
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle(getString(R.string.submitting_attendance));
+        progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.setCancelable(false);
 
         takeSelfieMessage = (TextView) findViewById(R.id.take_selfie_message);
         takeSelfieMessage.setVisibility(View.GONE);
         selfieImage = (ImageView) findViewById(R.id.patient_selfie);
         patient = (TextView) findViewById(R.id.textView5);
-        patient.setText("Hi " + patientName);
+        patient.setText(getString(R.string.hi) + patientName);
 
         button = (Button) findViewById(R.id.post_attendance);
 
@@ -113,7 +113,7 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!utilityClass.isNetworkAvailable()) {
-                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly connect to a network to access the service");
+                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.no_internet));
                     return;
                 }
                 if (takeSelfie) {
@@ -137,7 +137,7 @@ public class NotificationActivity extends AppCompatActivity {
         editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
         editor.apply();
 
-        utilityClass.showMessage(findViewById(android.R.id.content), "Your attendance has been posted successfully");
+        utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.attendance_success));
         progressDialog.dismiss();
         button.setEnabled(false);
         new Handler().postDelayed(new Runnable() {
@@ -155,7 +155,7 @@ public class NotificationActivity extends AppCompatActivity {
         Map<String, String> map1 = new HashMap<String, String>();
         map1.put("time", date);
         databaseRef.child(key).setValue(map1);
-        utilityClass.showMessage(findViewById(android.R.id.content), "Your attendance has been posted successfully");
+        utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.attendance_success));
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong(LAST_UPDATE_MILLIS, new Date().getTime());
@@ -211,7 +211,7 @@ public class NotificationActivity extends AppCompatActivity {
                     startSelfieIntent();
 
                 } else {
-                    utilityClass.showMessage(findViewById(android.R.id.content), "Kindly grant permission to use storage.");
+                    utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.storage_permission));
                 }
 
             }
@@ -260,7 +260,6 @@ public class NotificationActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
                                 taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
@@ -285,11 +284,11 @@ public class NotificationActivity extends AppCompatActivity {
                         });
             } else {
                 progressDialog.dismiss();
-                utilityClass.showMessage(findViewById(android.R.id.content), "Upload a selfie image to complete attendance");
+                utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.upload_selfie));
             }
         } catch (Exception e) {
             progressDialog.dismiss();
-            utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly try after some time.");
+            utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
             e.printStackTrace();
         }
     }

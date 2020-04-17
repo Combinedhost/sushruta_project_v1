@@ -44,7 +44,6 @@ public class PatientList extends AppCompatActivity {
     RecyclerView recyclerView3;
     PatientRecyclerView obj3;
 
-
     LinearLayoutManager mLayoutManager;
     private static final String TAG = "PatientList";
     @SuppressLint("RestrictedApi")
@@ -82,15 +81,6 @@ public class PatientList extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-
-
-//            if(position.equals("SubDoctor")){
-//                fbar.setVisibility(View.VISIBLE);
-//            }
-//            else
-//            {
-//                fbar.setVisibility(View.INVISIBLE);
-//            }
 
             listref = fd.getReference("sushruta").child("PatientActivity").child(subdoctor);
             listref.addValueEventListener(new ValueEventListener() {

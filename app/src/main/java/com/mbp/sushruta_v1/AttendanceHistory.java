@@ -2,34 +2,41 @@ package com.mbp.sushruta_v1;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Calendar;
-import java.util.List;
 
-public class Attendance_history extends AppCompatActivity {
+public class AttendanceHistory extends AppCompatActivity {
 
     TableLayout tableLayout;
     int datePickerYear, datePickerMonth, datePickerDay;
@@ -38,13 +45,18 @@ public class Attendance_history extends AppCompatActivity {
     String patientId;
     ImageView noDataFound;
     UtilityClass utilityClass;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_history);
 
-        utilityClass = new UtilityClass(Attendance_history.this);
+        utilityClass = new UtilityClass(AttendanceHistory.this);
+        progressDialog = new ProgressDialog(AttendanceHistory.this, R.style.AppCompatAlertDialogStyle);
+        progressDialog.setTitle(getString(R.string.loading_data));
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
 
         SharedPreferences sharedPref;
         sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
@@ -75,7 +87,7 @@ public class Attendance_history extends AppCompatActivity {
         dateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Attendance_history.this, R.style.AppCompatAlertDialogStyle, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AttendanceHistory.this, R.style.AppCompatAlertDialogStyle, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         dateFilter.setText(getDate(dayOfMonth, month, year));
@@ -99,9 +111,10 @@ public class Attendance_history extends AppCompatActivity {
 
     public void loadValues(String currentDate) {
         if (!utilityClass.isNetworkAvailable()) {
-            showMessage("Kindly connect to a network to access the service", true);
+            showMessage(getString(R.string.no_internet), true);
             return;
         }
+        progressDialog.show();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("sushruta").child("Details").child("Attendance").child(patientId).child(currentDate);
@@ -178,7 +191,7 @@ public class Attendance_history extends AppCompatActivity {
                             public void onClick(View v) {
 
                                 ImageView close_button, zoom_image;
-                                final Dialog picdialog = new Dialog(Attendance_history.this, R.style.AppCompatAlertDialogStyle);
+                                final Dialog picdialog = new Dialog(AttendanceHistory.this, R.style.AppCompatAlertDialogStyle);
                                 picdialog.setContentView(R.layout.popup_image);
                                 zoom_image = (ImageView) picdialog.findViewById(R.id.image);
                                 close_button = (ImageView) picdialog.findViewById(R.id.delete);
@@ -201,18 +214,20 @@ public class Attendance_history extends AppCompatActivity {
                 } else {
                     noDataFound.setVisibility(View.VISIBLE);
                 }
+                progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                utilityClass.showMessage(findViewById(android.R.id.content), "Some error occurred. Kindly try after some time.");
+                progressDialog.dismiss();
+                utilityClass.showMessage(findViewById(android.R.id.content), getString(R.string.some_error_occurred));
             }
         });
     }
 
     public void showMessage(String data, Boolean refreshData) {
         final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("Refresh", new View.OnClickListener() {
+        snackbar.setAction(getString(R.string.refresh), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadValues(dateFilter.getText().toString());
@@ -220,5 +235,58 @@ public class Attendance_history extends AppCompatActivity {
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.patient_menu, menu);
+        SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+        String position = sharedPref.getString("Position", "SubDoctor");
+        if (!position.equals("patient")) {
+            menu.findItem(R.id.message).setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
+        if (id == R.id.logout) {
+            String username = sharedPref.getString("Username", null);
+            if (username != null) {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(username);
+            }
+
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getApplicationContext(), getString(R.string.log_out), Toast.LENGTH_LONG).show();
+            String userType = sharedPref.getString("user_type", null);
+            if (userType != null) {
+                if (userType.equals("doctor")) {
+                    Intent i = new Intent(AttendanceHistory.this, LoginActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
+                }
+                if (userType.equals("patient")) {
+                    Intent i = new Intent(AttendanceHistory.this, PatientLoginActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        }
+
+        if (id == R.id.message) {
+            String text = "Hi ";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            String doctorPhoneNumber = sharedPref.getString("doctor_phone_number", null);
+            intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=91" + doctorPhoneNumber + "&text=" + text));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
