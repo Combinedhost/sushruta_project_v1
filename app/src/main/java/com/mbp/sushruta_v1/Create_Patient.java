@@ -190,7 +190,6 @@ public class Create_Patient extends AppCompatActivity {
                         filePath = outputFileUri;
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
                         startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
                     }
                 });
@@ -230,16 +229,10 @@ public class Create_Patient extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             filePath = data.getData();
-
-            String s = data.getScheme();
-
             try {
-
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
                 camdialog.dismiss();
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -248,12 +241,9 @@ public class Create_Patient extends AppCompatActivity {
         if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
 
             try {
-
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
                 camdialog.dismiss();
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -363,6 +353,7 @@ public class Create_Patient extends AppCompatActivity {
                 final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
                 progressDialog.setTitle("Registering Patient");
                 progressDialog.setMessage("Please wait...");
+                progressDialog.setCancelable(false);
                 progressDialog.show();
 
                 StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());

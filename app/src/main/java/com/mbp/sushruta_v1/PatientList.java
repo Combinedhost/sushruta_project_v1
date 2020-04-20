@@ -191,10 +191,8 @@ public class PatientList extends AppCompatActivity {
             SharedPreferences sharedPref = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
             String username=sharedPref.getString("Username","");
-            Log.i("test",username);
 
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("sushruta").child("Details").child("Doctor").child(username);
-            Log.i("test",username);
 
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override

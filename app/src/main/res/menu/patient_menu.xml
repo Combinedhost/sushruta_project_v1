@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/message"
-        android:title="@string/message" />
+        android:title="@string/message_with_doctor" />
 
     <item
         android:id="@+id/logout"

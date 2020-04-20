@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +53,9 @@ public class AttendanceHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_history);
+
+        Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mTopToolbar);
 
         utilityClass = new UtilityClass(AttendanceHistory.this);
         progressDialog = new ProgressDialog(AttendanceHistory.this, R.style.AppCompatAlertDialogStyle);
@@ -135,7 +139,7 @@ public class AttendanceHistory extends AppCompatActivity {
                     tbrow0.setGravity(Gravity.CENTER);
 
                     TextView tv0 = new TextView(getApplicationContext());
-                    tv0.setText("Time");
+                    tv0.setText(getString(R.string.time));
                     tv0.setGravity(Gravity.CENTER);
                     tv0.setAllCaps(true);
                     tv0.setTextColor(Color.BLACK);
@@ -144,7 +148,7 @@ public class AttendanceHistory extends AppCompatActivity {
                     tbrow0.addView(tv0);
 
                     TextView tv1 = new TextView(getApplicationContext());
-                    tv1.setText("Selfie");
+                    tv1.setText(getString(R.string.selfie));
                     tv1.setGravity(Gravity.CENTER);
                     tv1.setTextColor(Color.BLACK);
                     tv1.setAllCaps(true);

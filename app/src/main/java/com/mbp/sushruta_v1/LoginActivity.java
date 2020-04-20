@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             if (!usernamesp.isEmpty()) {
 
                 dialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
+                dialog.setCancelable(false);
                 //        dialog.setTitle("Logging in");
                 dialog.show();
                 dialog.setMessage("Checking for valid session");
@@ -187,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
 //        dialog.setTitle("Logging in");
         dialog.show();
         dialog.setMessage("Logging in");
+        dialog.setCancelable(false);
         String emailaddress = Username.getText().toString();
         String password = Password.getText().toString();
 

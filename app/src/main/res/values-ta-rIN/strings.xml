@@ -141,5 +141,9 @@
     <string name="location_request">இருப்பிட கோரிக்கை</string>
     <string name="turn_on_internet_for_location">உங்கள் தற்போதைய இருப்பிடத்தை இடுகையிட தயவுசெய்து இணையத்தை இயக்கவும்</string>
     <string name="session_expired">தயவுசெய்து மீண்டும் உள்நுழைக</string>
+    <string name="selfie">சுயபடம்</string>
+    <string name="message_with_doctor">மருத்துவரிடம் பேசுங்கள்</string>
+    <string name="attendance_mandatory">வருகை பதிவு கட்டாயமாகும். தயவுசெய்து உங்கள் வருகையை பதிவு இடுங்கள்.</string>
+
 
 </resources>

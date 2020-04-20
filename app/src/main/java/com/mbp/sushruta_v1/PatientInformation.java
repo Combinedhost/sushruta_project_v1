@@ -32,7 +32,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
@@ -472,7 +471,7 @@ public class PatientInformation extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(PatientInformation.this, R.style.AppCompatAlertDialogStyle);
             builder.setMessage(getString(R.string.turn_on_location))
                     .setCancelable(false)
-                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.okay), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             startActivity(intent);
@@ -540,8 +539,6 @@ public class PatientInformation extends AppCompatActivity {
 
     public void showMessage(String data, Boolean refreshData) {
         final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), data, Snackbar.LENGTH_INDEFINITE);
-        snackbar.setTextColor(ContextCompat.getColor(this,R.color.popup));
-
         snackbar.setAction(getString(R.string.refresh), new View.OnClickListener() {
             @Override
             public void onClick(View v) {

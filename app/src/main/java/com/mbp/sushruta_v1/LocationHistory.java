@@ -2,6 +2,7 @@ package com.mbp.sushruta_v1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
@@ -55,6 +56,9 @@ public class LocationHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_history);
+
+        Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mTopToolbar);
 
         utilityClass = new UtilityClass(LocationHistory.this);
         progressDialog = new ProgressDialog(LocationHistory.this, R.style.AppCompatAlertDialogStyle);

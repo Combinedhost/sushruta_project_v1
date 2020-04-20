@@ -161,6 +161,8 @@ public class PatientLoginActivity extends AppCompatActivity {
             }
         });
 
+        throw new IndexOutOfBoundsException();
+
     }
 
     //the method is sending verification code

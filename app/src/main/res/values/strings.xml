@@ -142,8 +142,9 @@
     <string name="location_request">Location Request</string>
     <string name="turn_on_internet_for_location">Kindly turn on internet to post your current location</string>
     <string name="session_expired">Active session not available. Kindly login again</string>
-
-
+    <string name="selfie">Selfie</string>
+    <string name="message_with_doctor">Message doctor</string>
+    <string name="attendance_mandatory">Attendance is mandatory. Kindly post your attendance.</string>
 
 
 </resources>

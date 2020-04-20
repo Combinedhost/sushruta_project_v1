@@ -1,8 +1,10 @@
 package com.mbp.sushruta_v1;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -123,6 +126,18 @@ public class NotificationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(NotificationActivity.this, R.style.AppCompatAlertDialogStyle);
+        builder.setMessage(getString(R.string.attendance_mandatory))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.okay), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                })
+                .show();
     }
 
     public void postAttendance(String selfieUrl) {
